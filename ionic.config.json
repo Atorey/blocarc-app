@@ -1,0 +1,7 @@
+{
+  "name": "blocarc-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
