@@ -17,18 +17,13 @@ const routes: Routes = [
         loadChildren: () => import('../home/home.module').then(m => m.HomeModule)
       },
       /* {
-        path: 'about',
-        loadChildren: '../about/about.module#AboutPageModule'
-      },
-      {
+        path: 'boulders',
+        loadChildren: () => import('../boulders/boulders.module').then(m => m.BouldersModule)
+      }, */
+      /* {
         path: 'contact',
         loadChildren: '../contact/contact.module#ContactPageModule'
       }, */
-      {
-        path: '',
-        redirectTo: '/tabs/home',
-        pathMatch: 'full'
-      }
     ]
   }
 ];
@@ -36,5 +31,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
 })
 export class TabsPageRoutingModule { }

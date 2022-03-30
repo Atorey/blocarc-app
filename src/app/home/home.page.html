@@ -1,23 +1,33 @@
 <ion-header>
-  <ion-toolbar>
 
-    <!-- <ion-title>BLOC ARC</ion-title> -->
+  <ion-toolbar>
     <ion-buttons slot="start">
       <ion-button>
         <ion-img src="../../assets/logo/logo.png"></ion-img>
       </ion-button>
     </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon name="add" color="medium"></ion-icon>
+      </ion-button>
+      <ion-button>
+        <ion-icon name="flash" color="medium"></ion-icon>
+      </ion-button>
+      <ion-button>
+        <ion-icon name="paper-plane" color="medium"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 
-  <!--  <ion-toolbar>
-    <ion-icon src="../../assets/logo/logo.svg"></ion-icon>
-    <ion-title>
-      <ion-icon name="person-circle"></ion-icon>
-      home
-    </ion-title>
-  </ion-toolbar> -->
 </ion-header>
 
+
 <ion-content>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="medium" [routerLink]="['/boulders/add']" [routerDirection]="'fordward'">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
 </ion-content>

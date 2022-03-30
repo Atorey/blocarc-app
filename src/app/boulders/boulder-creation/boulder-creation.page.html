@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Crear</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-toolbar>
+  <ion-segment value={{createOption}}>
+    <ion-segment-button value="wall" (click)="changeValue('wall')">Pared</ion-segment-button>
+    <ion-segment-button value="boulder" (click)="changeValue('boulder')">Bloque</ion-segment-button>
+  </ion-segment>
+</ion-toolbar>
+
+<ion-content scrollY=false>
+  
+  <img [src]="wallImage" *ngIf="wallImage">
+
+  <ion-tabs *ngIf="createOption==='wall'">
+    <ion-tab-bar slot="bottom">
+      <ion-tab-button tab="camera" (click)="takePhoto()">
+        <ion-icon name="camera"></ion-icon>
+      </ion-tab-button>
+      <ion-tab-button tab="images" (click)="pickFromGallery()">
+        <ion-icon name="images"></ion-icon>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
+
+  <ion-tabs *ngIf="createOption==='boulder'">
+    <ion-tab-bar slot="bottom">
+      <ion-tab-button tab="image">
+        <ion-icon name="image"></ion-icon>
+      </ion-tab-button>
+      <ion-tab-button tab="create">
+        <ion-icon name="create"></ion-icon>
+      </ion-tab-button>
+      <ion-tab-button>
+        <ion-icon name="refresh"></ion-icon>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
+
+</ion-content>

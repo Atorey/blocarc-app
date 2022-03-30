@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BoulderTestPage } from './boulder-test/boulder-test.page';
 
-const routes: Routes = [{
-  path: '',
-  component: BoulderTestPage
-}];
+const routes: Routes = [
+  {
+    path: 'add',
+    loadChildren: () => import('./boulder-creation/boulder-creation.module').then(m => m.BoulderCreationPageModule),
+    pathMatch: 'full'
+  }
+]
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

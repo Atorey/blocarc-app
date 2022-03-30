@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { BoulderTestPageRoutingModule } from './boulder-test-routing.module';
+import { BoulderCreationPageRoutingModule } from './boulder-creation-routing.module';
 
-import { BoulderTestPage } from './boulder-test.page';
+import { BoulderCreationPage } from './boulder-creation.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    BoulderTestPageRoutingModule
+    BoulderCreationPageRoutingModule,
   ],
-  declarations: [BoulderTestPage]
+  declarations: [BoulderCreationPage]
 })
-export class BoulderTestPageModule {}
+export class BoulderCreationPageModule {}

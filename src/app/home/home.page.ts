@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Boulder } from '../boulders/interfaces/boulder';
+import { BouldersService } from '../boulders/services/boulders.service';
 
 @Component({
   selector: 'app-home',
@@ -6,10 +8,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
-
-  constructor() { }
+  boulders: Boulder[];
+  constructor(private bouldersService: BouldersService) { }
 
   ngOnInit() {
+    this.bouldersService
+      .getEvents()
+      .subscribe((boulders) => (this.boulders = boulders));
+
+    console.log(this.boulders);
   }
 
 }
