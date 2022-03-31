@@ -14,15 +14,18 @@
 </ion-toolbar>
 
 <ion-content scrollY=false>
-  
-  <img [src]="wallImage" *ngIf="wallImage">
+  <img [src]="wall.image" *ngIf="wall.image && createOption==='wall'">
 
   <ion-tabs *ngIf="createOption==='wall'">
     <ion-tab-bar slot="bottom">
-      <ion-tab-button tab="camera" (click)="takePhoto()">
+      <ion-tab-button (click)="takePhoto()">
         <ion-icon name="camera"></ion-icon>
       </ion-tab-button>
-      <ion-tab-button tab="images" (click)="pickFromGallery()">
+      <ion-tab-button *ngIf="wall.image" (click)="saveWall()">
+        <ion-icon name="checkbox"></ion-icon>
+        <ion-label>Guardar</ion-label>
+      </ion-tab-button>
+      <ion-tab-button (click)="pickFromGallery()">
         <ion-icon name="images"></ion-icon>
       </ion-tab-button>
     </ion-tab-bar>

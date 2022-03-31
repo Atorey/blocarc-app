@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { BoulderCreationPageRoutingModule } from './boulder-creation-routing.module';
 
 import { BoulderCreationPage } from './boulder-creation.page';
+import { ModalWallComponent } from './modal-wall/modal-wall.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { BoulderCreationPage } from './boulder-creation.page';
     IonicModule,
     BoulderCreationPageRoutingModule,
   ],
-  declarations: [BoulderCreationPage]
+  declarations: [BoulderCreationPage, ModalWallComponent]
 })
 export class BoulderCreationPageModule {}
