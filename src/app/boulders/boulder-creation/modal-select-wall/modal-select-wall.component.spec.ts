@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { ModalWallComponent } from './modal-wall.component';
+import { ModalSelectWallComponent } from './modal-select-wall.component';
 
-describe('ModalWallComponent', () => {
-  let component: ModalWallComponent;
-  let fixture: ComponentFixture<ModalWallComponent>;
+describe('ModalSelectWallComponent', () => {
+  let component: ModalSelectWallComponent;
+  let fixture: ComponentFixture<ModalSelectWallComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ModalWallComponent ],
+      declarations: [ ModalSelectWallComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ModalWallComponent);
+    fixture = TestBed.createComponent(ModalSelectWallComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

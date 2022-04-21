@@ -13,7 +13,7 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.bouldersService
-      .getEvents()
+      .getBoulders()
       .subscribe((boulders) => (this.boulders = boulders));
 
     console.log(this.boulders);

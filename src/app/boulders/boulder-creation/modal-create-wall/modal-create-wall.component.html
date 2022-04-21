@@ -1,0 +1,45 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>Detalles pared</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form #wallForm="ngForm" (ngSubmit)="createWall()">
+    <ion-list>
+
+      <ion-item>
+        <ion-label position="floating">
+          Nombre
+        </ion-label>
+        <ion-input name="name" required [(ngModel)]="wall.name" #nameModel="ngModel">
+        </ion-input>
+        <ion-icon name="checkmark-circle" slot="end" color="success" *ngIf="nameModel.dirty && nameModel.valid">
+        </ion-icon>
+      </ion-item>
+      <ion-label class="ion-padding" color="danger" *ngIf="nameModel.errors?.['required'] && nameModel.touched">
+        El nombre no se puede quedar vacío
+      </ion-label>
+
+      <ion-item>
+        <ion-label position="floating">Sección</ion-label>
+        <ion-input name="section" type="number" required [(ngModel)]="wall.section" #sectionModel="ngModel"></ion-input>
+        <ion-icon name="checkmark-circle" slot="end" color="success" *ngIf="sectionModel.dirty && sectionModel.valid">
+        </ion-icon>
+      </ion-item>
+      <ion-label class="ion-padding" color="danger" *ngIf="sectionModel.errors?.['required'] && sectionModel.touched">
+        La sección no se puede quedar vacía
+      </ion-label>
+
+    </ion-list>
+    <ion-button slot="bottom" type="submit" color="secondary" expand="block"
+      [disabled]="wallForm.invalid || !wallForm.touched">
+      Guardar
+    </ion-button>
+
+  </form>
+</ion-content>

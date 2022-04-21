@@ -21,11 +21,11 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     ImageCropperModule],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    {
+    /* {
       provide: HTTP_INTERCEPTORS,
       useClass: BaseUrlInterceptor,
       multi: true,
-    },],
+    } */,],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

@@ -1,5 +1,58 @@
-img {
+.container {
+  height: 80%;
+  background: var(--ion-color-light);
+  border-radius: 0 0 1rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container div{
+  width: 75%;
+  text-align: center;
+}
+
+.container p {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: white;
+}
+
+.container ion-icon{
+  color: var(--ion-color-primary);
+  font-size: 4rem;
+}
+
+image-cropper {
   object-fit: cover;
   height: 100%;
   width: auto;
+  --cropper-overlay-color: var(--ion-color-light);
+  border-radius: 0 0 1rem 1rem;
+}
+
+.buttons-bar {
+  display: flex;
+  justify-content: space-around;
+  height: 100%;
+}
+
+ion-button{
+  --background: none;
+}
+
+.btn-non-image{
+  --color: var(--ion-color-dark);
+}
+
+.btn-active-image{
+  --color: var(--ion-color-medium-shade);
+}
+
+ion-button div {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  row-gap: 0.5rem;
+  font-size: 0.75rem;
 }

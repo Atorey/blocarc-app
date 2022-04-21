@@ -1,0 +1,19 @@
+<ion-header translucent>
+    <ion-toolbar>
+        <ion-title>Selección de pared</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="close()">
+                <ion-icon slot="icon-only" name="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-card *ngFor="let wall of walls">
+        <img [src]="'http://localhost:8080/' + wall.image" />
+        <ion-card-header>
+            <ion-card-subtitle>Section {{wall.sections}}</ion-card-subtitle>
+            <ion-card-title>{{wall.name}}</ion-card-title>
+        </ion-card-header>
+    </ion-card>
+</ion-content>

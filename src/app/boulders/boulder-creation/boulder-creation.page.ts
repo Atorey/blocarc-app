@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { ModalController, ToastController } from '@ionic/angular';
-import { Wall } from '../interfaces/boulder';
+import { ImageCroppedEvent, LoadedImage } from 'ngx-image-cropper';
+import { Boulder, Wall } from '../interfaces/boulder';
 import { BouldersService } from '../services/boulders.service';
-import { ModalWallComponent } from './modal-wall/modal-wall.component';
+import { ModalCreateWallComponent } from './modal-create-wall/modal-create-wall.component';
+import { ModalSelectWallComponent } from './modal-select-wall/modal-select-wall.component';
 
 @Component({
   selector: 'app-boulder-creation',
@@ -14,7 +16,16 @@ export class BoulderCreationPage implements OnInit {
   createOption: String = 'wall';
   wall: Wall = {
     name: '',
-    sections: 0,
+    section: 0,
+    image: '',
+    coordHolds: '',
+  };
+  boulder: Boulder = {
+    name: '',
+    grade: '',
+    wall: '',
+    section: '',
+    share: false,
     image: '',
     coordHolds: '',
   };
@@ -38,6 +49,7 @@ export class BoulderCreationPage implements OnInit {
       resultType: CameraResultType.DataUrl,
     });
 
+    this.imageChangedEvent = photo.dataUrl;
     this.wall.image = photo.dataUrl;
     this.saveCoords(this.wall.image.slice(23));
   }
@@ -49,6 +61,7 @@ export class BoulderCreationPage implements OnInit {
       resultType: CameraResultType.DataUrl,
     });
 
+    this.imageChangedEvent = photo.dataUrl;
     this.wall.image = photo.dataUrl;
     this.saveCoords(this.wall.image.slice(23));
   }
@@ -60,19 +73,21 @@ export class BoulderCreationPage implements OnInit {
   }
 
   saveWall() {
-    this.openAvatarModal();
+    this.openCreateWallModal();
   }
 
-  async openAvatarModal() {
+  async openCreateWallModal() {
     const modal = await this.modalCtrl.create({
-      component: ModalWallComponent,
+      component: ModalCreateWallComponent,
       componentProps: { wall: this.wall },
     });
     await modal.present();
     const result = await modal.onDidDismiss();
     if (result.data && result.data.wall) {
+      console.log(this.wall.section);
       this.bouldersService.saveWall(this.wall).subscribe(async (wall) => {
-        this.wall = { name: '', sections: 0, image: '', coordHolds: '' };
+        this.wall = { name: '', section: 0, image: '', coordHolds: '' };
+        this.createOption = 'boulder';
         (
           await this.toast.create({
             duration: 3000,
@@ -90,5 +105,55 @@ export class BoulderCreationPage implements OnInit {
         color: 'error',
       });
     }
+  }
+
+  selectWall() {
+    this.openSelectWallModal();
+  }
+
+  async openSelectWallModal() {
+    const modal = await this.modalCtrl.create({
+      component: ModalSelectWallComponent,
+      componentProps: { wall: this.wall },
+    });
+    await modal.present();
+    const result = await modal.onDidDismiss();
+    if (result.data && result.data.wall) {
+      this.bouldersService.saveWall(this.wall).subscribe(async (wall) => {
+        this.wall = { name: '', section: 0, image: '', coordHolds: '' };
+        this.createOption = 'boulder';
+        (
+          await this.toast.create({
+            duration: 3000,
+            position: 'middle',
+            message: 'Pared guardada!',
+            color: 'success',
+          })
+        ).present();
+      });
+    } else {
+      this.toast.create({
+        duration: 3000,
+        position: 'bottom',
+        message: '¡Error!',
+        color: 'error',
+      });
+    }
+  }
+
+  imageChangedEvent: any = '';
+  croppedImage: any = '';
+
+  imageCropped(event: ImageCroppedEvent) {
+    this.croppedImage = event.base64;
+  }
+  imageLoaded() {
+    // show cropper
+  }
+  cropperReady() {
+    // cropper ready
+  }
+  loadImageFailed() {
+    // show message
   }
 }

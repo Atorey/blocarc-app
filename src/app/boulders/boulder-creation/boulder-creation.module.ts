@@ -7,7 +7,10 @@ import { IonicModule } from '@ionic/angular';
 import { BoulderCreationPageRoutingModule } from './boulder-creation-routing.module';
 
 import { BoulderCreationPage } from './boulder-creation.page';
-import { ModalWallComponent } from './modal-wall/modal-wall.component';
+import { ModalCreateWallComponent } from './modal-create-wall/modal-create-wall.component';
+import { ValidatorsModule } from 'src/app/validators/validators.module';
+import { ModalSelectWallComponent } from './modal-select-wall/modal-select-wall.component';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 @NgModule({
   imports: [
@@ -15,7 +18,13 @@ import { ModalWallComponent } from './modal-wall/modal-wall.component';
     FormsModule,
     IonicModule,
     BoulderCreationPageRoutingModule,
+    ValidatorsModule,
+    ImageCropperModule
   ],
-  declarations: [BoulderCreationPage, ModalWallComponent]
+  declarations: [
+    BoulderCreationPage, 
+    ModalCreateWallComponent,
+    ModalSelectWallComponent,
+  ]
 })
 export class BoulderCreationPageModule {}

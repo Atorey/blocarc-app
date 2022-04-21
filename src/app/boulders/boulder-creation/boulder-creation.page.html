@@ -13,36 +13,62 @@
   </ion-segment>
 </ion-toolbar>
 
-<ion-content scrollY=false>
-  <img [src]="wall.image" *ngIf="wall.image && createOption==='wall'">
+<ion-content color="ion-color-medium" scrollY=false>
+  <!-- WALL TAB -->
+  <!-- <img class="img-cover" src="../../../assets/images/flat-vector-image-wall.jpg"
+    *ngIf="!wall.image && createOption==='wall'"> -->
+  <!-- <img class="wall-cover" [src]="wall.image" *ngIf="wall.image && createOption==='wall'"> -->
+  <div class="container" *ngIf="createOption==='wall'">
+    <div *ngIf="!wall.image">
+      <img class="img-cover" src="../../../assets/images/flat-vector-image-wall.png"
+        *ngIf="!wall.image && createOption==='wall'">
+      <p>Toma una foto o <br> selecciona una de la galería</p>
+      <ion-icon name="arrow-down-circle"></ion-icon>
+    </div>
+    <image-cropper *ngIf="wall.image" [imageURL]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="3 / 4"
+      containWithinAspectRatio="true" format="jpg" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+      (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()"></image-cropper>
+  </div>
+  <div class="buttons-bar" *ngIf="createOption==='wall'">
+    <ion-button [ngClass]="{'btn-non-image': !wall.image, 'btn-active-image': wall.image}" fill="clear" size="large"
+      (click)="takePhoto()">
+      <ion-icon [size]="!wall.image ? 'large': 'default'" name="camera"></ion-icon>
+    </ion-button>
+    <ion-button class="btn-non-image" fill="clear" size="large" *ngIf="wall.image" (click)="saveWall()">
+      <div>
+        <ion-icon size="large" name="checkbox"></ion-icon>
+        Guardar
+      </div>
+    </ion-button>
+    <ion-button [ngClass]="{'btn-non-image': !wall.image, 'btn-active-image': wall.image}" fill="clear" size="large"
+      (click)="pickFromGallery()">
+      <ion-icon [size]="!wall.image ? 'large': 'default'" name="images"></ion-icon>
+    </ion-button>
+  </div>
 
-  <ion-tabs *ngIf="createOption==='wall'">
-    <ion-tab-bar slot="bottom">
-      <ion-tab-button (click)="takePhoto()">
-        <ion-icon name="camera"></ion-icon>
-      </ion-tab-button>
-      <ion-tab-button *ngIf="wall.image" (click)="saveWall()">
-        <ion-icon name="checkbox"></ion-icon>
-        <ion-label>Guardar</ion-label>
-      </ion-tab-button>
-      <ion-tab-button (click)="pickFromGallery()">
-        <ion-icon name="images"></ion-icon>
-      </ion-tab-button>
-    </ion-tab-bar>
-  </ion-tabs>
+  <!-- BOULDER TAB -->
+  <div class="container" *ngIf="createOption==='boulder'">
+    <div *ngIf="!boulder.image">
+      <img class="img-cover" src="../../../assets/images/flat-vector-image-boulder.png"
+        *ngIf="!boulder.image && createOption==='boulder'">
+      <p>Selecciona una pared y <br> crea un bloque</p>
+      <ion-icon name="arrow-down-circle"></ion-icon>
+    </div>
+  </div>
+  <!-- <img [src]="boulder.image" *ngIf="boulder.image && createOption==='boulder'"> -->
 
-  <ion-tabs *ngIf="createOption==='boulder'">
-    <ion-tab-bar slot="bottom">
-      <ion-tab-button tab="image">
-        <ion-icon name="image"></ion-icon>
-      </ion-tab-button>
-      <ion-tab-button tab="create">
-        <ion-icon name="create"></ion-icon>
-      </ion-tab-button>
-      <ion-tab-button>
-        <ion-icon name="refresh"></ion-icon>
-      </ion-tab-button>
-    </ion-tab-bar>
-  </ion-tabs>
-
+  <div class="buttons-bar" *ngIf="createOption==='boulder'">
+    <ion-button class="btn-non-image" fill="clear" size="large" (click)="selectWall()" *ngIf="!boulder.image">
+      <ion-icon  size="large" name="image"></ion-icon>
+    </ion-button>
+    <ion-button class="btn-non-image" fill="clear" size="large" *ngIf="boulder.image">
+      <div>
+        <ion-icon size="large" name="create"></ion-icon>
+        Crear
+      </div>
+    </ion-button>
+    <ion-button class="btn-non-image" fill="clear" size="large" *ngIf="boulder.image">
+      <ion-icon name="refresh"></ion-icon>
+    </ion-button>
+  </div>
 </ion-content>
