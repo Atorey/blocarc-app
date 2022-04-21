@@ -25,8 +25,8 @@
       <ion-icon name="arrow-down-circle"></ion-icon>
     </div>
     <image-cropper *ngIf="wall.image" [imageURL]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="3 / 4"
-      containWithinAspectRatio="true" format="jpg" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
-      (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()"></image-cropper>
+      containWithinAspectRatio="true" format="jpg" (imageCropped)="imageCropped($event)"
+      (loadImageFailed)="loadImageFailed()"></image-cropper>
   </div>
   <div class="buttons-bar" *ngIf="createOption==='wall'">
     <ion-button [ngClass]="{'btn-non-image': !wall.image, 'btn-active-image': wall.image}" fill="clear" size="large"

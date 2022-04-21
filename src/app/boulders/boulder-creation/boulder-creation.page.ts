@@ -54,7 +54,6 @@ export class BoulderCreationPage implements OnInit {
 
     this.imageChangedEvent = photo.dataUrl;
     this.wall.image = photo.dataUrl;
-    this.saveCoords(this.wall.image.slice(23));
   }
 
   async pickFromGallery() {
@@ -64,10 +63,15 @@ export class BoulderCreationPage implements OnInit {
       resultType: CameraResultType.DataUrl,
     });
 
+    console.log(photo.dataUrl);
     this.imageChangedEvent = photo.dataUrl;
     this.wall.image = photo.dataUrl;
-    this.saveCoords(this.wall.image.slice(23));
   }
+
+  imageCropped(event: ImageCroppedEvent) {
+    console.log(event.base64);
+    this.wall.image = event.base64;
+}
 
   saveCoords(imageBase64: string) {
     this.bouldersService
@@ -80,6 +84,7 @@ export class BoulderCreationPage implements OnInit {
   }
 
   async openCreateWallModal() {
+    this.saveCoords(this.wall.image.slice(22));
     const modal = await this.modalCtrl.create({
       component: ModalCreateWallComponent,
       componentProps: { wall: this.wall },
@@ -143,9 +148,5 @@ export class BoulderCreationPage implements OnInit {
         color: 'error',
       });
     }
-  }
-
-  imageCropped(event: ImageCroppedEvent) {
-    this.croppedImage = event.base64;
   }
 }
