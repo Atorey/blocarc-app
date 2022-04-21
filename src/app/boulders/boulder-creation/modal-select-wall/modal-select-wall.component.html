@@ -9,11 +9,18 @@
     </ion-toolbar>
 </ion-header>
 <ion-content>
-    <ion-card *ngFor="let wall of walls">
-        <img [src]="'http://localhost:8080/' + wall.image" />
-        <ion-card-header>
-            <ion-card-subtitle>Section {{wall.sections}}</ion-card-subtitle>
-            <ion-card-title>{{wall.name}}</ion-card-title>
-        </ion-card-header>
-    </ion-card>
+    <ion-list>
+        <ion-item *ngFor="let wall of walls">
+            <ion-thumbnail slot="start">
+                <img [src]="'http://localhost:8080/' + wall.image" />
+            </ion-thumbnail>
+            <ion-label>
+                <h2>{{wall.name}}</h2>
+                <p>Section {{wall.section}}</p>
+            </ion-label>
+            <ion-button fill="clear" slot="end"  size="large">
+                <ion-icon name="arrow-forward-circle"></ion-icon>
+            </ion-button>
+        </ion-item>
+    </ion-list>
 </ion-content>

@@ -13,7 +13,9 @@ import { ModalSelectWallComponent } from './modal-select-wall/modal-select-wall.
   styleUrls: ['./boulder-creation.page.scss'],
 })
 export class BoulderCreationPage implements OnInit {
-  createOption: String = 'wall';
+  createOption = 'wall';
+  imageChangedEvent: any = '';
+  croppedImage: any = '';
   wall: Wall = {
     name: '',
     section: 0,
@@ -38,7 +40,7 @@ export class BoulderCreationPage implements OnInit {
 
   ngOnInit() {}
 
-  changeValue(value: String): void {
+  changeValue(value: string): void {
     this.createOption = value;
   }
 
@@ -141,19 +143,7 @@ export class BoulderCreationPage implements OnInit {
     }
   }
 
-  imageChangedEvent: any = '';
-  croppedImage: any = '';
-
   imageCropped(event: ImageCroppedEvent) {
     this.croppedImage = event.base64;
-  }
-  imageLoaded() {
-    // show cropper
-  }
-  cropperReady() {
-    // cropper ready
-  }
-  loadImageFailed() {
-    // show message
   }
 }
