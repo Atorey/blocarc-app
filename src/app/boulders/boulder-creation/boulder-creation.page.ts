@@ -16,6 +16,7 @@ export class BoulderCreationPage implements OnInit {
   createOption = 'wall';
   imageChangedEvent: any = '';
   croppedImage: any = '';
+  selectedWall: Wall;
   wall: Wall = {
     name: '',
     section: 0,
@@ -86,7 +87,6 @@ export class BoulderCreationPage implements OnInit {
     await modal.present();
     const result = await modal.onDidDismiss();
     if (result.data && result.data.wall) {
-      console.log(this.wall.section);
       this.bouldersService.saveWall(this.wall).subscribe(async (wall) => {
         this.wall = { name: '', section: 0, image: '', coordHolds: '' };
         this.createOption = 'boulder';
@@ -121,7 +121,9 @@ export class BoulderCreationPage implements OnInit {
     await modal.present();
     const result = await modal.onDidDismiss();
     if (result.data && result.data.wall) {
-      this.bouldersService.saveWall(this.wall).subscribe(async (wall) => {
+      this.selectedWall = result.data.wall;
+      console.log(result.data.wall);
+      /* this.bouldersService.saveWall(this.wall).subscribe(async (wall) => {
         this.wall = { name: '', section: 0, image: '', coordHolds: '' };
         this.createOption = 'boulder';
         (
@@ -132,7 +134,7 @@ export class BoulderCreationPage implements OnInit {
             color: 'success',
           })
         ).present();
-      });
+      }); */
     } else {
       this.toast.create({
         duration: 3000,

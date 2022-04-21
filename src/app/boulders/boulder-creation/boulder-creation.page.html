@@ -20,8 +20,7 @@
   <!-- <img class="wall-cover" [src]="wall.image" *ngIf="wall.image && createOption==='wall'"> -->
   <div class="container" *ngIf="createOption==='wall'">
     <div *ngIf="!wall.image">
-      <img class="img-cover" src="../../../assets/images/flat-vector-image-wall.png"
-        *ngIf="!wall.image && createOption==='wall'">
+      <img class="img-cover" src="../../../assets/images/flat-vector-image-wall.png">
       <p>Toma una foto o <br> selecciona una de la galería</p>
       <ion-icon name="arrow-down-circle"></ion-icon>
     </div>
@@ -48,27 +47,29 @@
 
   <!-- BOULDER TAB -->
   <div class="container" *ngIf="createOption==='boulder'">
-    <div *ngIf="!boulder.image">
-      <img class="img-cover" src="../../../assets/images/flat-vector-image-boulder.png"
-        *ngIf="!boulder.image && createOption==='boulder'">
+    <div *ngIf="!selectedWall">
+      <img class="img-cover" src="../../../assets/images/flat-vector-image-boulder.png">
       <p>Selecciona una pared y <br> crea un bloque</p>
       <ion-icon name="arrow-down-circle"></ion-icon>
     </div>
+    <img [src]="'http://localhost:8080/' + selectedWall.image" *ngIf="selectedWall && createOption==='boulder'">
   </div>
-  <!-- <img [src]="boulder.image" *ngIf="boulder.image && createOption==='boulder'"> -->
 
   <div class="buttons-bar" *ngIf="createOption==='boulder'">
-    <ion-button class="btn-non-image" fill="clear" size="large" (click)="selectWall()" *ngIf="!boulder.image">
-      <ion-icon  size="large" name="image"></ion-icon>
+    <ion-button class="btn-non-image" fill="clear" size="large" (click)="selectWall()" *ngIf="!selectedWall">
+      <ion-icon size="large" name="image"></ion-icon>
     </ion-button>
-    <ion-button class="btn-non-image" fill="clear" size="large" *ngIf="boulder.image">
+    <ion-button class="btn-non-image" fill="clear" size="large" *ngIf="selectedWall">
       <div>
         <ion-icon size="large" name="create"></ion-icon>
         Crear
       </div>
     </ion-button>
-    <ion-button class="btn-non-image" fill="clear" size="large" *ngIf="boulder.image">
-      <ion-icon name="refresh"></ion-icon>
+    <ion-button class="btn-non-image" fill="clear" size="large" *ngIf="selectedWall">
+      <div>
+        <ion-icon size="large" name="refresh"></ion-icon>
+        Reiniciar
+      </div>
     </ion-button>
   </div>
 </ion-content>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Wall } from '../../interfaces/boulder';
 import { BouldersService } from '../../services/boulders.service';
@@ -10,9 +10,11 @@ import { BouldersService } from '../../services/boulders.service';
 })
 export class ModalSelectWallComponent implements OnInit {
   walls: Wall[] = [];
-  modalCtrl: ModalController;
 
-  constructor(private bouldersService: BouldersService) {}
+  constructor(
+    public modalCtrl: ModalController,
+    private bouldersService: BouldersService
+  ) {}
 
   ngOnInit() {
     this.getWalls();
@@ -21,8 +23,11 @@ export class ModalSelectWallComponent implements OnInit {
   getWalls() {
     this.bouldersService.getWalls().subscribe((walls) => {
       this.walls = walls;
-      console.log(walls);
     });
+  }
+
+  selectWall(selectedWall: Wall) {
+    this.modalCtrl.dismiss({ wall: selectedWall });
   }
 
   close() {

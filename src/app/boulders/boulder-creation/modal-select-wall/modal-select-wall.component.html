@@ -18,7 +18,7 @@
                 <h2>{{wall.name}}</h2>
                 <p>Section {{wall.section}}</p>
             </ion-label>
-            <ion-button fill="clear" slot="end"  size="large">
+            <ion-button fill="clear" slot="end"  size="large" (click)="selectWall(wall)">
                 <ion-icon name="arrow-forward-circle"></ion-icon>
             </ion-button>
         </ion-item>
