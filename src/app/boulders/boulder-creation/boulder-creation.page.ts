@@ -4,6 +4,7 @@ import { ModalController, ToastController } from '@ionic/angular';
 import { ImageCroppedEvent, LoadedImage } from 'ngx-image-cropper';
 import { Boulder, Hold, Wall } from '../interfaces/boulder';
 import { BouldersService } from '../services/boulders.service';
+import { ModalCreateBoulderComponent } from './modal-create-boulder/modal-create-boulder.component';
 import { ModalCreateWallComponent } from './modal-create-wall/modal-create-wall.component';
 import { ModalSelectWallComponent } from './modal-select-wall/modal-select-wall.component';
 
@@ -28,7 +29,6 @@ export class BoulderCreationPage implements OnInit {
     name: '',
     grade: '',
     wall: '',
-    section: '',
     share: false,
     image: '',
     holds: [],
@@ -83,10 +83,6 @@ export class BoulderCreationPage implements OnInit {
     this.openCreateWallModal();
   }
 
-  selectWall() {
-    this.openSelectWallModal();
-  }
-
   async openCreateWallModal() {
     this.saveCoords(this.wall.image.slice(22));
     const modal = await this.modalCtrl.create({
@@ -104,7 +100,7 @@ export class BoulderCreationPage implements OnInit {
             await this.toast.create({
               duration: 3000,
               position: 'bottom',
-              message: 'Pared guardada!',
+              message: '¡Pared guardada!',
               color: 'success',
             })
           ).present();
@@ -130,6 +126,10 @@ export class BoulderCreationPage implements OnInit {
     }
   }
 
+  selectWall() {
+    this.openSelectWallModal();
+  }
+
   async openSelectWallModal() {
     const modal = await this.modalCtrl.create({
       component: ModalSelectWallComponent,
@@ -138,22 +138,12 @@ export class BoulderCreationPage implements OnInit {
     await modal.present();
     const result = await modal.onDidDismiss();
     if (result.data && result.data.wall) {
+      this.holds = [];
+      this.boulder.holds = [];
       this.selectedWall = result.data.wall;
       this.boulder.image = this.selectedWall.image;
 
       this.createHolds();
-      /* this.bouldersService.saveWall(this.wall).subscribe(async (wall) => {
-        this.wall = { name: '', section: 0, image: '', coordHolds: '' };
-        this.createOption = 'boulder';
-        (
-          await this.toast.create({
-            duration: 3000,
-            position: 'middle',
-            message: 'Pared guardada!',
-            color: 'success',
-          })
-        ).present();
-      }); */
     } else {
       this.toast.create({
         duration: 3000,
@@ -198,7 +188,54 @@ export class BoulderCreationPage implements OnInit {
   }
 
   resetSelectedHolds() {
-    this.svg.nativeElement.childNodes.forEach((polygon) => (polygon.classList = []));
+    this.svg.nativeElement.childNodes.forEach(
+      (polygon) => (polygon.classList = [])
+    );
     this.boulder.holds = [];
+  }
+
+  saveBoulder() {
+    this.openCreateBoulderModal();
+  }
+
+  async openCreateBoulderModal() {
+    const modal = await this.modalCtrl.create({
+      component: ModalCreateBoulderComponent,
+      componentProps: { boulder: this.boulder },
+    });
+    await modal.present();
+    const result = await modal.onDidDismiss();
+    if (result.data && result.data.boulder) {
+      this.bouldersService.saveBoulder(this.boulder).subscribe({
+        next: async (boulder) => {
+          this.boulder = { name: '', grade: '', wall: '', share: false, image: '', holds: []};
+          (
+            await this.toast.create({
+              duration: 3000,
+              position: 'bottom',
+              message: '¡Bloque guardado!',
+              color: 'success',
+            })
+          ).present();
+        },
+        error: async () => {
+          (
+            await this.toast.create({
+              duration: 3000,
+              position: 'bottom',
+              message: 'Se ha producido un error',
+              color: 'danger',
+            })
+          ).present();
+        },
+      });
+    } else {
+      this.toast.create({
+        duration: 3000,
+        position: 'bottom',
+        message: '¡Error!',
+        color: 'danger',
+      });
+    }
   }
 }

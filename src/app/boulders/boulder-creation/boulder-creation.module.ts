@@ -11,6 +11,7 @@ import { ModalCreateWallComponent } from './modal-create-wall/modal-create-wall.
 import { ValidatorsModule } from 'src/app/validators/validators.module';
 import { ModalSelectWallComponent } from './modal-select-wall/modal-select-wall.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { ModalCreateBoulderComponent } from './modal-create-boulder/modal-create-boulder.component';
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     BoulderCreationPage,
     ModalCreateWallComponent,
     ModalSelectWallComponent,
+    ModalCreateBoulderComponent
   ]
 })
 export class BoulderCreationPageModule {}

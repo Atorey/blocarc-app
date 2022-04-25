@@ -3,10 +3,8 @@ export interface Boulder {
   name: string;
   grade: string;
   wall: string;
-  section: string;
   share: boolean;
   image: string;
-  creationDate?: Date;
   creator?: string;
   mine?: boolean;
   comments?: [];
@@ -40,6 +38,10 @@ export interface WallsResponse {
 }
 export interface WallResponse {
   wall: Wall;
+}
+
+export interface GradesResponse {
+  grades: [];
 }
 
 //OTROS

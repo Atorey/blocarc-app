@@ -14,7 +14,7 @@
 </ion-toolbar>
 
 <ion-content color="ion-color-medium" scrollY=false>
-<!-- WALL TAB -->
+  <!-- WALL TAB -->
   <div class="container" *ngIf="createOption==='wall'">
     <div *ngIf="!wall.image">
       <img class="img-cover" src="../../../assets/images/flat-vector-image-wall.png">
@@ -25,7 +25,7 @@
       containWithinAspectRatio="true" format="jpg" (imageCropped)="imageCropped($event)"
       (loadImageFailed)="loadImageFailed()"></image-cropper>
   </div>
-  
+
   <!-- Bottom menu -->
   <div class="buttons-bar" *ngIf="createOption==='wall'">
     <ion-button [ngClass]="{'btn-non-image': !wall.image, 'btn-active-image': wall.image}" fill="clear" size="large"
@@ -44,7 +44,7 @@
     </ion-button>
   </div>
 
-<!-- BOULDER TAB -->
+  <!-- BOULDER TAB -->
   <div class="container" *ngIf="createOption==='boulder'">
     <div *ngIf="!selectedWall">
       <img class="img-cover" src="../../../assets/images/flat-vector-image-boulder.png">
@@ -60,7 +60,7 @@
 
   <!-- Bottom menu -->
   <div class="buttons-bar" *ngIf="createOption==='boulder'">
-    <ion-button class="btn-non-image" fill="clear" size="large" (click)="selectWall()" *ngIf="!selectedWall">
+    <!-- <ion-button class="btn-non-image" fill="clear" size="large" (click)="selectWall()" *ngIf="!selectedWall">
       <ion-icon size="large" name="image"></ion-icon>
     </ion-button>
     <ion-button class="btn-non-image" fill="clear" size="large" *ngIf="selectedWall">
@@ -74,6 +74,20 @@
         <ion-icon size="large" name="refresh"></ion-icon>
         Reiniciar
       </div>
+    </ion-button> -->
+
+    <ion-button [ngClass]="{'btn-non-image': !selectedWall, 'btn-active-image': selectedWall}" fill="clear" size="large"
+      (click)="selectWall()">
+      <ion-icon [size]="!selectedWall ? 'large': 'default'" name="image"></ion-icon>
+    </ion-button>
+    <ion-button class="btn-non-image" fill="clear" size="large" *ngIf="selectedWall" (click)="saveBoulder()">
+      <div>
+        <ion-icon size="large" name="create"></ion-icon>
+        Crear
+      </div>
+    </ion-button>
+    <ion-button class="btn-non-image" fill="clear" size="large" *ngIf="selectedWall" (click)="resetSelectedHolds()">
+      <ion-icon size="large" name="refresh"></ion-icon>
     </ion-button>
   </div>
 </ion-content>
