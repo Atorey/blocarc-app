@@ -15,7 +15,7 @@ export class BouldersService {
   constructor(private http: HttpClient) {}
 
   getBoulders(): Observable<Boulder[]> {
-    return this.http.get<BouldersResponse>('http://localhost:8080/' + this.boulderURL).pipe(
+    return this.http.get<BouldersResponse>('http://localhost:8080' + this.boulderURL).pipe(
       map((response) => response.boulders),
       catchError((response: HttpErrorResponse) =>
         throwError(

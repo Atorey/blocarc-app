@@ -22,7 +22,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     ImageCropperModule
   ],
   declarations: [
-    BoulderCreationPage, 
+    BoulderCreationPage,
     ModalCreateWallComponent,
     ModalSelectWallComponent,
   ]

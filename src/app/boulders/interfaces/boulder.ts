@@ -1,23 +1,16 @@
+// MODELOS
 export interface Boulder {
   name: string;
   grade: string;
   wall: string;
   section: string;
-  share: Boolean;
+  share: boolean;
   image: string;
-  coordHolds: string;
   creationDate?: Date;
   creator?: string;
-  mine?: Boolean;
+  mine?: boolean;
   comments?: [];
-}
-
-export interface BouldersResponse {
-  boulders: Boulder[];
-}
-
-export interface BoulderResponse {
-  boulder: Boulder;
+  holds: Hold[];
 }
 
 export interface Wall {
@@ -27,6 +20,21 @@ export interface Wall {
   coordHolds: string;
 }
 
+export interface Hold {
+  coords: string;
+  color: string;
+}
+
+
+// RESPONSES
+export interface BouldersResponse {
+  boulders: Boulder[];
+}
+
+export interface BoulderResponse {
+  boulder: Boulder;
+}
+
 export interface WallsResponse {
   walls: Wall[];
 }
@@ -34,6 +42,7 @@ export interface WallResponse {
   wall: Wall;
 }
 
+//OTROS
 export interface WallImage {
   image: string;
 }
