@@ -1,5 +1,5 @@
 <ion-tabs #tabs (ionTabsDidChange)="setCurrentTab()">
-  <ion-tab-bar slot="bottom" >
+  <ion-tab-bar slot="bottom">
     <ion-tab-button tab="home">
       <ion-icon name="home"></ion-icon>
       <ion-label *ngIf="isActive('home')" color="primary">Home</ion-label>
@@ -13,5 +13,4 @@
       <ion-label *ngIf="isActive('profile')">Perfil</ion-label>
     </ion-tab-button>
   </ion-tab-bar>
-
 </ion-tabs>
