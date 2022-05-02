@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController, ToastController } from '@ionic/angular';
 import { ModalLoginComponent } from './modal-login/modal-login.component';
+import { ModalRegisterComponent } from './modal-register/modal-register.component';
 
 @Component({
   selector: 'app-welcome',
@@ -17,7 +18,15 @@ export class WelcomePage implements OnInit {
 
   async openLoginModal() {
     const modal = await this.modalCtrl.create({
-      component: ModalLoginComponent
+      component: ModalLoginComponent,
+    });
+    await modal.present();
+    const result = await modal.onDidDismiss();
+  }
+
+  async openRegisterModal() {
+    const modal = await this.modalCtrl.create({
+      component: ModalRegisterComponent,
     });
     await modal.present();
     const result = await modal.onDidDismiss();

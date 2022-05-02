@@ -83,22 +83,24 @@ export class AuthService {
         if (!token.value) {
           throw new Error();
         }
-        return this.http.get('http://localhost:8080' + `${this.authURL}/validate`).pipe(
-          map(() => {
-            this.logged = true;
-            this.loginChange$.next(true);
-            return true;
-          }),
-          catchError((error) => of(false))
-        );
+        return this.http
+          .get('http://localhost:8080' + `${this.authURL}/validate`)
+          .pipe(
+            map(() => {
+              this.logged = true;
+              this.loginChange$.next(true);
+              return true;
+            }),
+            catchError((error) => of(false))
+          );
       }),
       catchError((e) => of(false))
     );
   }
 
-  /*   register(user: User): Observable<void> {
+  register(user: User): Observable<void> {
     return this.http
-      .post(`${this.authURL}/register`, user)
+      .post('http://localhost:8080' + `${this.authURL}/register`, user)
       .pipe(map(() => null));
-  } */
+  }
 }

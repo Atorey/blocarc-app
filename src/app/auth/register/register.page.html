@@ -1,0 +1,92 @@
+<ion-header>
+  <ion-toolbar class="background-color">
+    <ion-buttons slot="start">
+      <ion-button [routerLink]="['/']">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content scroll-y="false">
+  <div class="container">
+    <h1>Crea tu cuenta</h1>
+    <form #registerForm="ngForm" (ngSubmit)="register()">
+      <ion-list>
+        <ion-item>
+          <ion-label color="medium" position="floating">Nombre de usuario</ion-label>
+          <ion-input name="username" required [(ngModel)]="user.username" #usernameModel="ngModel"></ion-input>
+          <ion-icon name="checkmark-circle" slot="end" color="success"
+            *ngIf="usernameModel.dirty && usernameModel.valid">
+          </ion-icon>
+        </ion-item>
+        <ion-label class="ion-padding error-message" color="danger" *ngIf="usernameModel.errors?.['required'] && usernameModel.touched">El nombre de
+          usuario no puede quedar vacío
+        </ion-label>
+
+        <div ngModelGroup="emailGroup" #emailGroupModel="ngModelGroup" appMatch="email,email2">
+          <ion-item>
+            <ion-label color="medium" position="floating">Correo electrónico</ion-label>
+            <ion-input type="email" name="email" required [(ngModel)]="user.email" #emailModel="ngModel"
+              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"></ion-input>
+            <ion-icon name="checkmark-circle" slot="end" color="success"
+              *ngIf="emailModel.dirty && emailGroupModel.valid">
+            </ion-icon>
+          </ion-item>
+          <ion-label class="ion-padding error-message" color="danger" *ngIf="emailModel.errors?.['required'] && emailModel.touched">El correo electrónico
+            no puede quedar vacío
+          </ion-label>
+          <ion-label class="ion-padding error-message" color="danger" *ngIf="emailModel.errors?.['pattern'] && emailModel.touched">Debes introducir un
+            correo electrónico válido
+          </ion-label>
+
+          <ion-item>
+            <ion-label color="medium" position="floating">Repite el correo electrónico</ion-label>
+            <ion-input type="email" name="email2" required [(ngModel)]="email2" #emailModel2="ngModel"></ion-input>
+            <ion-icon name="checkmark-circle" slot="end" color="success"
+              *ngIf="emailModel2.dirty && emailGroupModel.valid">
+            </ion-icon>
+          </ion-item>
+        </div>
+        <ion-label class="ion-padding error-message" color="danger" *ngIf="emailGroupModel.invalid && emailGroupModel.touched">Los correos deben coincidir
+        </ion-label>
+
+        <div ngModelGroup="passGroup" #passGroupModel="ngModelGroup" appMatch="password,password2">
+          <ion-item>
+            <ion-label color="medium" position="floating">Contraseña</ion-label>
+            <ion-input type="password" name="password" minlength="8" required [(ngModel)]="user.password"
+              #passModel="ngModel" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$">
+            </ion-input>
+            <ion-icon name="checkmark-circle" slot="end" color="success" *ngIf="passModel.dirty && passModel.valid">
+            </ion-icon>
+          </ion-item>
+          <ion-label class="ion-padding error-message" color="danger" *ngIf="passModel.errors?.['required'] && passModel.touched">La contraseña no puede
+            quedar vacía
+          </ion-label>
+          <ion-label class="ion-padding error-message" color="danger" *ngIf="passModel.errors?.['minlength'] && passModel.touched">La contraseña debe
+            tener al menos 8 caracteres
+          </ion-label>
+          <ion-label class="ion-padding error-message" color="danger" *ngIf="passModel.errors?.['pattern'] && passModel.touched">La contraseña debe
+            contener mayúsculas, minúsculas, números y caracteres especiales
+          </ion-label>
+
+          <ion-item>
+            <ion-label color="medium" position="floating">Repite la contraseña</ion-label>
+            <ion-input type="password" name="password2" required [(ngModel)]="password2" #passModel2="ngModel">
+            </ion-input>
+            <ion-icon name="checkmark-circle" slot="end" color="success"
+              *ngIf="passModel2.dirty && passGroupModel.valid">
+            </ion-icon>
+          </ion-item>
+        </div>
+        <ion-label class="ion-padding error-message" color="danger" *ngIf="passGroupModel.invalid && passGroupModel.touched">Las contraseñas deben
+          coincidir
+        </ion-label>
+      </ion-list>
+      <ion-button (click)="register()" expand="block" [disabled]="registerForm.invalid">Registrarse</ion-button>
+    </form>
+  </div>
+</ion-content>
+<ion-footer>
+  <span item-right>¿Ya tienes una cuenta? </span>
+  <span class="link" [routerLink]="['/auth/login']"> Iniciar sesión</span>
+</ion-footer>

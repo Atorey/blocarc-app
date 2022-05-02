@@ -21,7 +21,7 @@
         <ion-icon name="checkmark-circle" slot="end" color="success" *ngIf="nameModel.dirty && nameModel.valid">
         </ion-icon>
       </ion-item>
-      <ion-label class="ion-padding" color="danger" *ngIf="nameModel.errors?.['required'] && nameModel.touched">
+      <ion-label class="ion-padding error-message" color="danger" *ngIf="nameModel.errors?.['required'] && nameModel.touched">
         El nombre no se puede quedar vacío
       </ion-label>
 
@@ -33,7 +33,7 @@
         <ion-icon name="checkmark-circle" slot="end" color="success" *ngIf="gradeModel.dirty && gradeModel.valid">
         </ion-icon>
       </ion-item>
-      <ion-label class="ion-padding" color="danger" *ngIf="gradeModel.errors?.['required'] && gradeModel.touched">
+      <ion-label class="ion-padding error-message" color="danger" *ngIf="gradeModel.errors?.['required'] && gradeModel.touched">
         El grado no se puede quedar vacío
       </ion-label>
 
@@ -45,7 +45,7 @@
         <ion-icon name="checkmark-circle" slot="end" color="success" *ngIf="wallModel.dirty && wallModel.valid">
         </ion-icon>
       </ion-item>
-      <ion-label class="ion-padding" color="danger" *ngIf="wallModel.errors?.['required'] && wallModel.touched">
+      <ion-label class="ion-padding error-message" color="danger" *ngIf="wallModel.errors?.['required'] && wallModel.touched">
         La pared no se puede quedar vacía
       </ion-label>
 

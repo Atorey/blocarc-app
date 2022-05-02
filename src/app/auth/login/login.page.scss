@@ -45,10 +45,14 @@ ion-button {
   margin: 1rem 0;
 }
 
-ion-list{
-    background: none;
+ion-list {
+  background: none;
 }
 
 ion-item {
   --background: var(--ion-background-color) !important;
+}
+
+ion-label {
+  --color: var(--ion-color-medium);
 }

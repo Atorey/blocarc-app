@@ -11,8 +11,13 @@ export class ModalLoginComponent implements OnInit {
 
   ngOnInit() {}
 
-  login(){
+  login() {
     this.nav.navigateForward(['/auth/login']);
+    this.modalCtrl.dismiss();
+  }
+
+  register() {
+    this.nav.navigateForward(['/auth/register']);
     this.modalCtrl.dismiss();
   }
 
