@@ -3,15 +3,17 @@ ion-item-divider {
   margin: 0;
 }
 
-h3 {
+h3,
+ion-icon {
   font-size: 0.8rem;
 }
 
 p,
-h3 {
+h3,
+ion-badge {
   font-family: PoppinsRegular !important;
 }
 
 ion-badge {
-    width: 100%;
+  width: 100%;
 }

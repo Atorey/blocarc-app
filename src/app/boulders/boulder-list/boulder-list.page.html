@@ -10,7 +10,7 @@
 
 <ion-content>
   <ion-list>
-    <ion-item-divider sticky >
+    <ion-item-divider sticky>
       <ion-searchbar animated></ion-searchbar>
       <ion-button fill="clear" color="medium">
         <ion-icon name="filter"></ion-icon>
@@ -19,12 +19,19 @@
 
     <ion-item *ngFor="let boulder of boulders">
       <ion-avatar slot="start">
-        <ion-badge>{{boulder.grade}}</ion-badge>
+        <ion-badge color="{{boulder.grade.includes('+')?boulder.grade.replace('+', 'm'):boulder.grade}}">{{boulder.grade}}</ion-badge>
       </ion-avatar>
       <ion-label>
         <h3>@{{boulder.creator.username}}</h3>
         <h2>{{boulder.name}}</h2>
         <p>231 repeticiones</p>
+        <span>
+          <ion-icon name="star" color="primary"></ion-icon>
+          <ion-icon name="star" color="primary"></ion-icon>
+          <ion-icon name="star" color="primary"></ion-icon>
+          <ion-icon name="star" color="primary"></ion-icon>
+          <ion-icon name="star" color="primary"></ion-icon>
+        </span>
       </ion-label>
     </ion-item>
   </ion-list>
