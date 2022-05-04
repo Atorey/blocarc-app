@@ -18,7 +18,7 @@ const routes: Routes = [
   {
     path: 'home',
     loadChildren: () =>
-      import('./tabs/tabs.module').then((m) => m.TabsPageModule),
+      import('./home/home.module').then((m) => m.HomeModule),
     canActivate: [LoginActivateGuard],
   },
   {
