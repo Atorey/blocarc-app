@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Boulder } from '../interfaces/boulder';
+import { BouldersService } from '../services/boulders.service';
 
 @Component({
   selector: 'app-boulder-list',
@@ -6,10 +8,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./boulder-list.page.scss'],
 })
 export class BoulderListPage implements OnInit {
+  boulders: Boulder[] = [];
 
-  constructor() { }
+  constructor(private bouldersService: BouldersService) {}
 
   ngOnInit() {
+    this.getBoulders();
   }
 
+  getBoulders() {
+    this.bouldersService.getBoulders().subscribe((boulders) => {
+      this.boulders = boulders;
+    });
+  }
 }
