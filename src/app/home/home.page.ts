@@ -15,8 +15,6 @@ export class HomePage implements OnInit {
     this.bouldersService
       .getBoulders()
       .subscribe((boulders) => (this.boulders = boulders));
-
-    console.log(this.boulders);
   }
 
 }

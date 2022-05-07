@@ -1,19 +1,4 @@
 <ion-app>
   <ion-router-outlet></ion-router-outlet>
-  <ion-tabs #tabs (ionTabsDidChange)="setCurrentTab()">
-    <ion-tab-bar slot="bottom">
-      <ion-tab-button tab="home">
-        <ion-icon name="home"></ion-icon>
-        <ion-label *ngIf="isActive('home')" color="primary">Home</ion-label>
-      </ion-tab-button>
-      <ion-tab-button tab="boulders/explore">
-        <ion-icon src="../../assets/icon/hold.svg" color="isActive('boulder')?primary"></ion-icon>
-        <ion-label *ngIf="isActive('boulders')" color="primary">Bloques</ion-label>
-      </ion-tab-button>
-      <ion-tab-button tab="profile">
-        <ion-icon name="person"></ion-icon>
-        <ion-label *ngIf="isActive('profile')">Perfil</ion-label>
-      </ion-tab-button>
-    </ion-tab-bar>
-  </ion-tabs>
+  <app-tabs></app-tabs>
 </ion-app>

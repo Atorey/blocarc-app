@@ -1,5 +1,7 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 import { IonTabs } from '@ionic/angular';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -7,19 +9,5 @@ import { IonTabs } from '@ionic/angular';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  electedTab: string;
-
-  // eslint-disable-next-line @typescript-eslint/member-ordering
-  @ViewChild('tabs', { static: false }) tabs: IonTabs;
-  selectedTab: any;
-
   constructor() {}
-
-  setCurrentTab(): void {
-    this.selectedTab = this.tabs.getSelected();
-  }
-
-  isActive(tab: string) {
-    return tab === this.selectedTab;
-  }
 }
