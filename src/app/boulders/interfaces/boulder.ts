@@ -1,3 +1,5 @@
+import { User } from 'src/app/user/interfaces/user';
+
 // MODELOS
 export interface Boulder {
   name: string;
@@ -5,7 +7,7 @@ export interface Boulder {
   wall: string;
   share: boolean;
   image: string;
-  creator?: string;
+  creator?: User;
   mine?: boolean;
   comments?: [];
   holds: Hold[];
@@ -22,7 +24,6 @@ export interface Hold {
   coords: string;
   color: string;
 }
-
 
 // RESPONSES
 export interface BouldersResponse {

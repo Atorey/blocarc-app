@@ -7,14 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { BoulderListPageRoutingModule } from './boulder-list-routing.module';
 
 import { BoulderListPage } from './boulder-list.page';
+import { BouldersFilterPipe } from '../pipes/boulders-filter.pipe';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    BoulderListPageRoutingModule
+    BoulderListPageRoutingModule,
   ],
-  declarations: [BoulderListPage]
+  declarations: [BoulderListPage, BouldersFilterPipe],
+  exports: [BouldersFilterPipe],
 })
 export class BoulderListPageModule {}

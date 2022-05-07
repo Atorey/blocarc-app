@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { TabsComponent } from './components/tabs/tabs.component';
+import { BouldersFilterPipe } from './boulders/pipes/boulders-filter.pipe';
 
 @NgModule({
   declarations: [AppComponent, TabsComponent],

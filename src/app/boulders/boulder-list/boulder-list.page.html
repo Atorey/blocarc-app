@@ -11,15 +11,16 @@
 <ion-content>
   <ion-list>
     <ion-item-divider sticky>
-      <ion-searchbar animated></ion-searchbar>
+      <ion-searchbar animated name="search" [(ngModel)]="search"></ion-searchbar>
       <ion-button fill="clear" color="medium">
         <ion-icon name="filter"></ion-icon>
       </ion-button>
     </ion-item-divider>
 
-    <ion-item *ngFor="let boulder of boulders">
+    <ion-item *ngFor="let boulder of boulders | bouldersFilter: search">
       <ion-avatar slot="start">
-        <ion-badge color="{{boulder.grade.includes('+')?boulder.grade.replace('+', 'm'):boulder.grade}}">{{boulder.grade}}</ion-badge>
+        <ion-badge color="{{boulder.grade.includes('+')?boulder.grade.replace('+', 'm'):boulder.grade}}">
+          {{boulder.grade}}</ion-badge>
       </ion-avatar>
       <ion-label>
         <h3>@{{boulder.creator.username}}</h3>

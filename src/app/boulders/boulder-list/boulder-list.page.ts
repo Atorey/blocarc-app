@@ -9,6 +9,7 @@ import { BouldersService } from '../services/boulders.service';
 })
 export class BoulderListPage implements OnInit {
   boulders: Boulder[] = [];
+  search = '';
 
   constructor(private bouldersService: BouldersService) {}
 
