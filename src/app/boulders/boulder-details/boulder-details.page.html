@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="boulders/explore"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{boulder?.name}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-tabs #tabs (ionTabsDidChange)="setCurrentTab()">
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="view">
+      <ion-icon name="eye"></ion-icon>
+      <ion-label *ngIf="isActive('view')">Vista</ion-label>
+    </ion-tab-button>
+    <ion-tab-button tab="info">
+      <ion-icon name="information-circle"></ion-icon>
+      <ion-label *ngIf="isActive('info')">Detalles</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>

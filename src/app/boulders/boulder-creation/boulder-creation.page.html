@@ -60,22 +60,6 @@
 
   <!-- Bottom menu -->
   <div class="buttons-bar" *ngIf="createOption==='boulder'">
-    <!-- <ion-button class="btn-non-image" fill="clear" size="large" (click)="selectWall()" *ngIf="!selectedWall">
-      <ion-icon size="large" name="image"></ion-icon>
-    </ion-button>
-    <ion-button class="btn-non-image" fill="clear" size="large" *ngIf="selectedWall">
-      <div>
-        <ion-icon size="large" name="create"></ion-icon>
-        Crear
-      </div>
-    </ion-button>
-    <ion-button class="btn-non-image" fill="clear" size="large" (click)="resetSelectedHolds()" *ngIf="selectedWall">
-      <div>
-        <ion-icon size="large" name="refresh"></ion-icon>
-        Reiniciar
-      </div>
-    </ion-button> -->
-
     <ion-button [ngClass]="{'btn-non-image': !selectedWall, 'btn-active-image': selectedWall}" fill="clear" size="large"
       (click)="selectWall()">
       <ion-icon [size]="!selectedWall ? 'large': 'default'" name="image"></ion-icon>

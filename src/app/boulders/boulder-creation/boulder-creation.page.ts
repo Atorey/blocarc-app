@@ -141,7 +141,10 @@ export class BoulderCreationPage implements OnInit {
       this.holds = [];
       this.boulder.holds = [];
       this.selectedWall = result.data.wall;
-      this.boulder.image = this.selectedWall.image;
+      console.log(result.data.wall);
+      this.toDataURL('http://localhost:8080/' + this.selectedWall.image, (dataURL) => {
+        this.boulder.image = dataURL;
+      });
 
       this.createHolds();
     } else {
@@ -208,7 +211,14 @@ export class BoulderCreationPage implements OnInit {
     if (result.data && result.data.boulder) {
       this.bouldersService.saveBoulder(this.boulder).subscribe({
         next: async (boulder) => {
-          this.boulder = { name: '', grade: '', wall: '', share: false, image: '', holds: []};
+          this.boulder = {
+            name: '',
+            grade: '',
+            wall: '',
+            share: false,
+            image: '',
+            holds: [],
+          };
           (
             await this.toast.create({
               duration: 3000,
@@ -237,5 +247,19 @@ export class BoulderCreationPage implements OnInit {
         color: 'danger',
       });
     }
+  }
+
+  toDataURL(url, callback) {
+    const xhr = new XMLHttpRequest();
+    xhr.onload = () => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        callback(reader.result);
+      };
+      reader.readAsDataURL(xhr.response);
+    };
+    xhr.open('GET', url);
+    xhr.responseType = 'blob';
+    xhr.send();
   }
 }

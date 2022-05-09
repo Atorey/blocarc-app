@@ -17,6 +17,13 @@ const routes: Routes = [
         (m) => m.BoulderListPageModule
       ),
   },
+  {
+    path: ':id',
+    loadChildren: () =>
+      import('./boulder-details/boulder-details.module').then(
+        (m) => m.BoulderDetailsPageModule
+      ),
+  },
 ];
 
 @NgModule({

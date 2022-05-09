@@ -17,7 +17,8 @@
       </ion-button>
     </ion-item-divider>
 
-    <ion-item *ngFor="let boulder of boulders | bouldersFilter: search">
+    <ion-item *ngFor="let boulder of boulders | bouldersFilter: search" [routerLink]="['/boulders/', boulder._id]"
+      [routerDirection]="'forward'">
       <ion-avatar slot="start">
         <ion-badge color="{{boulder.grade.includes('+')?boulder.grade.replace('+', 'm'):boulder.grade}}">
           {{boulder.grade}}</ion-badge>

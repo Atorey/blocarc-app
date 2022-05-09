@@ -2,6 +2,7 @@ import { User } from 'src/app/user/interfaces/user';
 
 // MODELOS
 export interface Boulder {
+  _id?: string;
   name: string;
   grade: string;
   wall: string;

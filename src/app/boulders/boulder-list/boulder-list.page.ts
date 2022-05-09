@@ -20,6 +20,7 @@ export class BoulderListPage implements OnInit {
   getBoulders() {
     this.bouldersService.getBoulders().subscribe((boulders) => {
       this.boulders = boulders;
+      console.log(boulders);
     });
   }
 }

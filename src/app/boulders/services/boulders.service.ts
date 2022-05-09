@@ -38,6 +38,20 @@ export class BouldersService {
       );
   }
 
+  getBoulder(id: number): Observable<Boulder> {
+    return this.http
+      .get<BoulderResponse>(`http://localhost:8080${this.boulderURL}/${id}`)
+      .pipe(
+        map((response) => response.boulder),
+        catchError((response: HttpErrorResponse) =>
+          throwError(
+            () =>
+              `Error getting boulder. Status: ${response.status}. Message: ${response.message}`
+          )
+        )
+      );
+  }
+
   getWalls(): Observable<Wall[]> {
     return this.http
       .get<WallsResponse>('http://localhost:8080' + this.wallURL)
