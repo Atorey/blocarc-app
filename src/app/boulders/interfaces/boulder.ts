@@ -10,7 +10,7 @@ export interface Boulder {
   image: string;
   creator?: User;
   mine?: boolean;
-  comments?: [];
+  valoration: number;
   holds: Hold[];
 }
 

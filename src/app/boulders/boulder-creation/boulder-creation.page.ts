@@ -32,6 +32,7 @@ export class BoulderCreationPage implements OnInit {
     share: false,
     image: '',
     holds: [],
+    valoration: 0,
   };
   holds: string[] = [];
 
@@ -142,9 +143,12 @@ export class BoulderCreationPage implements OnInit {
       this.boulder.holds = [];
       this.selectedWall = result.data.wall;
       console.log(result.data.wall);
-      this.toDataURL('http://localhost:8080/' + this.selectedWall.image, (dataURL) => {
-        this.boulder.image = dataURL;
-      });
+      this.toDataURL(
+        'http://localhost:8080/' + this.selectedWall.image,
+        (dataURL) => {
+          this.boulder.image = dataURL;
+        }
+      );
 
       this.createHolds();
     } else {
@@ -218,6 +222,7 @@ export class BoulderCreationPage implements OnInit {
             share: false,
             image: '',
             holds: [],
+            valoration: 0,
           };
           (
             await this.toast.create({
