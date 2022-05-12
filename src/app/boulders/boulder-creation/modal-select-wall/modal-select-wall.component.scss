@@ -1,4 +1,12 @@
 ion-thumbnail {
-    width: 3rem;
-    height: 4rem;
+  width: 3rem;
+  height: 4rem;
+}
+
+ion-label {
+  --color: var(--ion-color-medium);
+}
+
+.error-label {
+  padding: 0 2px;
 }

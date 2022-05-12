@@ -26,6 +26,14 @@ export interface Hold {
   color: string;
 }
 
+export interface Achievement {
+  date: string;
+  attemps: number;
+  comment?: string;
+  video?: string;
+  valoration?: number;
+}
+
 // RESPONSES
 export interface BouldersResponse {
   boulders: Boulder[];
@@ -44,6 +52,9 @@ export interface WallResponse {
 
 export interface GradesResponse {
   grades: [];
+}
+export interface AchievementResponse {
+  achievement: Achievement;
 }
 
 //OTROS

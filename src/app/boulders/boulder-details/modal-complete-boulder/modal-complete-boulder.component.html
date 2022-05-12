@@ -1,0 +1,81 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>Completar bloque</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form #boulderForm="ngForm" (ngSubmit)="completeBoulder()">
+    <ion-list>
+
+      <ion-item>
+        <ion-label color="medium" position="floating">
+          Fecha
+        </ion-label>
+        <ion-input type="date" name="date" required [(ngModel)]="achievement.date" #dateModel="ngModel">
+        </ion-input>
+        <ion-icon name="checkmark-circle" slot="end" color="success" *ngIf="dateModel.valid">
+        </ion-icon>
+      </ion-item>
+      <ion-label ion-padding error-message class="ion-padding error-message" color="danger"
+        *ngIf="dateModel.errors?.['required'] && dateModel.touched">
+        La fecha no se puede quedar vacío
+      </ion-label>
+
+      <ion-item>
+        <ion-label color="medium" position="floating">Número de intentos</ion-label>
+        <ion-input type="number" name="attemps" minMaxNumber min="1" required [(ngModel)]="achievement.attemps"
+          #attempsModel="ngModel">
+        </ion-input>
+        <ion-icon name="checkmark-circle" slot="end" color="success" *ngIf="attempsModel.valid">
+        </ion-icon>
+      </ion-item>
+      <ion-label class="ion-padding error-message" color="danger"
+        *ngIf="attempsModel.errors?.['required'] && attempsModel.touched">
+        El número de intentos no se puede quedar vacío
+      </ion-label>
+      <ion-label class="ion-padding error-message" color="danger"
+        *ngIf="attempsModel.errors?.['minMaxNumber'] && attempsModel.touched">
+        El número de intentos debe ser mayor a 1
+      </ion-label>
+
+      <ion-item>
+        <ion-label color="medium" position="floating">Grado</ion-label>
+        <ion-select name="grade" [(ngModel)]="achievement.grade" #gradeModel="ngModel">
+          <ion-select-option *ngFor="let grade of grades" value="{{grade}}">{{grade}}</ion-select-option>
+        </ion-select>
+        <ion-icon name="checkmark-circle" slot="end" color="success" *ngIf="gradeModel.dirty && gradeModel.valid">
+        </ion-icon>
+      </ion-item>
+      <ion-label class="ion-padding error-message" color="danger"
+        *ngIf="gradeModel.errors?.['required'] && gradeModel.touched">
+        El grado no se puede quedar vacío
+      </ion-label>
+
+
+      <ion-item>
+        <ion-label color="medium" position="floating">Comentario</ion-label>
+        <ion-input type="text-area" name="comment" [(ngModel)]="achievement.comment" #commentModel="ngModel">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="medium" position="stacked">Valoración</ion-label>
+        <ionic5-star-rating #rating activeIcon="star" defaultIcon="star" activeColor="#F5DC09" defaultColor="#989aa2"
+          readonly="false" (ratingChanged)="logRatingChange($event)" fontSize="2rem" name="valoration"
+          [(ngModel)]="achievement.valoration" #valorationModel="ngModel">
+        </ionic5-star-rating>
+      </ion-item>
+
+    </ion-list>
+    <ion-button slot="bottom" type="submit" color="secondary" expand="block"
+      [disabled]="boulderForm.invalid || !boulderForm.touched">
+      Completar
+    </ion-button>
+
+  </form>
+</ion-content>

@@ -4,6 +4,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import {
+  Achievement,
+  AchievementResponse,
   Boulder,
   BoulderResponse,
   BouldersResponse,
@@ -98,5 +100,25 @@ export class BouldersService {
     return this.http
       .post<BoulderResponse>('http://localhost:8080' + this.boulderURL, boulder)
       .pipe(map((response) => response.boulder));
+  }
+
+  saveAchievement(
+    achievement: Achievement,
+    id: string
+  ): Observable<Achievement> {
+    return this.http
+      .post<AchievementResponse>(
+        `http://localhost:8080${this.boulderURL}/${id}/achievements`,
+        achievement
+      )
+      .pipe(
+        map(response => response.achievement),
+        catchError((response: HttpErrorResponse) =>
+          throwError(
+            () =>
+              `Error postting achievement. Status: ${response.status}. Message: ${response.message}`
+          )
+        )
+      );
   }
 }
