@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Chart } from 'chart.js';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -13,8 +14,11 @@ import { BoulderInfoPage } from './boulder-info.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    BoulderInfoPageRoutingModule
+    BoulderInfoPageRoutingModule,
   ],
-  declarations: [BoulderInfoPage]
+  declarations: [BoulderInfoPage, Chart],
+  exports: [
+    Chart
+  ]
 })
 export class BoulderInfoPageModule {}

@@ -1,9 +1,125 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>boulder-info</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="boulders/explore"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <ion-toolbar>
+    <ion-segment value="info">
+      <ion-segment-button value="info">Información</ion-segment-button>
+      <ion-segment-button value="comments">Comentarios</ion-segment-button>
+      <ion-segment-button value="videos">Vídeos</ion-segment-button>
+    </ion-segment>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-img [src]=""></ion-img>
+  <div class="buttons-bar">
+    <div class="bar-left">
+      <ion-button class="btn-non-image" fill="clear">
+
+        <ion-icon name="heart-outline"></ion-icon>
+      </ion-button>
+    </div>
+    <div class="bar-right">
+      <ion-button class="btn-non-image" fill="clear" (click)="completeBoulder()">
+        <ion-icon name="checkbox-outline"></ion-icon>
+      </ion-button>
+      <ion-button class="btn-non-image" fill="clear">
+        <ion-icon name="bookmark-outline"></ion-icon>
+      </ion-button>
+    </div>
+  </div>
+
+  <ion-item class="info">
+    <ion-label>
+      <div>
+        <h4>*@nombreCreador</h4>
+        <p>11/11/2011</p>
+      </div>
+      <h1>*Nombre bloque</h1>
+      <div>
+        <ion-icon name="star" color="primary"></ion-icon>
+        <ion-icon name="star" color="primary"></ion-icon>
+        <ion-icon name="star" color="primary"></ion-icon>
+        <ion-icon name="star" color="primary"></ion-icon>
+        <ion-icon name="star" color="primary"></ion-icon>
+      </div>
+
+      <ion-badge color="8a">*grado</ion-badge>
+      <p>30 valoraciones</p>
+    </ion-label>
+  </ion-item>
+
+  <ion-item class="valoration">
+    <ion-label>
+      <p>Valoración de los usuarios</p>
+      <div>
+        <p>5 estrellas</p>
+        <ion-progress-bar value="0.52"></ion-progress-bar>
+        <p>52%</p>
+      </div>
+      <div>
+        <p>4 estrellas</p>
+        <ion-progress-bar value="0.19"></ion-progress-bar>
+        <p>19%</p>
+      </div>
+      <div>
+        <p>3 estrellas</p>
+        <ion-progress-bar value="0.18"></ion-progress-bar>
+        <p>18%</p>
+      </div>
+      <div>
+        <p>2 estrellas</p>
+        <ion-progress-bar value="0.07"></ion-progress-bar>
+        <p>7%</p>
+      </div>
+      <div>
+        <p>1 estrellas</p>
+        <ion-progress-bar value="0.04"></ion-progress-bar>
+        <p class="last-column">4%</p>
+      </div>
+    </ion-label>
+  </ion-item>
+
+  <ion-item class="calification">
+    <ion-label>
+      <p>Calificación de los usuarios</p>
+      <div>
+        <p>6c+</p>
+        <ion-progress-bar color="6cm" value="0.01"></ion-progress-bar>
+        <p>1%</p>
+      </div>
+      <div>
+        <p>6c</p>
+        <ion-progress-bar color="6c" value="0.01"></ion-progress-bar>
+        <p>1%</p>
+      </div>
+      <div>
+        <p>6b+</p>
+        <ion-progress-bar color="6bm" value="0.02"></ion-progress-bar>
+        <p>2%</p>
+      </div>
+      <div>
+        <p>6b</p>
+        <ion-progress-bar color="6b" value="0.02"></ion-progress-bar>
+        <p>2%</p>
+      </div>
+      <div>
+        <p>6a+</p>
+        <ion-progress-bar color="6am" value="0.04"></ion-progress-bar>
+        <p>4%</p>
+      </div>
+      <div>
+        <p>6a</p>
+        <ion-progress-bar color="6a" value="0.9"></ion-progress-bar>
+        <p>90%</p>
+      </div>
+    </ion-label>
+  </ion-item>
+
+  <canvas id="myChart"></canvas>
 
 </ion-content>

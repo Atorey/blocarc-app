@@ -50,6 +50,7 @@ export class BoulderViewPage implements OnInit {
     const result = await modal.onDidDismiss();
     if (result.data && result.data.achievement) {
       this.bouldersService
+        // eslint-disable-next-line @typescript-eslint/dot-notation
         .saveAchievement(this.achievement, this.boulder['_id'])
         .subscribe({
           next: async (wall) => {
