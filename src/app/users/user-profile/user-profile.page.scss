@@ -1,0 +1,64 @@
+.cabecera {
+  margin-top: 2rem;
+  ion-avatar {
+    margin: 0 auto;
+    width: 6rem;
+    height: 6rem;
+
+    ion-img {
+      background-color: red;
+    }
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 1.3rem;
+  }
+}
+
+.stats {
+  display: flex;
+  justify-content: space-evenly;
+  text-align: center;
+
+  h4 {
+    font-weight: bold;
+    font-size: 0.8rem;
+  }
+
+  p {
+    font-size: 0.7rem;
+    color: var(--ion-color-medium);
+  }
+}
+
+hr {
+  background-color: var(--ion-color-light);
+  margin-bottom: 0;
+}
+
+ion-segment {
+  border-bottom: 1px solid var(--ion-color-light);
+}
+
+ion-item {
+  ion-item-divider {
+    padding: 0;
+    margin: 0;
+  }
+
+  h3,
+  ion-icon {
+    font-size: 0.8rem;
+  }
+
+  p,
+  h3,
+  ion-badge {
+    font-family: PoppinsRegular !important;
+  }
+
+  ion-badge {
+    width: 100%;
+  }
+}

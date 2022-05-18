@@ -8,6 +8,7 @@ export interface Boulder {
   wall: string;
   share: boolean;
   image: string;
+  creationDate?: string;
   creator?: User;
   mine?: boolean;
   valoration: number;
@@ -29,6 +30,7 @@ export interface Hold {
 export interface Achievement {
   date: string;
   attemps: number;
+  grade?: string;
   comment?: string;
   video?: string;
   valoration?: number;
@@ -52,6 +54,9 @@ export interface WallResponse {
 
 export interface GradesResponse {
   grades: [];
+}
+export interface AchievementsResponse {
+  achievements: Achievement[];
 }
 export interface AchievementResponse {
   achievement: Achievement;

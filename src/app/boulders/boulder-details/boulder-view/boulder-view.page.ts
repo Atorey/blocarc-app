@@ -57,6 +57,7 @@ export class BoulderViewPage implements OnInit {
             this.achievement = {
               date: new Date().toISOString().substring(0, 10),
               attemps: 1,
+              grade: '',
               comment: '',
               video: '',
               valoration: 0,

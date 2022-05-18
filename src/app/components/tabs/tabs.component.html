@@ -8,9 +8,9 @@
       <ion-icon src="../../assets/icon/hold.svg" [color]="isActive('boulders') ? 'primary' : ''"></ion-icon>
       <ion-label *ngIf="isActive('boulders')" color="primary">Bloques</ion-label>
     </ion-tab-button>
-    <ion-tab-button tab="profile">
-      <ion-icon name="person"></ion-icon>
-      <ion-label *ngIf="isActive('profile')">Perfil</ion-label>
+    <ion-tab-button tab="users/me" >
+      <ion-icon name="person" [color]="isActive('users') ? 'primary' : ''"></ion-icon>
+      <ion-label *ngIf="isActive('users')" color="primary">Perfil</ion-label>
     </ion-tab-button>
   </ion-tab-bar>
 </ion-tabs>

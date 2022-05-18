@@ -6,6 +6,7 @@ import { map, catchError } from 'rxjs/operators';
 import {
   Achievement,
   AchievementResponse,
+  AchievementsResponse,
   Boulder,
   BoulderResponse,
   BouldersResponse,
@@ -102,6 +103,22 @@ export class BouldersService {
       .pipe(map((response) => response.boulder));
   }
 
+  getAchievements(id: string): Observable<Achievement[]> {
+    return this.http
+      .get<AchievementsResponse>(
+        `http://localhost:8080${this.boulderURL}/${id}/achievements`
+      )
+      .pipe(
+        map((response) => response.achievements),
+        catchError((response: HttpErrorResponse) =>
+          throwError(
+            () =>
+              `Error getting achievements. Status: ${response.status}. Message: ${response.message}`
+          )
+        )
+      );
+  }
+
   saveAchievement(
     achievement: Achievement,
     id: string
@@ -112,7 +129,7 @@ export class BouldersService {
         achievement
       )
       .pipe(
-        map(response => response.achievement),
+        map((response) => response.achievement),
         catchError((response: HttpErrorResponse) =>
           throwError(
             () =>

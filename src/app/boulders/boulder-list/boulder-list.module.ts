@@ -8,7 +8,7 @@ import { BoulderListPageRoutingModule } from './boulder-list-routing.module';
 
 import { BoulderListPage } from './boulder-list.page';
 import { BouldersFilterPipe } from '../pipes/boulders-filter.pipe';
-import { StaticStarRatingComponent } from './static-star-rating/static-star-rating.component';
+import { StaticRatingModule } from 'src/app/components/static-star-rating/static-star-rating.module';
 
 @NgModule({
   imports: [
@@ -16,12 +16,9 @@ import { StaticStarRatingComponent } from './static-star-rating/static-star-rati
     FormsModule,
     IonicModule,
     BoulderListPageRoutingModule,
+    StaticRatingModule
   ],
-  declarations: [
-    BoulderListPage,
-    BouldersFilterPipe,
-    StaticStarRatingComponent,
-  ],
+  declarations: [BoulderListPage, BouldersFilterPipe],
   exports: [BouldersFilterPipe],
 })
 export class BoulderListPageModule {}

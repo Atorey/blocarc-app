@@ -20,7 +20,7 @@ export class TabsComponent implements OnInit {
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
-        if (event.url === '/home' || event.url === '/boulders/explore') {
+        if (event.url === '/home' || event.url === '/boulders/explore' || event.url === '/users/me') {
           this.showTabs = true;
         } else {
           this.showTabs = false;

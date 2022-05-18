@@ -32,6 +32,11 @@ const routes: Routes = [
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
     canActivate: [LogoutActivateGuard],
   },
+  {
+    path: 'users',
+    loadChildren: () => import('./users/users.module').then((m) => m.UsersModule),
+    canActivate: [LoginActivateGuard]
+  },
 ];
 @NgModule({
   imports: [
