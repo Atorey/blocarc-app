@@ -16,64 +16,128 @@
 <ion-content>
   <div class="cabecera">
     <ion-avatar>
-      <ion-img></ion-img>
+      <ion-img [src]="userAvatar"></ion-img>
     </ion-avatar>
 
-    <h1>@usuario</h1>
+    <h1>{{user.username}}</h1>
 
     <div class="stats">
       <div>
-        <h4>2</h4>
+        <h4>{{totalBouldersCreated}}</h4>
         <p>Bloques <br> creados</p>
       </div>
       <div>
-        <h4>0</h4>
+        <h4>{{totalBouldersCompleted}}</h4>
         <p>Bloques <br> completados</p>
       </div>
     </div>
   </div>
+
   <hr>
-  <ion-segment value="created">
+
+  <ion-segment [value]="selectedSegment" (ionChange)="segmentChanged($event)">
     <ion-segment-button value="created">
-      <ion-icon name="grid"></ion-icon>
+      <ion-icon [name]="isActive('created')?'grid':'grid-outline'"></ion-icon>
     </ion-segment-button>
     <ion-segment-button value="completed">
-      <ion-icon name="checkbox-outline"></ion-icon>
+      <ion-icon [name]="isActive('completed')?'checkbox':'checkbox-outline'"></ion-icon>
     </ion-segment-button>
     <ion-segment-button value="saved">
-      <ion-icon name="bookmark-outline"></ion-icon>
+      <ion-icon [name]="isActive('saved')?'bookmark':'bookmark-outline'"></ion-icon>
     </ion-segment-button>
     <ion-segment-button value="fav">
-      <ion-icon name="heart-outline"></ion-icon>
+      <ion-icon [name]="isActive('fav')?'heart':'heart-outline'"></ion-icon>
     </ion-segment-button>
   </ion-segment>
-  <ion-item>
-    <ion-avatar slot="start">
-      <ion-badge color="">
-        boulder.grade</ion-badge>
-    </ion-avatar>
-    <ion-label>
-      <h3>@boulder.creator.username</h3>
-      <h2>boulder.name</h2>
-      <p>231 repeticiones</p>
-      <span>
-        <app-static-star-rating [valoration]=""></app-static-star-rating>
-      </span>
-    </ion-label>
-  </ion-item>
-  <!-- <ion-item *ngFor="let boulder of boulders | bouldersFilter: search" [routerLink]="['/boulders/', boulder._id]"
-    [routerDirection]="'forward'">
-    <ion-avatar slot="start">
-      <ion-badge color="{{boulder.grade.includes('+')?boulder.grade.replace('+', 'm'):boulder.grade}}">
-        {{boulder.grade}}</ion-badge>
-    </ion-avatar>
-    <ion-label>
-      <h3>@{{boulder.creator.username}}</h3>
-      <h2>{{boulder.name}}</h2>
-      <p>231 repeticiones</p>
-      <span>
-        <app-static-star-rating [valoration]="boulder.valoration"></app-static-star-rating>
-      </span>
-    </ion-label>
-  </ion-item> -->
+
+  <!-- Bloques creados -->
+  <div *ngIf="isActive('created')">
+    <ion-item *ngFor="let boulder of bouldersCreated" [routerLink]="['/boulders/', boulder._id]"
+      [routerDirection]="'forward'">
+      <ion-avatar slot="start">
+        <ion-badge color="{{boulder.grade.includes('+')?boulder.grade.replace('+', 'm'):boulder.grade}}">
+          {{boulder.grade}}</ion-badge>
+      </ion-avatar>
+      <ion-label>
+        <h2>{{boulder.name}}</h2>
+        <p>231 repeticiones</p>
+        <span>
+          <app-static-star-rating [valoration]="boulder.valoration"></app-static-star-rating>
+        </span>
+      </ion-label>
+    </ion-item>
+  </div>
+
+  <!-- Bloques completados -->
+  <div class="canvas-container" [hidden]="!isActive('completed')">
+    <p>Total: {{totalBouldersCompleted}}</p>
+    <canvas #canvas id="completedChart"></canvas>
+  </div>
+
+  <hr>
+
+  <div *ngIf="isActive('completed')">
+    <div class="checkbox-grades">
+      <h4>Filtrar listado:</h4>
+      <div>
+        <div *ngFor="let grade of filterGrades">
+          <ion-checkbox [color]="grade.color" [(ngModel)]="grade.isChecked" (ionChange)="checkboxClick(grade)">
+          </ion-checkbox>
+          <span>{{grade.val}}</span>
+        </div>
+      </div>
+
+
+    </div>
+
+    <div class="icon">
+      <ion-icon color="medium" name="chevron-down-outline"></ion-icon>
+    </div>
+
+    <ion-item *ngFor="let boulder of bouldersCompleted | gradesFilter: gradesSelected"
+      [routerLink]="['/boulders/', boulder._id]" [routerDirection]="'forward'">
+      <ion-avatar slot="start">
+        <ion-badge color="{{boulder.grade.includes('+')?boulder.grade.replace('+', 'm'):boulder.grade}}">
+          {{boulder.grade}}</ion-badge>
+      </ion-avatar>
+      <ion-label>
+        <h3>{{boulder.creator.username}}</h3>
+        <h2>{{boulder.name}}</h2>
+        <p>231 repeticiones</p>
+        <span>
+          <app-static-star-rating [valoration]="boulder.valoration"></app-static-star-rating>
+        </span>
+      </ion-label>
+    </ion-item>
+
+  </div>
+
+  <!-- Bloques guardados -->
+  <div *ngIf="isActive('saved')">
+    <ion-accordion-group>
+      <ion-accordion *ngFor="let boulder of bouldersSaved" [value]="boulder.val">
+        <ion-item slot="header" [ngStyle]="{'border-color': boulder.color}">
+          <ion-label>{{boulder.label}}</ion-label>
+        </ion-item>
+        <ion-list slot="content">
+          <ion-item *ngFor="let boulder of bouldersCompleted | gradesFilter: gradesSelected"
+            [routerLink]="['/boulders/', boulder._id]" [routerDirection]="'forward'">
+            <ion-avatar slot="start">
+              <ion-badge color="{{boulder.grade.includes('+')?boulder.grade.replace('+', 'm'):boulder.grade}}">
+                {{boulder.grade}}</ion-badge>
+            </ion-avatar>
+            <ion-label>
+              <h3>{{boulder.creator.username}}</h3>
+              <h2>{{boulder.name}}</h2>
+              <p>231 repeticiones</p>
+              <span>
+                <app-static-star-rating [valoration]="boulder.valoration"></app-static-star-rating>
+              </span>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-accordion>
+    </ion-accordion-group>
+  </div>
+
 </ion-content>

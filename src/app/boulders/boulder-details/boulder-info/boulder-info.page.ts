@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { ModalController, ToastController } from '@ionic/angular';
 import { Chart, registerables } from 'node_modules/chart.js';
 import { Achievement, Boulder } from '../../interfaces/boulder';
@@ -57,7 +57,12 @@ export class BoulderInfoPage implements OnInit {
   }
 
   createChart() {
-    const myChart = new Chart('myChart', {
+    const chartExist = Chart.getChart('triesChart');
+    if (chartExist !== undefined) {
+      chartExist.destroy();
+    }
+
+    const triesChart = new Chart('triesChart', {
       type: 'pie',
       data: {
         labels: ['Flash', '2º intento', '3er intento', 'Más de 3 intentos'],

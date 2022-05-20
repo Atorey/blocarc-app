@@ -1,3 +1,6 @@
+ion-content {
+  --background: var(--ion-tab-bar-background);
+}
 .cabecera {
   margin-top: 2rem;
   ion-avatar {
@@ -6,7 +9,7 @@
     height: 6rem;
 
     ion-img {
-      background-color: red;
+      object-fit: cover;
     }
   }
 
@@ -34,7 +37,7 @@
 
 hr {
   background-color: var(--ion-color-light);
-  margin-bottom: 0;
+  margin: 0;
 }
 
 ion-segment {
@@ -42,6 +45,8 @@ ion-segment {
 }
 
 ion-item {
+  --background: var(--ion-background-color);
+
   ion-item-divider {
     padding: 0;
     margin: 0;
@@ -60,5 +65,63 @@ ion-item {
 
   ion-badge {
     width: 100%;
+  }
+}
+
+.checkbox-grades {
+  background: var(--ion-background-color);
+  padding-top: 1rem;
+
+  h4 {
+    margin: 0 0 1rem 1rem;
+    font-size: 1rem;
+  }
+
+  & > div {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    text-align: center;
+
+    div {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin: 0.5rem 1rem;
+    }
+
+    span {
+      font-size: 0.8rem;
+      color: var(--ion-color-medium);
+      text-align: center;
+      margin: 0 0 0 0.2rem;
+    }
+  }
+}
+
+.icon {
+  background: var(--ion-background-color);
+  text-align: center;
+  ion-icon {
+    font-size: 2rem;
+  }
+}
+
+.canvas-container {
+  background: var(--ion-background-color);
+  position: relative;
+  padding: 3rem 3rem 3rem 3rem;
+  p {
+    position: absolute;
+    margin: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--ion-color-medium);
+  }
+}
+
+ion-accordion {
+  & > ion-item {
+    border-bottom: 2px solid;
   }
 }

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { UserResolver } from './resolvers/user.resolver';
 
 const routes: Routes = [
   {
@@ -9,9 +10,9 @@ const routes: Routes = [
         (m) => m.UserProfilePageModule
       ),
     pathMatch: 'full',
-    /* resolve: {
+    resolve: {
       user: UserResolver,
-    }, */
+    },
   },
   {
     path: ':id',
@@ -20,9 +21,9 @@ const routes: Routes = [
         (m) => m.UserProfilePageModule
       ),
     pathMatch: 'full',
-    /* resolve: {
+    resolve: {
       user: UserResolver,
-    }, */
+    },
   },
 ];
 

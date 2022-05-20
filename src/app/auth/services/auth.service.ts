@@ -2,9 +2,9 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { from, Observable, of, ReplaySubject, throwError } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
-import { User, UserLogin } from '../../user/interfaces/user';
 import { TokenResponse } from '../interfaces/auth';
 import { Storage } from '@capacitor/storage';
+import { User, UserLogin } from 'src/app/users/interfaces/user';
 
 @Injectable({
   providedIn: 'root',

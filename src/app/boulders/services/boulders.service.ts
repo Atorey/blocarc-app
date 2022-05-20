@@ -41,6 +41,38 @@ export class BouldersService {
       );
   }
 
+  getBouldersByCreator(id: string): Observable<Boulder[]> {
+    return this.http
+      .get<BouldersResponse>(
+        `http://localhost:8080${this.boulderURL}?creator=${id}`
+      )
+      .pipe(
+        map((response) => response.boulders),
+        catchError((response: HttpErrorResponse) =>
+          throwError(
+            () =>
+              `Error getting boulders. Status: ${response.status}. Message: ${response.message}`
+          )
+        )
+      );
+  }
+
+  getBouldersAchieved(id: string): Observable<Boulder[]> {
+    return this.http
+      .get<BouldersResponse>(
+        `http://localhost:8080${this.boulderURL}/achievements/?creator=${id}`
+      )
+      .pipe(
+        map((response) => response.boulders),
+        catchError((response: HttpErrorResponse) =>
+          throwError(
+            () =>
+              `Error getting boulders. Status: ${response.status}. Message: ${response.message}`
+          )
+        )
+      );
+  }
+
   getBoulder(id: number): Observable<Boulder> {
     return this.http
       .get<BoulderResponse>(`http://localhost:8080${this.boulderURL}/${id}`)

@@ -11,3 +11,12 @@ export interface UserLogin {
   email: string;
   password: string;
 }
+
+// RESPONSES
+export interface UsersResponse {
+  users: User[];
+}
+
+export interface UserResponse {
+  user: User;
+}

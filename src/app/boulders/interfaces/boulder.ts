@@ -1,4 +1,4 @@
-import { User } from 'src/app/user/interfaces/user';
+import { User } from 'src/app/users/interfaces/user';
 
 // MODELOS
 export interface Boulder {

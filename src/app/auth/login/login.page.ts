@@ -1,7 +1,7 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, NavController } from '@ionic/angular';
-import { UserLogin } from 'src/app/user/interfaces/user';
+import { UserLogin } from 'src/app/users/interfaces/user';
 import { AuthService } from '../services/auth.service';
 
 @Component({
