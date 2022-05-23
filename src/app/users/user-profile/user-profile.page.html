@@ -115,28 +115,30 @@
   <!-- Bloques guardados -->
   <div *ngIf="isActive('saved')">
     <ion-accordion-group>
-      <ion-accordion *ngFor="let boulder of bouldersSaved" [value]="boulder.val">
-        <ion-item slot="header" [ngStyle]="{'border-color': boulder.color}">
-          <ion-label>{{boulder.label}}</ion-label>
-        </ion-item>
-        <ion-list slot="content">
-          <ion-item *ngFor="let boulder of bouldersCompleted | gradesFilter: gradesSelected"
-            [routerLink]="['/boulders/', boulder._id]" [routerDirection]="'forward'">
-            <ion-avatar slot="start">
-              <ion-badge color="{{boulder.grade.includes('+')?boulder.grade.replace('+', 'm'):boulder.grade}}">
-                {{boulder.grade}}</ion-badge>
-            </ion-avatar>
-            <ion-label>
-              <h3>{{boulder.creator.username}}</h3>
-              <h2>{{boulder.name}}</h2>
-              <p>231 repeticiones</p>
-              <span>
-                <app-static-star-rating [valoration]="boulder.valoration"></app-static-star-rating>
-              </span>
-            </ion-label>
+      <div *ngFor="let grade of bouldersSaved">
+        <ion-accordion *ngIf="grade.boulders.length > 0" [value]="grade.val">
+          <ion-item slot="header">
+            <ion-badge [color]="grade.color">{{grade.label}}</ion-badge>
           </ion-item>
-        </ion-list>
-      </ion-accordion>
+          <ion-list slot="content">
+            <ion-item *ngFor="let boulder of grade.boulders" [routerLink]="['/boulders/', boulder._id]"
+              [routerDirection]="'forward'">
+              <ion-avatar slot="start">
+                <ion-badge color="{{boulder.grade.includes('+')?boulder.grade.replace('+', 'm'):boulder.grade}}">
+                  {{boulder.grade}}</ion-badge>
+              </ion-avatar>
+              <ion-label>
+                <h3>{{boulder.creator.username}}</h3>
+                <h2>{{boulder.name}}</h2>
+                <p>231 repeticiones</p>
+                <span>
+                  <app-static-star-rating [valoration]="boulder.valoration"></app-static-star-rating>
+                </span>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-accordion>
+      </div>
     </ion-accordion-group>
   </div>
 

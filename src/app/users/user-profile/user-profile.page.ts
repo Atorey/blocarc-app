@@ -71,12 +71,12 @@ export class UserProfilePage {
   };
 
   bouldersSaved = [
-    { label: '4 - 4+', color: '#49b1d6', val: '4', boulders: [] },
-    { label: '5 - 5+', color: '#45cc80', val: '5', boulders: [] },
-    { label: '6a - 6c+', color: '#f2cf66', val: '6', boulders: [] },
-    { label: '7a - 7c+', color: '#ff9f40', val: '7', boulders: [] },
-    { label: '8a - 8c+', color: '#f23d4c', val: '8', boulders: [] },
-    { label: '9a - 9b+', color: '#5a2642', val: '9', boulders: [] },
+    { label: '4 - 4+', color: '4', val: '4', boulders: [] },
+    { label: '5 - 5+', color: '5', val: '5', boulders: [] },
+    { label: '6a - 6c+', color: '6a', val: '6', boulders: [] },
+    { label: '7a - 7c+', color: '7a', val: '7', boulders: [] },
+    { label: '8a - 8c+', color: '8a', val: '8', boulders: [] },
+    { label: '9a - 9b+', color: '9a', val: '9', boulders: [] },
   ];
 
   constructor(
@@ -118,6 +118,17 @@ export class UserProfilePage {
         this.totalBouldersCompleted = this.bouldersCompleted.length;
         this.fillGrades();
         this.createChart();
+      });
+
+    this.bouldersService
+      // eslint-disable-next-line @typescript-eslint/dot-notation
+      .getBouldersSaved(this.user['_id'])
+      .subscribe((boulders) => {
+        this.bouldersSaved.forEach((grade) => {
+          grade.boulders = boulders.filter((boulder) =>
+            boulder.grade.includes(grade.val)
+          );
+        });
       });
   }
 

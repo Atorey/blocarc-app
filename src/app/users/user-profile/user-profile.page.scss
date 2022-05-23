@@ -63,8 +63,10 @@ ion-item {
     font-family: PoppinsRegular !important;
   }
 
-  ion-badge {
-    width: 100%;
+  ion-avatar {
+    ion-badge {
+      width: 100%;
+    }
   }
 }
 
@@ -120,8 +122,3 @@ ion-item {
   }
 }
 
-ion-accordion {
-  & > ion-item {
-    border-bottom: 2px solid;
-  }
-}
