@@ -12,6 +12,7 @@ export interface Boulder {
   creator?: User;
   mine?: boolean;
   like?: boolean;
+  completed?: boolean;
   valoration: number;
   holds: Hold[];
 }

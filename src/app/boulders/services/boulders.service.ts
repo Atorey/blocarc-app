@@ -215,4 +215,10 @@ export class BouldersService {
       `http://localhost:8080${this.boulderURL}/${id}/like`
     );
   }
+
+  removeAchievement(id: string): Observable<void> {
+    return this.http.delete<void>(
+      `http://localhost:8080${this.boulderURL}/${id}/achievement`
+    );
+  }
 }

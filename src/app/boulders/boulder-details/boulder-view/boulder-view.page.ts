@@ -1,5 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { ModalController, ToastController } from '@ionic/angular';
+import {
+  AlertController,
+  ModalController,
+  ToastController,
+} from '@ionic/angular';
 import { Achievement, Boulder } from '../../interfaces/boulder';
 import { BouldersService } from '../../services/boulders.service';
 import { BoulderDetailsPage } from '../boulder-details.page';
@@ -27,7 +31,8 @@ export class BoulderViewPage implements OnInit {
     @Inject(BoulderDetailsPage) private parentComponent: BoulderDetailsPage,
     public modalCtrl: ModalController,
     private bouldersService: BouldersService,
-    private toast: ToastController
+    private toast: ToastController,
+    private alertCrl: AlertController
   ) {}
 
   ngOnInit() {
@@ -38,8 +43,32 @@ export class BoulderViewPage implements OnInit {
     });
   }
 
-  completeBoulder() {
-    this.openCompleteBoulderModal();
+  async completeBoulder() {
+    if (this.boulder.completed) {
+      const alert = await this.alertCrl.create({
+        header: 'Eliminar bloque completado',
+        message:
+          '¿Estás seguro de que quieres quitar este bloque de tu lista de completados?',
+        buttons: [
+          {
+            text: 'Ok',
+            handler: () => {
+              this.bouldersService
+                // eslint-disable-next-line @typescript-eslint/dot-notation
+                .removeAchievement(this.boulder['_id'])
+                .subscribe(() => (this.boulder.completed = false));
+            },
+          },
+          {
+            text: 'Cancelar',
+            role: 'cancel',
+          },
+        ],
+      });
+      alert.present();
+    } else {
+      this.openCompleteBoulderModal();
+    }
   }
 
   async openCompleteBoulderModal() {
@@ -54,7 +83,8 @@ export class BoulderViewPage implements OnInit {
         // eslint-disable-next-line @typescript-eslint/dot-notation
         .saveAchievement(this.achievement, this.boulder['_id'])
         .subscribe({
-          next: async (wall) => {
+          next: async () => {
+            this.boulder.completed = true;
             this.achievement = {
               date: new Date().toISOString().substring(0, 10),
               attemps: 1,
