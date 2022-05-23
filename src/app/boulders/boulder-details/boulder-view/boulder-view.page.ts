@@ -12,6 +12,9 @@ import { ModalCompleteBoulderComponent } from '../modal-complete-boulder/modal-c
 })
 export class BoulderViewPage implements OnInit {
   boulder: Boulder;
+  boulderImage = '';
+  holds = [];
+
   achievement: Achievement = {
     date: new Date().toISOString().substring(0, 10),
     attemps: 1,
@@ -19,8 +22,6 @@ export class BoulderViewPage implements OnInit {
     video: '',
     valoration: 0,
   };
-  boulderImage = '';
-  holds = [];
 
   constructor(
     @Inject(BoulderDetailsPage) private parentComponent: BoulderDetailsPage,
@@ -89,6 +90,20 @@ export class BoulderViewPage implements OnInit {
         message: '¡Error!',
         color: 'danger',
       });
+    }
+  }
+
+  like() {
+    if (this.boulder.like) {
+      this.bouldersService
+        // eslint-disable-next-line @typescript-eslint/dot-notation
+        .removeLike(this.boulder['_id'])
+        .subscribe(() => (this.boulder.like = false));
+    } else {
+      this.bouldersService
+        // eslint-disable-next-line @typescript-eslint/dot-notation
+        .postLike(this.boulder['_id'])
+        .subscribe(() => (this.boulder.like = true));
     }
   }
 }

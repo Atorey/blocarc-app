@@ -202,4 +202,17 @@ export class BouldersService {
         )
       );
   }
+
+  postLike(id: string): Observable<void> {
+    return this.http.post<void>(
+      `http://localhost:8080${this.boulderURL}/${id}/like`,
+      null
+    );
+  }
+
+  removeLike(id: string): Observable<void> {
+    return this.http.delete<void>(
+      `http://localhost:8080${this.boulderURL}/${id}/like`
+    );
+  }
 }

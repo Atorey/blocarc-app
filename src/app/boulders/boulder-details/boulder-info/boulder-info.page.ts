@@ -222,4 +222,18 @@ export class BoulderInfoPage implements OnInit {
       });
     }
   }
+
+  like() {
+    if (this.boulder.like) {
+      this.bouldersService
+        // eslint-disable-next-line @typescript-eslint/dot-notation
+        .removeLike(this.boulder['_id'])
+        .subscribe(() => (this.boulder.like = false));
+    } else {
+      this.bouldersService
+        // eslint-disable-next-line @typescript-eslint/dot-notation
+        .postLike(this.boulder['_id'])
+        .subscribe(() => (this.boulder.like = true));
+    }
+  }
 }
