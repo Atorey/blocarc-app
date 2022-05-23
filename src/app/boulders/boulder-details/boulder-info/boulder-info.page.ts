@@ -122,11 +122,11 @@ export class BoulderInfoPage implements OnInit {
       }
     });
 
-    this.percent5 = (fiveValoration * 100) / this.totalValorations;
-    this.percent4 = (fourValoration * 100) / this.totalValorations;
-    this.percent3 = (threeValoration * 100) / this.totalValorations;
-    this.percent2 = (twoValoration * 100) / this.totalValorations;
-    this.percent1 = (oneValoration * 100) / this.totalValorations;
+    this.percent5 = Math.trunc((fiveValoration * 100) / this.totalValorations);
+    this.percent4 = Math.trunc((fourValoration * 100) / this.totalValorations);
+    this.percent3 = Math.trunc((threeValoration * 100) / this.totalValorations);
+    this.percent2 = Math.trunc((twoValoration * 100) / this.totalValorations);
+    this.percent1 = Math.trunc((oneValoration * 100) / this.totalValorations);
   }
 
   calculateGrades() {
@@ -140,7 +140,9 @@ export class BoulderInfoPage implements OnInit {
       );
       this.grades.push({
         value: grade,
-        percent: (repetitions.length * 100) / this.achievements.length,
+        percent: Math.trunc(
+          (repetitions.length * 100) / this.achievements.length
+        ),
       });
     });
 

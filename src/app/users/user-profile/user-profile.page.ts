@@ -20,6 +20,7 @@ export class UserProfilePage {
   selectedSegment = 'created';
   bouldersCreated: Boulder[];
   bouldersCompleted: Boulder[];
+  bouldersLike: Boulder[];
   totalBouldersCreated: number;
   totalBouldersCompleted: number;
 
@@ -129,6 +130,13 @@ export class UserProfilePage {
             boulder.grade.includes(grade.val)
           );
         });
+      });
+
+      this.bouldersService
+      // eslint-disable-next-line @typescript-eslint/dot-notation
+      .getBouldersLike(this.user['_id'])
+      .subscribe((boulders) => {
+        this.bouldersLike = boulders;
       });
   }
 

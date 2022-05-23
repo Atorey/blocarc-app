@@ -26,7 +26,7 @@
       <ion-label>
         <h3>@{{boulder.creator.username}}</h3>
         <h2>{{boulder.name}}</h2>
-        <p>231 repeticiones</p>
+        <p>{{boulder.reps}} {{boulder.reps === 1 ? 'repetición' : 'repeticiones'}}</p>
         <span>
           <app-static-star-rating [valoration]="boulder.valoration"></app-static-star-rating>
         </span>

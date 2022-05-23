@@ -60,7 +60,7 @@
       </ion-avatar>
       <ion-label>
         <h2>{{boulder.name}}</h2>
-        <p>231 repeticiones</p>
+        <p>{{boulder.reps}} {{boulder.reps === 1 ? 'repetición' : 'repeticiones'}}</p>
         <span>
           <app-static-star-rating [valoration]="boulder.valoration"></app-static-star-rating>
         </span>
@@ -103,7 +103,6 @@
       <ion-label>
         <h3>{{boulder.creator.username}}</h3>
         <h2>{{boulder.name}}</h2>
-        <p>231 repeticiones</p>
         <span>
           <app-static-star-rating [valoration]="boulder.valoration"></app-static-star-rating>
         </span>
@@ -130,7 +129,7 @@
               <ion-label>
                 <h3>{{boulder.creator.username}}</h3>
                 <h2>{{boulder.name}}</h2>
-                <p>231 repeticiones</p>
+                <p>{{boulder.reps}} {{boulder.reps === 1 ? 'repetición' : 'repeticiones'}}</p>
                 <span>
                   <app-static-star-rating [valoration]="boulder.valoration"></app-static-star-rating>
                 </span>
@@ -140,6 +139,24 @@
         </ion-accordion>
       </div>
     </ion-accordion-group>
+  </div>
+
+  <!-- Bloques creados -->
+  <div *ngIf="isActive('fav')">
+    <ion-item *ngFor="let boulder of bouldersLike" [routerLink]="['/boulders/', boulder._id]"
+      [routerDirection]="'forward'">
+      <ion-avatar slot="start">
+        <ion-badge color="{{boulder.grade.includes('+')?boulder.grade.replace('+', 'm'):boulder.grade}}">
+          {{boulder.grade}}</ion-badge>
+      </ion-avatar>
+      <ion-label>
+        <h2>{{boulder.name}}</h2>
+        <p>{{boulder.reps}} {{boulder.reps === 1 ? 'repetición' : 'repeticiones'}}</p>
+        <span>
+          <app-static-star-rating [valoration]="boulder.valoration"></app-static-star-rating>
+        </span>
+      </ion-label>
+    </ion-item>
   </div>
 
 </ion-content>
