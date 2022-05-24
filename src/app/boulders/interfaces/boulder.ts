@@ -30,6 +30,8 @@ export interface Hold {
 }
 
 export interface Achievement {
+  user?: User;
+  boulder?: Boulder;
   date: string;
   attemps: number;
   grade?: string;

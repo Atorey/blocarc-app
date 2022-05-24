@@ -1,5 +1,9 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
-import { ModalController, ToastController } from '@ionic/angular';
+import {
+  AlertController,
+  ModalController,
+  ToastController,
+} from '@ionic/angular';
 import { Chart, registerables } from 'node_modules/chart.js';
 import { Achievement, Boulder } from '../../interfaces/boulder';
 import { BouldersService } from '../../services/boulders.service';
@@ -27,6 +31,7 @@ export class BoulderInfoPage implements OnInit {
   attepm3 = 0;
   attepmMore = 0;
   totalValorations = 0;
+  selectedSegment = 'info';
   achievement: Achievement = {
     date: new Date().toISOString().substring(0, 10),
     attemps: 1,
@@ -39,7 +44,8 @@ export class BoulderInfoPage implements OnInit {
     @Inject(BoulderDetailsPage) private parentComponent: BoulderDetailsPage,
     public modalCtrl: ModalController,
     private bouldersService: BouldersService,
-    private toast: ToastController
+    private toast: ToastController,
+    private alertCrl: AlertController
   ) {
     Chart.register(...registerables);
   }
@@ -168,10 +174,33 @@ export class BoulderInfoPage implements OnInit {
     });
   }
 
-  completeBoulder() {
-    this.openCompleteBoulderModal();
+  async completeBoulder() {
+    if (this.boulder.completed) {
+      const alert = await this.alertCrl.create({
+        header: 'Eliminar bloque completado',
+        message:
+          '¿Estás seguro de que quieres quitar este bloque de tu lista de completados?',
+        buttons: [
+          {
+            text: 'Ok',
+            handler: () => {
+              this.bouldersService
+                // eslint-disable-next-line @typescript-eslint/dot-notation
+                .removeAchievement(this.boulder['_id'])
+                .subscribe(() => (this.boulder.completed = false));
+            },
+          },
+          {
+            text: 'Cancelar',
+            role: 'cancel',
+          },
+        ],
+      });
+      alert.present();
+    } else {
+      this.openCompleteBoulderModal();
+    }
   }
-
   async openCompleteBoulderModal() {
     const modal = await this.modalCtrl.create({
       component: ModalCompleteBoulderComponent,
@@ -235,5 +264,13 @@ export class BoulderInfoPage implements OnInit {
         .postLike(this.boulder['_id'])
         .subscribe(() => (this.boulder.like = true));
     }
+  }
+
+  segmentChanged(ev: any) {
+    this.selectedSegment = ev.detail.value;
+  }
+
+  isActive(segment: string) {
+    return segment === this.selectedSegment;
   }
 }
