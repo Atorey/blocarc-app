@@ -36,10 +36,12 @@
     </div>
     <div class="bar-right">
       <ion-button class="btn-non-image" fill="clear" (click)="completeBoulder()">
-        <ion-icon  color="{{boulder?.completed ? 'primary' : 'medium'}}" name="{{boulder?.completed ? 'checkbox' : 'checkbox-outline'}}"></ion-icon>
+        <ion-icon color="{{boulder?.completed ? 'primary' : 'medium'}}"
+          name="{{boulder?.completed ? 'checkbox' : 'checkbox-outline'}}"></ion-icon>
       </ion-button>
-      <ion-button class="btn-non-image" fill="clear">
-        <ion-icon color="medium" name="bookmark-outline"></ion-icon>
+      <ion-button class="btn-non-image" fill="clear" (click)="save()">
+        <ion-icon color="{{boulder?.saved ? 'primary' : 'medium'}}"
+          name="{{boulder?.saved ? 'bookmark' : 'bookmark-outline'}}"></ion-icon>
       </ion-button>
     </div>
   </div>

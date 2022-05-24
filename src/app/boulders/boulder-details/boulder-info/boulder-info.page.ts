@@ -266,6 +266,20 @@ export class BoulderInfoPage implements OnInit {
     }
   }
 
+  save() {
+    if (this.boulder.saved) {
+      this.bouldersService
+        // eslint-disable-next-line @typescript-eslint/dot-notation
+        .removeBoulderMark(this.boulder['_id'])
+        .subscribe(() => (this.boulder.saved = false));
+    } else {
+      this.bouldersService
+        // eslint-disable-next-line @typescript-eslint/dot-notation
+        .postBoulderMark(this.boulder['_id'])
+        .subscribe(() => (this.boulder.saved = true));
+    }
+  }
+
   segmentChanged(ev: any) {
     this.selectedSegment = ev.detail.value;
   }

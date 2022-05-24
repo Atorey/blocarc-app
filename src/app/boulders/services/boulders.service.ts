@@ -210,6 +210,13 @@ export class BouldersService {
     );
   }
 
+  postBoulderMark(id: string): Observable<void> {
+    return this.http.post<void>(
+      `http://localhost:8080${this.boulderURL}/${id}/save`,
+      null
+    );
+  }
+
   removeLike(id: string): Observable<void> {
     return this.http.delete<void>(
       `http://localhost:8080${this.boulderURL}/${id}/like`
@@ -219,6 +226,12 @@ export class BouldersService {
   removeAchievement(id: string): Observable<void> {
     return this.http.delete<void>(
       `http://localhost:8080${this.boulderURL}/${id}/achievement`
+    );
+  }
+
+  removeBoulderMark(id: string): Observable<void> {
+    return this.http.delete<void>(
+      `http://localhost:8080${this.boulderURL}/${id}/save`
     );
   }
 }
