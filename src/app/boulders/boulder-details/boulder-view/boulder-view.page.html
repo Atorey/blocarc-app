@@ -4,11 +4,11 @@
       <ion-back-button defaultHref="boulders/explore"></ion-back-button>
     </ion-buttons>
     <ion-title>{{boulder?.name}}</ion-title>
-    <ion-buttons *ngIf="boulder?.mine" slot="end">
-      <ion-button>
+    <ion-buttons slot="end">
+      <ion-button *ngIf="boulder?.mine" (click)="updateBoulder()">
         <ion-icon name="create" color="medium"></ion-icon>
       </ion-button>
-      <ion-button>
+      <ion-button *ngIf="boulder?.mine && !boulder?.share" (click)="deleteBoulder()">
         <ion-icon name="trash" color="medium"></ion-icon>
       </ion-button>
     </ion-buttons>

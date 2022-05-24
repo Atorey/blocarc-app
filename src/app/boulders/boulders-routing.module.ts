@@ -1,7 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { BoulderIdGuard } from '../guards/boulder-id.guard';
 
 const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'explore',
+    pathMatch: 'full',
+  },
   {
     path: 'add',
     loadChildren: () =>

@@ -17,20 +17,21 @@
       </ion-button>
     </ion-item-divider>
 
-    <ion-item *ngFor="let boulder of boulders | bouldersFilter: search" [routerLink]="['/boulders/', boulder._id]"
-      [routerDirection]="'forward'">
-      <ion-avatar slot="start">
-        <ion-badge color="{{boulder.grade.includes('+')?boulder.grade.replace('+', 'm'):boulder.grade}}">
-          {{boulder.grade}}</ion-badge>
-      </ion-avatar>
-      <ion-label>
-        <h3>@{{boulder.creator.username}}</h3>
-        <h2>{{boulder.name}}</h2>
-        <p>{{boulder.reps}} {{boulder.reps === 1 ? 'repetición' : 'repeticiones'}}</p>
-        <span>
-          <app-static-star-rating [valoration]="boulder.valoration"></app-static-star-rating>
-        </span>
-      </ion-label>
-    </ion-item>
+    <div *ngFor="let boulder of boulders | bouldersFilter: search">
+      <ion-item [routerLink]="['/boulders/', boulder._id]" [routerDirection]="'forward'">
+        <ion-avatar slot="start">
+          <ion-badge color="{{boulder.grade.includes('+')?boulder.grade.replace('+', 'm'):boulder.grade}}">
+            {{boulder.grade}}</ion-badge>
+        </ion-avatar>
+        <ion-label>
+          <h3>{{boulder.creator.username}}</h3>
+          <h2>{{boulder.name}}</h2>
+          <p>{{boulder.reps}} {{boulder.reps === 1 ? 'repetición' : 'repeticiones'}}</p>
+          <span>
+            <app-static-star-rating [valoration]="boulder.valoration"></app-static-star-rating>
+          </span>
+        </ion-label>
+      </ion-item>
+    </div>
   </ion-list>
 </ion-content>

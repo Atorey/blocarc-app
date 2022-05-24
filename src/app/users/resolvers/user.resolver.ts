@@ -15,8 +15,9 @@ export class UserResolver implements Resolve<User> {
   ) {}
 
   resolve(route: ActivatedRouteSnapshot): Observable<User> {
+    console.log(route.paramMap.get('id'));
     if (route.paramMap.get('id')) {
-      return this.usersService.getUser(+route.paramMap.get('id')).pipe(
+      return this.usersService.getUser(route.paramMap.get('id')).pipe(
         catchError(() => {
           this.router.navigate(['/']);
           return EMPTY;

@@ -1,0 +1,54 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>Editar bloque</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form #boulderForm="ngForm" (ngSubmit)="updateBoulder()">
+    <ion-list>
+
+      <ion-item>
+        <ion-label color="medium" position="floating">
+          Nombre
+        </ion-label>
+        <ion-input name="name" required [(ngModel)]="boulder.name" #nameModel="ngModel">
+        </ion-input>
+        <ion-icon name="checkmark-circle" slot="end" color="success" *ngIf="nameModel.dirty && nameModel.valid">
+        </ion-icon>
+      </ion-item>
+      <ion-label class="ion-padding error-message" color="danger"
+        *ngIf="nameModel.errors?.['required'] && nameModel.touched">
+        El nombre no se puede quedar vacío
+      </ion-label>
+
+      <ion-item>
+        <ion-label color="medium" position="stacked">Grado</ion-label>
+        <ion-select name="grade" [(ngModel)]="boulder.grade" #gradeModel="ngModel">
+          <ion-select-option *ngFor="let grade of grades" value="{{grade}}">{{grade}}</ion-select-option>
+        </ion-select>
+        <ion-icon name="checkmark-circle" slot="end" color="success" *ngIf="gradeModel.dirty && gradeModel.valid">
+        </ion-icon>
+      </ion-item>
+      <ion-label class="ion-padding error-message" color="danger"
+        *ngIf="gradeModel.errors?.['required'] && gradeModel.touched">
+        El grado no se puede quedar vacío
+      </ion-label>
+
+      <ion-item *ngIf="!boudler.share">
+        <ion-label color="medium">Compartir con la comunidad</ion-label>
+        <ion-toggle name="share" [(ngModel)]="boulder.share"></ion-toggle>
+      </ion-item>
+
+    </ion-list>
+    <ion-button slot="bottom" type="submit" color="secondary" expand="block"
+      [disabled]="boulderForm.invalid || !boulderForm.touched">
+      Editar
+    </ion-button>
+
+  </form>
+</ion-content>

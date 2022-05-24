@@ -13,9 +13,10 @@ export class BoulderListPage implements OnInit {
 
   constructor(private bouldersService: BouldersService) {}
 
-  ngOnInit() {
+  ionViewWillEnter() {
     this.getBoulders();
   }
+  ngOnInit() {}
 
   getBoulders() {
     this.bouldersService.getBoulders().subscribe((boulders) => {

@@ -8,7 +8,7 @@
       <ion-button>
         <ion-icon name="create" color="medium"></ion-icon>
       </ion-button>
-      <ion-button>
+      <ion-button *ngIf="boulder?.mine && !boulder?.share" (click)="deleteBoulder()">
         <ion-icon name="trash" color="medium"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -28,7 +28,8 @@
     <ion-item class="info">
       <ion-label>
         <div>
-          <h4>@{{boulder.creator.username}}</h4>
+          <h4 [routerDirection]="'forward'" [routerLink]="['/users/', boulder.creator._id]">
+            {{boulder.creator.username}}</h4>
           <p>{{formatDate}}</p>
         </div>
         <h1>{{boulder.name}}</h1>

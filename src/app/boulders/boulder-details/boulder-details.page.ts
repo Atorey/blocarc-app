@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { IonTabs } from '@ionic/angular';
+import { ActivatedRoute, Router } from '@angular/router';
+import { IonTabs, NavController } from '@ionic/angular';
 import { Observable } from 'rxjs';
 import { shareReplay } from 'rxjs/operators';
 import { Boulder } from '../interfaces/boulder';
@@ -19,7 +19,9 @@ export class BoulderDetailsPage implements OnInit {
 
   constructor(
     private bouldersService: BouldersService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private nav: NavController,
+    public router: Router
   ) {
     this.boulder$ = this.bouldersService
       .getBoulder(this.route.snapshot.params.id)
@@ -27,7 +29,14 @@ export class BoulderDetailsPage implements OnInit {
   }
 
   ngOnInit() {
-    this.boulder$.subscribe((boulder) => (this.boulder = boulder));
+    this.boulder$.subscribe({
+      next: (boulder) => {
+        this.boulder = boulder;
+      },
+      error: (error) => {
+        this.router.navigate(['/boulders']);
+      },
+    });
   }
 
   getBoulder(): Observable<Boulder> {

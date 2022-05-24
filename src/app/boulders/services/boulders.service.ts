@@ -234,4 +234,35 @@ export class BouldersService {
       `http://localhost:8080${this.boulderURL}/${id}/save`
     );
   }
+
+  editBoulder(boulder: Boulder): Observable<Boulder> {
+    return this.http
+      .put<BoulderResponse>(
+        // eslint-disable-next-line @typescript-eslint/dot-notation
+        `http://localhost:8080${this.boulderURL}/${boulder['_id']}`,
+        boulder
+      )
+      .pipe(
+        map((response) => response.boulder),
+        catchError((response: HttpErrorResponse) =>
+          throwError(
+            () =>
+              `Error postting boulder. Status: ${response.status}. Message: ${response.message}`
+          )
+        )
+      );
+  }
+
+  deleteBoulder(id: string): Observable<void> {
+    return this.http
+      .delete<void>(`http://localhost:8080${this.boulderURL}/${id}`)
+      .pipe(
+        catchError((response: HttpErrorResponse) =>
+          throwError(
+            () =>
+              `Error deleting boulder. Status: ${response.status}. Message: ${response.message}`
+          )
+        )
+      );
+  }
 }

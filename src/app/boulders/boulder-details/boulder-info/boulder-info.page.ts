@@ -1,4 +1,5 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   AlertController,
   ModalController,
@@ -45,7 +46,8 @@ export class BoulderInfoPage implements OnInit {
     public modalCtrl: ModalController,
     private bouldersService: BouldersService,
     private toast: ToastController,
-    private alertCrl: AlertController
+    private alertCrl: AlertController,
+    public router: Router
   ) {
     Chart.register(...registerables);
   }
@@ -286,5 +288,51 @@ export class BoulderInfoPage implements OnInit {
 
   isActive(segment: string) {
     return segment === this.selectedSegment;
+  }
+
+  async deleteBoulder() {
+    const alert = await this.alertCrl.create({
+      header: 'Eliminar bloque',
+      message: '¿Estás seguro de que quieres eliminar este bloque?',
+      buttons: [
+        {
+          text: 'Ok',
+          handler: () => {
+            this.bouldersService
+              // eslint-disable-next-line @typescript-eslint/dot-notation
+              .deleteBoulder(this.boulder['_id'])
+              .subscribe({
+                next: async (boulder) => {
+                  this.router.navigate(['/boulders']);
+
+                  (
+                    await this.toast.create({
+                      duration: 3000,
+                      position: 'bottom',
+                      message: '¡Bloque eliminado!',
+                      color: 'success',
+                    })
+                  ).present();
+                },
+                error: async () => {
+                  (
+                    await this.toast.create({
+                      duration: 3000,
+                      position: 'bottom',
+                      message: 'Se ha producido un error',
+                      color: 'danger',
+                    })
+                  ).present();
+                },
+              });
+          },
+        },
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+        },
+      ],
+    });
+    alert.present();
   }
 }

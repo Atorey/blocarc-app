@@ -18,7 +18,7 @@ export class UsersService {
       .pipe(map((response) => response.user));
   }
 
-  getUser(id: number): Observable<User> {
+  getUser(id: string): Observable<User> {
     return this.http
       .get<UserResponse>(`http://localhost:8080${this.userURL}/${id}`)
       .pipe(map((response) => response.user));

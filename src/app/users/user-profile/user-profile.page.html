@@ -42,18 +42,18 @@
     <ion-segment-button value="completed">
       <ion-icon [name]="isActive('completed')?'checkbox':'checkbox-outline'"></ion-icon>
     </ion-segment-button>
-    <ion-segment-button value="saved">
+    <ion-segment-button *ngIf="user.me" value="saved">
       <ion-icon [name]="isActive('saved')?'bookmark':'bookmark-outline'"></ion-icon>
     </ion-segment-button>
-    <ion-segment-button value="fav">
+    <ion-segment-button *ngIf="user.me" value="fav">
       <ion-icon [name]="isActive('fav')?'heart':'heart-outline'"></ion-icon>
     </ion-segment-button>
   </ion-segment>
 
   <!-- Bloques creados -->
   <div *ngIf="isActive('created')">
-    <ion-item *ngFor="let boulder of bouldersCreated" [routerLink]="['/boulders/', boulder._id]"
-      [routerDirection]="'forward'">
+    <ion-item *ngFor="let boulder of bouldersCreated" [routerDirection]="'forward'"
+      [routerLink]="['/boulders/', boulder._id]">
       <ion-avatar slot="start">
         <ion-badge color="{{boulder.grade.includes('+')?boulder.grade.replace('+', 'm'):boulder.grade}}">
           {{boulder.grade}}</ion-badge>

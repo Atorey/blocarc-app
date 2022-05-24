@@ -17,12 +17,16 @@ export class StaticStarRatingComponent implements OnInit {
   }
 
   setStarValoration() {
-    this.points = Array(Math.floor(this.valoration)).fill(1);
-    if ((this.decimalValoration = this.valoration % 1 >= 0.5)) {
-      this.decimalValoration = true;
-      this.noPoints = Array(4 - this.points.length).fill(0);
+    if (this.valoration) {
+      this.points = Array(Math.floor(this.valoration)).fill(1);
+      if ((this.decimalValoration = this.valoration % 1 >= 0.5)) {
+        this.decimalValoration = true;
+        this.noPoints = Array(4 - this.points.length).fill(0);
+      } else {
+        this.noPoints = Array(5 - this.points.length).fill(0);
+      }
     } else {
-      this.noPoints = Array(5 - this.points.length).fill(0);
+      this.noPoints = Array(5).fill(1);
     }
   }
 }

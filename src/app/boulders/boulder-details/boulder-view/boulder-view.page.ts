@@ -1,13 +1,16 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   AlertController,
   ModalController,
+  NavController,
   ToastController,
 } from '@ionic/angular';
 import { Achievement, Boulder } from '../../interfaces/boulder';
 import { BouldersService } from '../../services/boulders.service';
 import { BoulderDetailsPage } from '../boulder-details.page';
 import { ModalCompleteBoulderComponent } from '../modal-complete-boulder/modal-complete-boulder.component';
+import { ModalUpdateBoulderComponent } from '../modal-update-boulder/modal-update-boulder.component';
 
 @Component({
   selector: 'app-boulder-view',
@@ -32,7 +35,9 @@ export class BoulderViewPage implements OnInit {
     public modalCtrl: ModalController,
     private bouldersService: BouldersService,
     private toast: ToastController,
-    private alertCrl: AlertController
+    public router: Router,
+    private alertCrl: AlertController,
+    private navCtrl: NavController
   ) {}
 
   ngOnInit() {
@@ -149,5 +154,100 @@ export class BoulderViewPage implements OnInit {
         .postBoulderMark(this.boulder['_id'])
         .subscribe(() => (this.boulder.saved = true));
     }
+  }
+
+  updateBoulder() {
+    this.openUpdateBoulderModal();
+  }
+
+  async openUpdateBoulderModal() {
+    const modal = await this.modalCtrl.create({
+      component: ModalUpdateBoulderComponent,
+      componentProps: { boulder: this.boulder },
+    });
+    await modal.present();
+    const result = await modal.onDidDismiss();
+    if (result.data && result.data.boulder) {
+      this.bouldersService.editBoulder(this.boulder).subscribe({
+        next: async (boulder) => {
+          this.boulder = boulder;
+          (
+            await this.toast.create({
+              duration: 3000,
+              position: 'bottom',
+              message: '¡Bloque editado!',
+              color: 'success',
+            })
+          ).present();
+        },
+        error: async () => {
+          (
+            await this.toast.create({
+              duration: 3000,
+              position: 'bottom',
+              message: 'Se ha producido un error',
+              color: 'danger',
+            })
+          ).present();
+        },
+      });
+    } else {
+      this.toast.create({
+        duration: 3000,
+        position: 'bottom',
+        message: '¡Error!',
+        color: 'danger',
+      });
+    }
+  }
+
+  async deleteBoulder() {
+    const alert = await this.alertCrl.create({
+      header: 'Eliminar bloque',
+      message: '¿Estás seguro de que quieres eliminar este bloque?',
+      buttons: [
+        {
+          text: 'Ok',
+          handler: () => {
+            this.bouldersService
+              // eslint-disable-next-line @typescript-eslint/dot-notation
+              .deleteBoulder(this.boulder['_id'])
+              .subscribe({
+                next: async (boulder) => {
+                  this.router.navigate(['/boulders']);
+
+                  (
+                    await this.toast.create({
+                      duration: 3000,
+                      position: 'bottom',
+                      message: '¡Bloque eliminado!',
+                      color: 'success',
+                    })
+                  ).present();
+                },
+                error: async () => {
+                  (
+                    await this.toast.create({
+                      duration: 3000,
+                      position: 'bottom',
+                      message: 'Se ha producido un error',
+                      color: 'danger',
+                    })
+                  ).present();
+                },
+              });
+          },
+        },
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+        },
+      ],
+    });
+    alert.present();
+  }
+
+  backToPreviousPage() {
+    this.navCtrl.back();
   }
 }
