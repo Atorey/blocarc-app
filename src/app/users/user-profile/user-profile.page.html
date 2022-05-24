@@ -78,7 +78,7 @@
 
   <div *ngIf="isActive('completed')">
     <div class="checkbox-grades">
-      <h4>Filtrar listado:</h4>
+      <h4>Lista de bloques completados</h4>
       <div>
         <div *ngFor="let grade of filterGrades">
           <ion-checkbox [color]="grade.color" [(ngModel)]="grade.isChecked" (ionChange)="checkboxClick(grade)">
@@ -86,8 +86,6 @@
           <span>{{grade.val}}</span>
         </div>
       </div>
-
-
     </div>
 
     <div class="icon">

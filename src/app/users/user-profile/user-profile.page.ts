@@ -132,7 +132,7 @@ export class UserProfilePage {
         });
       });
 
-      this.bouldersService
+    this.bouldersService
       // eslint-disable-next-line @typescript-eslint/dot-notation
       .getBouldersLike(this.user['_id'])
       .subscribe((boulders) => {
@@ -203,6 +203,7 @@ export class UserProfilePage {
         ],
       },
       options: {
+        responsive: true,
         animation: {
           duration: 0,
         },
