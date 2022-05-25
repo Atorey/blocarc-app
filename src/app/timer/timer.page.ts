@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { PickerController } from '@ionic/angular';
 import { setOptions, localeEs } from '@mobiscroll/angular';
 import { TimeInterval } from 'rxjs';
+import { Timer } from '../users/interfaces/user';
+import { UsersService } from '../users/services/users.service';
 
 @Component({
   selector: 'app-timer',
@@ -32,24 +34,45 @@ export class TimerPage implements OnInit {
     sec: '00',
   };
 
-  spreparationTime = {
+  copyPreparationTime = {
     min: '00',
     sec: '00',
   };
-  sworkTime = {
+  copyWorkTime = {
     min: '00',
     sec: '00',
   };
-  srestTime = {
+  copyRestTime = {
     min: '00',
     sec: '00',
   };
+
+  timer: Timer;
 
   rounds = '1';
 
-  constructor(private pickerController: PickerController) {}
+  constructor(
+    private pickerController: PickerController,
+    private usersService: UsersService
+  ) {}
 
   ngOnInit() {
+    this.usersService.getTimer().subscribe((timer) => {
+      this.preparationTime = {
+        min: timer.timer.preparationTime.split(':')[0],
+        sec: timer.timer.preparationTime.split(':')[1],
+      };
+      this.workTime = {
+        min: timer.timer.workTime.split(':')[0],
+        sec: timer.timer.workTime.split(':')[1],
+      };
+      this.restTime = {
+        min: timer.timer.restTime.split(':')[0],
+        sec: timer.timer.restTime.split(':')[1],
+      };
+      this.rounds = timer.timer.rounds;
+    });
+
     for (let i = 0; i <= 60; i++) {
       this.numberTime.push(i < 10 ? '0' + i.toString() : i.toString());
     }
@@ -168,6 +191,16 @@ export class TimerPage implements OnInit {
   }
 
   startTimer() {
+    const timer = {
+      timer: {
+        preparationTime:
+          this.preparationTime.min + ':' + this.preparationTime.sec,
+        workTime: this.workTime.min + ':' + this.workTime.sec,
+        restTime: this.restTime.min + ':' + this.restTime.sec,
+        rounds: this.rounds,
+      },
+    };
+    this.usersService.postTimer(timer).subscribe();
     this.step++;
 
     if (
@@ -182,33 +215,33 @@ export class TimerPage implements OnInit {
   }
 
   startPreparationTime() {
-    this.spreparationTime = { ...this.preparationTime };
+    this.copyPreparationTime = { ...this.preparationTime };
     this.preparationInterval = setInterval(() => {
       if (
-        this.spreparationTime.min === '00' &&
-        this.spreparationTime.sec === '00'
+        this.copyPreparationTime.min === '00' &&
+        this.copyPreparationTime.sec === '00'
       ) {
         clearInterval(this.preparationInterval);
         this.step++;
         this.startWorkTime();
       } else {
-        if (+this.spreparationTime.sec > 0) {
-          const seconds = +this.spreparationTime.sec - 1;
-          this.spreparationTime.sec =
+        if (+this.copyPreparationTime.sec > 0) {
+          const seconds = +this.copyPreparationTime.sec - 1;
+          this.copyPreparationTime.sec =
             seconds < 10 ? '0' + seconds : seconds.toString();
         } else {
-          const min = +this.spreparationTime.min - 1;
-          this.spreparationTime.min = min < 10 ? '0' + min : min.toString();
-          this.spreparationTime.sec = '59';
+          const min = +this.copyPreparationTime.min - 1;
+          this.copyPreparationTime.min = min < 10 ? '0' + min : min.toString();
+          this.copyPreparationTime.sec = '59';
         }
       }
     }, 1000);
   }
 
   startWorkTime() {
-    this.sworkTime = { ...this.workTime };
+    this.copyWorkTime = { ...this.workTime };
     this.workInterval = setInterval(() => {
-      if (this.sworkTime.min === '00' && this.sworkTime.sec === '00') {
+      if (this.copyWorkTime.min === '00' && this.copyWorkTime.sec === '00') {
         clearInterval(this.workInterval);
         if (this.currentRound === +this.rounds) {
           this.step = 0;
@@ -220,42 +253,43 @@ export class TimerPage implements OnInit {
           this.startRestTime();
         }
       } else {
-        if (+this.sworkTime.sec > 0) {
-          const seconds = +this.sworkTime.sec - 1;
-          this.sworkTime.sec =
+        if (+this.copyWorkTime.sec > 0) {
+          const seconds = +this.copyWorkTime.sec - 1;
+          this.copyWorkTime.sec =
             seconds < 10 ? '0' + seconds : seconds.toString();
         } else {
-          const min = +this.sworkTime.min - 1;
-          this.sworkTime.min = min < 10 ? '0' + min : min.toString();
-          this.sworkTime.sec = '59';
+          const min = +this.copyWorkTime.min - 1;
+          this.copyWorkTime.min = min < 10 ? '0' + min : min.toString();
+          this.copyWorkTime.sec = '59';
         }
       }
     }, 1000);
   }
 
   startRestTime() {
-    this.srestTime = { ...this.restTime };
+    this.copyRestTime = { ...this.restTime };
     this.restInterval = setInterval(() => {
-      if (this.srestTime.min === '00' && this.srestTime.sec === '00') {
+      if (this.copyRestTime.min === '00' && this.copyRestTime.sec === '00') {
         clearInterval(this.restInterval);
         this.currentRound++;
         this.step--;
         this.startWorkTime();
       } else {
-        if (+this.srestTime.sec > 0) {
-          const seconds = +this.srestTime.sec - 1;
-          this.srestTime.sec =
+        if (+this.copyRestTime.sec > 0) {
+          const seconds = +this.copyRestTime.sec - 1;
+          this.copyRestTime.sec =
             seconds < 10 ? '0' + seconds : seconds.toString();
         } else {
-          const min = +this.srestTime.min - 1;
-          this.srestTime.min = min < 10 ? '0' + min : min.toString();
-          this.srestTime.sec = '59';
+          const min = +this.copyRestTime.min - 1;
+          this.copyRestTime.min = min < 10 ? '0' + min : min.toString();
+          this.copyRestTime.sec = '59';
         }
       }
     }, 1000);
   }
 
   goBack() {
+    this.stopInterval();
     this.step = 0;
   }
 

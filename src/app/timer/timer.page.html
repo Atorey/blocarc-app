@@ -72,15 +72,15 @@
   <!-- Pantalla tiempo de preparación -->
   <div class="time-container" *ngIf="step === 1">
     <p>Tiempo de preparación</p>
-    <h2>{{spreparationTime.min + ':' +spreparationTime.sec}}</h2>
+    <h2>{{copyPreparationTime.min + ':' +copyPreparationTime.sec}}</h2>
   </div>
   <div class="time-container work-time" *ngIf="step === 2">
     <p>Tiempo de trabajo</p>
-    <h2>{{sworkTime.min + ':' +sworkTime.sec}}</h2>
+    <h2>{{copyWorkTime.min + ':' +copyWsec}}</h2>
   </div>
   <div class="time-container" *ngIf="step === 3">
     <p>Tiempo de descanso</p>
-    <h2>{{srestTime.min + ':' +srestTime.sec}}</h2>
+    <h2>{{copyRestTime.min + ':' +copyRestTime.sec}}</h2>
   </div>
 </ion-content>
 <ion-footer [ngClass]="{'primary-bck work-time': step === 2}">

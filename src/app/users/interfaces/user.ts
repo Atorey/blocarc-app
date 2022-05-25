@@ -12,6 +12,15 @@ export interface UserLogin {
   password: string;
 }
 
+export interface Timer {
+  timer: {
+    preparationTime: string;
+    workTime: string;
+    restTime: string;
+    rounds: string;
+  };
+}
+
 // RESPONSES
 export interface UsersResponse {
   users: User[];
