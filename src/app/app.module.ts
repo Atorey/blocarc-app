@@ -1,3 +1,5 @@
+import { MbscModule } from '@mobiscroll/angular';
+import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy, RouterModule } from '@angular/router';
@@ -20,7 +22,7 @@ import { BouldersFilterPipe } from './boulders/pipes/boulders-filter.pipe';
     AppRoutingModule,
     HttpClientModule,
     ImageCropperModule,
-    RouterModule
+    RouterModule,
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

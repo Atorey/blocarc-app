@@ -17,8 +17,7 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    loadChildren: () =>
-      import('./home/home.module').then((m) => m.HomeModule),
+    loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
     canActivate: [LoginActivateGuard],
   },
   {
@@ -34,8 +33,15 @@ const routes: Routes = [
   },
   {
     path: 'users',
-    loadChildren: () => import('./users/users.module').then((m) => m.UsersModule),
-    canActivate: [LoginActivateGuard]
+    loadChildren: () =>
+      import('./users/users.module').then((m) => m.UsersModule),
+    canActivate: [LoginActivateGuard],
+  },
+  {
+    path: 'timer',
+    loadChildren: () =>
+      import('./timer/timer.module').then((m) => m.TimerModule),
+    canActivate: [LoginActivateGuard],
   },
 ];
 @NgModule({

@@ -1,0 +1,101 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button *ngIf="step===0" [routerLink]="['/home']" [routerDirection]="'back'">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+      <ion-button *ngIf="step!==0" (click)="goBack()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Temporizador</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [ngClass]="{'primary-bck': step === 2}">
+
+  <!-- Pantalla principal -->
+  <div *ngIf="step === 0">
+    <ion-card class="volume">
+      <ion-item>
+        <ion-button fill="clear" size="large">
+          <ion-icon size="large" [name]="changeIconVolume()" [color]="volume === 0 ? 'medium' : 'primary'"></ion-icon>
+        </ion-button>
+        <ion-range min="0" max="100" [color]="volume === 0 ? 'medium' : 'primary'" [value]="volume"
+          (ionChange)="changeVolume($event)"></ion-range>
+      </ion-item>
+    </ion-card>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6">
+          <ion-card>
+            <ion-label>Tiempo de preparación</ion-label>
+            <ion-button color="dark" fill="clear" (click)="preparationTimePicker()">{{preparationTime.min + ':' +
+              preparationTime.sec}}
+            </ion-button>
+          </ion-card>
+        </ion-col>
+        <ion-col size="6">
+          <ion-card>
+            <ion-label>Intervalo de trabajo</ion-label>
+            <ion-button color="dark" fill="clear" (click)="workTimePicker()">{{workTime.min + ':' +
+              workTime.sec}}
+            </ion-button>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="6">
+          <ion-card>
+            <ion-label>Tiempo de descanso</ion-label>
+            <ion-button color="dark" fill="clear" (click)="restTimePicker()">{{restTime.min + ':' +
+              restTime.sec}}
+            </ion-button>
+          </ion-card>
+        </ion-col>
+        <ion-col size="6">
+          <ion-card>
+            <ion-label>Rondas</ion-label>
+            <ion-button color="dark" fill="clear" (click)="roundsPicker()">{{rounds}}
+            </ion-button>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <div class="reset-btn">
+      <ion-button fill="clear" size="large">
+        <ion-icon name="refresh" size="large"></ion-icon>
+      </ion-button>
+    </div>
+  </div>
+
+  <!-- Pantalla tiempo de preparación -->
+  <div class="time-container" *ngIf="step === 1">
+    <p>Tiempo de preparación</p>
+    <h2>{{spreparationTime.min + ':' +spreparationTime.sec}}</h2>
+  </div>
+  <div class="time-container work-time" *ngIf="step === 2">
+    <p>Tiempo de trabajo</p>
+    <h2>{{sworkTime.min + ':' +sworkTime.sec}}</h2>
+  </div>
+  <div class="time-container" *ngIf="step === 3">
+    <p>Tiempo de descanso</p>
+    <h2>{{srestTime.min + ':' +srestTime.sec}}</h2>
+  </div>
+</ion-content>
+<ion-footer [ngClass]="{'primary-bck work-time': step === 2}">
+  <ion-button *ngIf="step === 0" [disabled]="workTime.min === '00' && workTime.sec === '00'" expand="block"
+    (click)="startTimer()">Iniciar</ion-button>
+  <div *ngIf="step !== 0">
+    <ion-button fill="clear" [color]="step === 2 ? 'light' : 'dark'" size="large" (click)="toggleInterval($event)">
+      <ion-icon [name]="state === 'play' ? 'pause' : 'play'" size="large"></ion-icon>
+    </ion-button>
+    <div>
+      <p>Rondas</p>
+      <h2>{{currentRound + '/' + rounds}}</h2>
+    </div>
+    <ion-button fill="clear" [color]="step === 2 ? 'light' : 'dark'" size="large">
+      <ion-icon name="volume-low" size="large"></ion-icon>
+    </ion-button>
+  </div>
+</ion-footer>

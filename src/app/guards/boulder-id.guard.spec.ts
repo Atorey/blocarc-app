@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { EventIdGuard } from './event-id.guard';
+import { BoulderIdGuard } from './boulder-id.guard';
 
-describe('EventIdGuard', () => {
-  let guard: EventIdGuard;
+describe('BoulderIdGuard', () => {
+  let guard: BoulderIdGuard;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    guard = TestBed.inject(EventIdGuard);
+    guard = TestBed.inject(BoulderIdGuard);
   });
 
   it('should be created', () => {
