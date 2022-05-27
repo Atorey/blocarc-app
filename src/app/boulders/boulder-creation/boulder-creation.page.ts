@@ -144,7 +144,7 @@ export class BoulderCreationPage implements OnInit {
       this.selectedWall = result.data.wall;
       console.log(result.data.wall);
       this.toDataURL(
-        'http://localhost:8080/' + this.selectedWall.image,
+        'https://blocarc-services-production.up.railway.app/' + this.selectedWall.image,
         (dataURL) => {
           this.boulder.image = dataURL;
         }

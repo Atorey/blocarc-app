@@ -116,12 +116,12 @@
     <canvas id="triesChart"></canvas>
   </div>
 
-  <div *ngIf="isActive('comments')">
+  <div *ngIf="isActive('comments') && achievements">
     <ion-list>
       <div *ngFor="let achievement of achievements">
         <ion-item *ngIf="achievement.comment">
           <ion-avatar slot="start">
-            <img [src]="'http://localhost:8080/' + achievement.user.avatar" />
+            <img [src]="'https://blocarc-services-production.up.railway.app/' + achievement.user.avatar" />
           </ion-avatar>
           <ion-label>
             <h4>{{achievement.user.username}}</h4>

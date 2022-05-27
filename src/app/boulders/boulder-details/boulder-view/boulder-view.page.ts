@@ -43,7 +43,7 @@ export class BoulderViewPage implements OnInit {
   ngOnInit() {
     this.parentComponent.boulder$.subscribe((boulder) => {
       this.boulder = boulder;
-      this.boulderImage = 'http://localhost:8080/' + boulder.image;
+      this.boulderImage = 'https://blocarc-services-production.up.railway.app/' + boulder.image;
       this.holds = this.boulder.holds;
     });
   }

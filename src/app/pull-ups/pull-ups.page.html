@@ -1,0 +1,114 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button *ngIf="step===0" [routerLink]="['/home']" [routerDirection]="'back'">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+      <ion-button *ngIf="step!==0" (click)="goBack()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Dominadas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form *ngIf="step===0" #pullUpForm="ngForm" (ngSubmit)="nextStep()">
+    <ion-list>
+
+      <ion-item>
+        <ion-label color="medium" position="floating">
+          Repeticiones actuales*
+        </ion-label>
+        <ion-input type="number" name="reps" required [(ngModel)]="pullUps.reps" #repsModel="ngModel">
+        </ion-input>
+        <ion-icon name="checkmark-circle" slot="end" color="success" *ngIf="repsModel.dirty && repsModel.valid">
+        </ion-icon>
+      </ion-item>
+      <ion-label class="ion-padding error-message" color="danger"
+        *ngIf="repsModel.errors?.['required'] && repsModel.touched">
+        Las repeticiones no se pueden quedar vacías
+      </ion-label>
+
+      <ion-item>
+        <ion-label color="medium" position="floating">
+          Peso corporal (kg)*
+        </ion-label>
+        <ion-input type="number" name="weight" required [(ngModel)]="pullUps.weight" #weightModel="ngModel">
+        </ion-input>
+        <ion-icon name="checkmark-circle" slot="end" color="success" *ngIf="weightModel.dirty && weightModel.valid">
+        </ion-icon>
+      </ion-item>
+      <ion-label class="ion-padding error-message" color="danger"
+        *ngIf="weightModel.errors?.['required'] && weightModel.touched">
+        El peso no se puede quedar vacío
+      </ion-label>
+
+      <ion-item>
+        <ion-label color="medium" position="floating">
+          Lastre (kg)
+        </ion-label>
+        <ion-input type="number" name="ballast" [(ngModel)]="pullUps.ballast" #ballastModel="ngModel">
+        </ion-input>
+        <ion-icon name="checkmark-circle" slot="end" color="success" *ngIf="ballastModel.dirty && ballastModel.valid">
+        </ion-icon>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="medium" position="floating">
+          Intensidad objetivo (%)*
+        </ion-label>
+        <ion-input type="number" name="intensity" required [(ngModel)]="pullUps.intensity" #intensityModel="ngModel">
+        </ion-input>
+        <ion-icon name="checkmark-circle" slot="end" color="success"
+          *ngIf="intensityModel.dirty && intensityModel.valid">
+        </ion-icon>
+      </ion-item>
+      <ion-label class="ion-padding error-message" color="danger"
+        *ngIf="intensityModel.errors?.['required'] && intensityModel.touched">
+        La intensidad objetivo no se puede quedar vacía
+      </ion-label>
+
+    </ion-list>
+    <ion-button slot="bottom" type="submit" expand="block" [disabled]="pullUpForm.invalid || !pullUpForm.touched">
+      Calcular dominadas
+    </ion-button>
+  </form>
+
+
+  <div class="goal-container" *ngIf="step === 1">
+    <p>OBJETIVO</p>
+    <div class="cards">
+      <ion-card>
+        <ion-icon name="repeat" size="large" color="primary"></ion-icon>
+
+        <ion-label>
+          <span>{{goal.pullUp.reps}}</span> repeticiones
+        </ion-label>
+      </ion-card>
+      <ion-card>
+        <ion-icon name="trending-up" size="large" color="primary"></ion-icon>
+
+        <ion-label>
+          <span>{{goal.pullUp.intensity}}%</span> intensidad
+        </ion-label>
+      </ion-card>
+      <ion-card>
+        <ion-icon name="scale" size="large" color="primary"></ion-icon>
+        <ion-label>
+          <span>{{goal.pullUp.weight}}kg</span> peso total
+        </ion-label>
+      </ion-card>
+      <ion-card>
+        <ion-icon name="server" size="large" color="primary"></ion-icon>
+
+        <ion-label>
+          <span>{{goal.pullUp.ballast}}kg</span> lastre
+        </ion-label>
+      </ion-card>
+    </div>
+    <ion-button expand="block" (click)="savePullUps()">
+      Guardar
+    </ion-button>
+  </div>
+</ion-content>

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Bloc Arc App</string>
+    <string name="title_activity_main">Bloc Arc App</string>
+    <string name="package_name">com.blocarc.app</string>
+    <string name="custom_url_scheme">com.blocarc.app</string>
+</resources>

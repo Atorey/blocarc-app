@@ -4,13 +4,15 @@ import { setOptions, localeEs } from '@mobiscroll/angular';
 import { TimeInterval } from 'rxjs';
 import { Timer } from '../users/interfaces/user';
 import { UsersService } from '../users/services/users.service';
+/* import { NativeAudio } from '@capacitor-community/native-audio/dist/esm/definitions';
+ */ import { NativeAudio } from '@capacitor-community/native-audio';
 
 @Component({
   selector: 'app-timer',
   templateUrl: './timer.page.html',
   styleUrls: ['./timer.page.scss'],
 })
-export class TimerPage implements OnInit {
+export class TimerPage {
   step = 0;
   volume = 50;
   numberTime = [];
@@ -46,17 +48,18 @@ export class TimerPage implements OnInit {
     min: '00',
     sec: '00',
   };
+  rounds = '1';
 
   timer: Timer;
-
-  rounds = '1';
 
   constructor(
     private pickerController: PickerController,
     private usersService: UsersService
-  ) {}
+  ) /*     private nativeAudio: NativeAudio
+   */ {}
 
-  ngOnInit() {
+  ionViewWillEnter() {
+    this.preloadAudio();
     this.usersService.getTimer().subscribe((timer) => {
       this.preparationTime = {
         min: timer.timer.preparationTime.split(':')[0],
@@ -234,6 +237,8 @@ export class TimerPage implements OnInit {
           this.copyPreparationTime.min = min < 10 ? '0' + min : min.toString();
           this.copyPreparationTime.sec = '59';
         }
+
+        this.playAudio();
       }
     }, 1000);
   }
@@ -321,5 +326,38 @@ export class TimerPage implements OnInit {
     } else {
       this.startRestTime();
     }
+  }
+
+  resetTimer() {
+    this.preparationTime = {
+      min: '00',
+      sec: '00',
+    };
+    this.workTime = {
+      min: '00',
+      sec: '00',
+    };
+    this.restTime = {
+      min: '00',
+      sec: '00',
+    };
+    this.rounds = '1';
+  }
+
+  preloadAudio() {
+    console.log('preload');
+    NativeAudio.preload({
+      assetId: 'bip',
+      assetPath: '../../assets/sounds/bip.mp3',
+      audioChannelNum: 1,
+      isUrl: false,
+    });
+  }
+
+  playAudio() {
+    NativeAudio.play({
+      assetId: 'bip',
+      time: 1.0,
+    });
   }
 }

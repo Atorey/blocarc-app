@@ -1,6 +1,6 @@
 {
-	"appId": "io.ionic.starter",
-	"appName": "blocarc-app",
-	"webDir": "www",
-	"bundledWebRuntime": false
+  "appId": "com.blocarc.app",
+  "appName": "Bloc Arc App",
+  "webDir": "www",
+  "bundledWebRuntime": false
 }

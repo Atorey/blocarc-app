@@ -63,7 +63,7 @@
       </ion-row>
     </ion-grid>
     <div class="reset-btn">
-      <ion-button fill="clear" size="large">
+      <ion-button fill="clear" size="large" (click)="resetTimer()">
         <ion-icon name="refresh" size="large"></ion-icon>
       </ion-button>
     </div>
@@ -76,7 +76,7 @@
   </div>
   <div class="time-container work-time" *ngIf="step === 2">
     <p>Tiempo de trabajo</p>
-    <h2>{{copyWorkTime.min + ':' +copyWsec}}</h2>
+    <h2>{{copyWorkTime.min + ':' +copyWorkTime.sec}}</h2>
   </div>
   <div class="time-container" *ngIf="step === 3">
     <p>Tiempo de descanso</p>

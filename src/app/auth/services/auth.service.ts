@@ -19,7 +19,7 @@ export class AuthService {
   login(userLogin: UserLogin): Observable<void> {
     return this.http
       .post<TokenResponse>(
-        'http://localhost:8080' + `${this.authURL}/login`,
+        'https://blocarc-services-production.up.railway.app' + `${this.authURL}/login`,
         userLogin
       )
       .pipe(
@@ -84,7 +84,7 @@ export class AuthService {
           throw new Error();
         }
         return this.http
-          .get('http://localhost:8080' + `${this.authURL}/validate`)
+          .get('https://blocarc-services-production.up.railway.app' + `${this.authURL}/validate`)
           .pipe(
             map(() => {
               this.logged = true;
@@ -100,7 +100,7 @@ export class AuthService {
 
   register(user: User): Observable<void> {
     return this.http
-      .post('http://localhost:8080' + `${this.authURL}/register`, user)
+      .post('https://blocarc-services-production.up.railway.app' + `${this.authURL}/register`, user)
       .pipe(map(() => null));
   }
 }

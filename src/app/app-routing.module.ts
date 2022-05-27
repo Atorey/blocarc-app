@@ -43,6 +43,12 @@ const routes: Routes = [
       import('./timer/timer.module').then((m) => m.TimerModule),
     canActivate: [LoginActivateGuard],
   },
+  {
+    path: 'pull-ups',
+    loadChildren: () =>
+      import('./pull-ups/pull-ups.module').then((m) => m.PullUpsPageModule),
+    canActivate: [LoginActivateGuard],
+  },
 ];
 @NgModule({
   imports: [

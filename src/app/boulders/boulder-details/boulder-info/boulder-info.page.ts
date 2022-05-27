@@ -55,7 +55,7 @@ export class BoulderInfoPage implements OnInit {
   ngOnInit() {
     this.parentComponent.boulder$.subscribe((boulder) => {
       this.boulder = boulder;
-      this.boulderImage = 'http://localhost:8080/' + boulder.image;
+      this.boulderImage = 'https://blocarc-services-production.up.railway.app/' + boulder.image;
       this.formatDate = new Intl.DateTimeFormat('es-ES').format(
         new Date(this.boulder.creationDate)
       );

@@ -51,7 +51,7 @@
       <p>Selecciona una pared y <br> crea un bloque</p>
       <ion-icon name="arrow-down-circle"></ion-icon>
     </div>
-    <img [src]="'http://localhost:8080/' + selectedWall.image" *ngIf="selectedWall && createOption==='boulder'">
+    <img [src]="'https://blocarc-services-production.up.railway.app/' + selectedWall.image" *ngIf="selectedWall && createOption==='boulder'">
 
     <svg xmlns="http://www.w3.org/2000/svg" *ngIf="selectedWall" preserveAspectRatio="none" viewBox="0 0 494 660" #svg>
       <polygon *ngFor="let hold of holds" attr.points={{hold}} (click)="changeHoldColor($event, hold)"></polygon>

@@ -93,7 +93,7 @@ export class UserProfilePage {
     this.route.data.subscribe({
       next: (data) => {
         this.user = data.user;
-        this.userAvatar = 'http://localhost:8080/' + this.user.avatar;
+        this.userAvatar = 'https://blocarc-services-production.up.railway.app/' + this.user.avatar;
       },
       error: () => {
         this.nav.navigateRoot(['/']);

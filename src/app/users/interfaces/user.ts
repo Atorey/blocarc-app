@@ -20,6 +20,14 @@ export interface Timer {
     rounds: string;
   };
 }
+export interface PullUp {
+  pullUp: {
+    reps: number;
+    weight: number;
+    ballast: number;
+    intensity: number;
+  };
+}
 
 // RESPONSES
 export interface UsersResponse {

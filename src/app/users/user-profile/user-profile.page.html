@@ -23,11 +23,11 @@
 
     <div class="stats">
       <div>
-        <h4>{{totalBouldersCreated}}</h4>
+        <h4>{{totalBouldersCreated || '0'}}</h4>
         <p>Bloques <br> creados</p>
       </div>
       <div>
-        <h4>{{totalBouldersCompleted}}</h4>
+        <h4>{{totalBouldersCompleted || '0'}}</h4>
         <p>Bloques <br> completados</p>
       </div>
     </div>
@@ -70,7 +70,7 @@
 
   <!-- Bloques completados -->
   <div class="canvas-container" [hidden]="!isActive('completed')">
-    <p>Total: {{totalBouldersCompleted}}</p>
+    <p>Total: {{totalBouldersCompleted || '0'}}</p>
     <canvas #canvas id="completedChart"></canvas>
   </div>
 
