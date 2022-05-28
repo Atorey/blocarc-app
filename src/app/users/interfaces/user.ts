@@ -37,3 +37,7 @@ export interface UsersResponse {
 export interface UserResponse {
   user: User;
 }
+
+export interface GoalResponse {
+  goal: number;
+}

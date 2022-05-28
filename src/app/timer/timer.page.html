@@ -69,7 +69,7 @@
     </div>
   </div>
 
-  <!-- Pantalla tiempo de preparación -->
+  <!-- Pantalla tiempo -->
   <div class="time-container" *ngIf="step === 1">
     <p>Tiempo de preparación</p>
     <h2>{{copyPreparationTime.min + ':' +copyPreparationTime.sec}}</h2>
@@ -94,8 +94,8 @@
       <p>Rondas</p>
       <h2>{{currentRound + '/' + rounds}}</h2>
     </div>
-    <ion-button fill="clear" [color]="step === 2 ? 'light' : 'dark'" size="large">
-      <ion-icon name="volume-low" size="large"></ion-icon>
+    <ion-button fill="clear" [color]="step === 2 ? 'light' : 'dark'" size="large" (click)="toggleVolume($event)">
+      <ion-icon [name]="volume === 0 ? 'volume-mute' : 'volume-medium'" size="large"></ion-icon>
     </ion-button>
   </div>
 </ion-footer>

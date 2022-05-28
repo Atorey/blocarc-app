@@ -20,7 +20,6 @@ export class BoulderIdGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    console.log(route.paramMap.get('id'));
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     if (!isNaN(+route.paramMap.get('id')!)) {
       return true;

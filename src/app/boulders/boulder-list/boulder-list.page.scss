@@ -17,3 +17,16 @@ ion-badge {
 ion-badge {
   width: 100%;
 }
+
+ion-item {
+  --background: var(--ion-background-color);
+}
+
+ion-list {
+  padding: 0;
+}
+
+
+ion-thumbnail {
+  height: 1.5rem;
+}

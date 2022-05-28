@@ -23,12 +23,90 @@
 
 
 <ion-content>
-<ion-card  [routerLink]="['/timer']" [routerDirection]="'fordward'">
-  <ion-label>Temporizador</ion-label>
-</ion-card>
-<ion-card  [routerLink]="['/pull-ups']" [routerDirection]="'fordward'">
-  <ion-label>Dominadas</ion-label>
-</ion-card>
+  <div class="cabecera">
+    <circle-progress [percent]="85" [radius]="70" [outerStrokeWidth]="16" [innerStrokeWidth]="16" [space]="-16"
+      [outerStrokeColor]="'#f5dc09'" [innerStrokeColor]="'#1e1e1e'" [animation]="true" [animationDuration]="300"
+      [responsive]="true" [titleFontSize]="40" [subtitleFontSize]="15" [title]="['10']" [subtitle]="['hoy']"
+      [showUnits]="false" [titleColor]="'#f5dc09'">
+    </circle-progress>
+    <circle-progress [percent]="25" [radius]="70" [outerStrokeWidth]="16" [innerStrokeWidth]="16" [space]="-16"
+      [outerStrokeColor]="'#f4f5f8'" [innerStrokeColor]="'#1e1e1e'" [animation]="true" [animationDuration]="300"
+      [responsive]="true" [titleFontSize]="40" [subtitleFontSize]="15" [title]="['10']" [subtitle]="['7-13mar']"
+      [showUnits]="false" [titleColor]="'#f4f5f8'">
+    </circle-progress>
+  </div>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-card class="big-card" [routerLink]="['/goals']" [routerDirection]="'fordward'">
+          <ion-label>Tu objetivo semanal</ion-label>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6">
+        <ion-card class="small-card" [routerLink]="['/timer']" [routerDirection]="'fordward'">
+          <ion-label>Temporizador</ion-label>
+          <div class="content-center">
+            <ion-icon color="dark" name="timer"></ion-icon>
+          </div>
+        </ion-card>
+      </ion-col>
+      <ion-col size="6">
+        <ion-card class="small-card" [routerLink]="['/pull-ups']" [routerDirection]="'fordward'">
+          <ion-label>Dominadas</ion-label>
+          <div>
+            <div>
+
+              <ion-label>
+                <ion-icon name="repeat" color="primary"></ion-icon>
+                <span>10 </span>% repeticiones
+              </ion-label>
+            </div>
+            <div>
+
+              <ion-label>
+                <ion-icon name="trending-up" color="primary"></ion-icon>
+                <span>93 </span>% intensidad
+              </ion-label>
+            </div>
+            <div>
+              <ion-label>
+                <ion-icon name="scale" color="primary"></ion-icon>
+                <span>45 </span>kg peso total
+              </ion-label>
+            </div>
+            <div>
+
+              <ion-label>
+                <ion-icon name="server" color="primary"></ion-icon>
+                <span>-10 </span>kg lastre
+              </ion-label>
+            </div>
+          </div>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-card class="big-card">
+          <ion-label>Tu objetivo semanal</ion-label>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="7">
+        <ion-card class="small-card">
+          <ion-label>Último bloque completado</ion-label>
+          <div class="vertical-align ">
+            <ion-thumbnail>
+              <ion-skeleton-text animated></ion-skeleton-text>
+            </ion-thumbnail>
+          </div>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button color="medium" [routerLink]="['/boulders/add']" [routerDirection]="'fordward'">

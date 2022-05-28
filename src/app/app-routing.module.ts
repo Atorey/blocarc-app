@@ -48,7 +48,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pull-ups/pull-ups.module').then((m) => m.PullUpsPageModule),
     canActivate: [LoginActivateGuard],
+  },  {
+    path: 'goals',
+    loadChildren: () => import('./goals/goals.module').then( m => m.GoalsPageModule)
   },
+
 ];
 @NgModule({
   imports: [

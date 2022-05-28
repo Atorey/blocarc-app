@@ -24,12 +24,7 @@ export class UserProfilePage {
   totalBouldersCreated: number;
   totalBouldersCompleted: number;
 
-  user: User = {
-    email: '',
-    username: '',
-    password: '',
-    avatar: '',
-  };
+  user: User;
 
   filterGrades = [
     { val: '4 - 4+', color: '4', isChecked: true },
@@ -80,6 +75,10 @@ export class UserProfilePage {
     { label: '9a - 9b+', color: '9a', val: '9', boulders: [] },
   ];
 
+  numbers = Array(3)
+    .fill(0)
+    .map((x, i) => i);
+
   constructor(
     private readonly usersService: UsersService,
     private readonly route: ActivatedRoute,
@@ -93,13 +92,15 @@ export class UserProfilePage {
     this.route.data.subscribe({
       next: (data) => {
         this.user = data.user;
-        this.userAvatar = 'https://blocarc-services-production.up.railway.app/' + this.user.avatar;
+        this.userAvatar =
+          'https://blocarc-services-production.up.railway.app/' +
+          this.user.avatar;
+        this.getBoulders();
       },
       error: () => {
         this.nav.navigateRoot(['/']);
       },
     });
-    this.getBoulders();
   }
 
   getBoulders() {

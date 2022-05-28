@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Chart, registerables } from 'chart.js';
 import { Boulder } from '../boulders/interfaces/boulder';
 import { BouldersService } from '../boulders/services/boulders.service';
 
@@ -9,12 +10,11 @@ import { BouldersService } from '../boulders/services/boulders.service';
 })
 export class HomePage implements OnInit {
   boulders: Boulder[];
-  constructor(private bouldersService: BouldersService) { }
+  constructor(private bouldersService: BouldersService) {}
 
   ngOnInit() {
     this.bouldersService
       .getBoulders()
       .subscribe((boulders) => (this.boulders = boulders));
   }
-
 }

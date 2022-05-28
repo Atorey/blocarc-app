@@ -17,21 +17,47 @@
       </ion-button>
     </ion-item-divider>
 
-    <div *ngFor="let boulder of boulders | bouldersFilter: search">
-      <ion-item [routerLink]="['/boulders/', boulder._id]" [routerDirection]="'forward'">
-        <ion-avatar slot="start">
-          <ion-badge color="{{boulder.grade.includes('+')?boulder.grade.replace('+', 'm'):boulder.grade}}">
-            {{boulder.grade}}</ion-badge>
-        </ion-avatar>
-        <ion-label>
-          <h3>{{boulder.creator.username}}</h3>
-          <h2>{{boulder.name}}</h2>
-          <p>{{boulder.reps}} {{boulder.reps === 1 ? 'repetición' : 'repeticiones'}}</p>
-          <span>
-            <app-static-star-rating [valoration]="boulder.valoration"></app-static-star-rating>
-          </span>
-        </ion-label>
-      </ion-item>
+    <div *ngIf="boulders">
+      <div *ngFor="let boulder of boulders | bouldersFilter: search">
+        <ion-item [routerLink]="['/boulders/', boulder._id]" [routerDirection]="'forward'">
+          <ion-avatar slot="start">
+            <ion-badge color="{{boulder.grade.includes('+')?boulder.grade.replace('+', 'm'):boulder.grade}}">
+              {{boulder.grade}}</ion-badge>
+          </ion-avatar>
+          <ion-label>
+            <h3>{{boulder.creator.username}}</h3>
+            <h2>{{boulder.name}}</h2>
+            <p>{{boulder.reps}} {{boulder.reps === 1 ? 'repetición' : 'repeticiones'}}</p>
+            <span>
+              <app-static-star-rating [valoration]="boulder.valoration"></app-static-star-rating>
+            </span>
+          </ion-label>
+        </ion-item>
+      </div>
+    </div>
+
+    <div *ngIf="!boulders">
+      <ion-list>
+        <ion-item *ngFor="let number of numbers">
+          <ion-thumbnail slot="start">
+            <ion-skeleton-text animated></ion-skeleton-text>
+          </ion-thumbnail>
+          <ion-label>
+            <h3>
+              <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
+            </h3>
+            <h2>
+              <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+            </h2>
+            <p>
+              <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+            </p>
+            <p>
+              <ion-skeleton-text animated style="width: 45%"></ion-skeleton-text>
+            </p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
     </div>
   </ion-list>
 </ion-content>

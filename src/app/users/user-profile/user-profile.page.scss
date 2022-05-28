@@ -1,8 +1,9 @@
 ion-content {
-  --background: var(--ion-tab-bar-background);
+  background: var(--ion-background-color);
 }
 .cabecera {
-  margin-top: 2rem;
+  background: var(--ion-tab-bar-background);
+  padding-top: 2rem;
   ion-avatar {
     margin: 0 auto;
     width: 6rem;
@@ -16,6 +17,23 @@ ion-content {
   h1 {
     text-align: center;
     font-size: 1.3rem;
+  }
+
+  ion-skeleton-text {
+    margin: 0 auto;
+  }
+
+  h1 > {
+    ion-skeleton-text {
+      height: 1rem;
+    }
+  }
+
+  h4 {
+    & > ion-skeleton-text {
+      width: 1rem;
+      height: 1rem;
+    }
   }
 }
 
@@ -42,6 +60,7 @@ hr {
 
 ion-segment {
   border-bottom: 1px solid var(--ion-color-light);
+  background: var(--ion-tab-bar-background);
 }
 
 ion-item {
@@ -127,4 +146,15 @@ canvas {
   width: 40% !important;
   height: 40% !important;
   margin: 0 auto;
+}
+
+ion-thumbnail {
+  height: 1.5rem;
+}
+
+ion-segment-button {
+  & > ion-skeleton-text {
+    width: 1.4rem;
+    height: 1.4rem;
+  }
 }

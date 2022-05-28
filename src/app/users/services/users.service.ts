@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { PullUp, Timer, User, UserResponse } from '../interfaces/user';
+import { GoalResponse, PullUp, Timer, User, UserResponse } from '../interfaces/user';
 
 @Injectable({
   providedIn: 'root',
@@ -76,5 +76,13 @@ export class UsersService {
           )
         )
       );
+  }
+
+  getGoal(): Observable<number> {
+    return this.http
+      .get<GoalResponse>(
+        `https://blocarc-services-production.up.railway.app${this.userURL}/goal`
+      )
+      .pipe(map((response) => response.goal));
   }
 }

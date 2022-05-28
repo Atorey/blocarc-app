@@ -8,7 +8,10 @@ import { BouldersService } from '../services/boulders.service';
   styleUrls: ['./boulder-list.page.scss'],
 })
 export class BoulderListPage implements OnInit {
-  boulders: Boulder[] = [];
+  boulders: Boulder[];
+  numbers = Array(5)
+    .fill(0)
+    .map((x, i) => i);
   search = '';
 
   constructor(private bouldersService: BouldersService) {}

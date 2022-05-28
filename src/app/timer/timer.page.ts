@@ -4,8 +4,8 @@ import { setOptions, localeEs } from '@mobiscroll/angular';
 import { TimeInterval } from 'rxjs';
 import { Timer } from '../users/interfaces/user';
 import { UsersService } from '../users/services/users.service';
-/* import { NativeAudio } from '@capacitor-community/native-audio/dist/esm/definitions';
- */ import { NativeAudio } from '@capacitor-community/native-audio';
+import { NativeAudio } from '@awesome-cordova-plugins/native-audio/ngx';
+import { Chart, registerables } from 'chart.js';
 
 @Component({
   selector: 'app-timer',
@@ -54,9 +54,9 @@ export class TimerPage {
 
   constructor(
     private pickerController: PickerController,
-    private usersService: UsersService
-  ) /*     private nativeAudio: NativeAudio
-   */ {}
+    private usersService: UsersService,
+    private nativeAudio: NativeAudio
+  ) {}
 
   ionViewWillEnter() {
     this.preloadAudio();
@@ -187,6 +187,21 @@ export class TimerPage {
     } else if (this.volume === 100) {
       return 'volume-high';
     }
+
+    this.nativeAudio.setVolumeForComplexAsset('bip', this.volume / 100).then();
+  }
+
+  toggleVolume(e) {
+    if (e.srcElement.children[0].name === 'volume-medium') {
+      this.volume = 0;
+    } else {
+      this.volume = 50;
+    }
+
+    this.nativeAudio
+      .setVolumeForComplexAsset('finish', this.volume / 100)
+      .then();
+    this.nativeAudio.setVolumeForComplexAsset('bip', this.volume / 100).then();
   }
 
   changeVolume(range) {
@@ -213,13 +228,14 @@ export class TimerPage {
       this.step++;
       this.startWorkTime();
     } else {
+      this.copyPreparationTime = { ...this.preparationTime };
       this.startPreparationTime();
     }
   }
 
   startPreparationTime() {
-    this.copyPreparationTime = { ...this.preparationTime };
     this.preparationInterval = setInterval(() => {
+      console.log(this.copyPreparationTime.sec);
       if (
         this.copyPreparationTime.min === '00' &&
         this.copyPreparationTime.sec === '00'
@@ -232,13 +248,25 @@ export class TimerPage {
           const seconds = +this.copyPreparationTime.sec - 1;
           this.copyPreparationTime.sec =
             seconds < 10 ? '0' + seconds : seconds.toString();
+
+          if (
+            this.copyPreparationTime.min === '00' &&
+            +this.copyPreparationTime.sec <= 2
+          ) {
+            this.playBipAudio();
+          }
         } else {
           const min = +this.copyPreparationTime.min - 1;
           this.copyPreparationTime.min = min < 10 ? '0' + min : min.toString();
           this.copyPreparationTime.sec = '59';
-        }
 
-        this.playAudio();
+          if (
+            this.copyPreparationTime.min === '00' &&
+            +this.copyPreparationTime.sec <= 2
+          ) {
+            this.playBipAudio();
+          }
+        }
       }
     }, 1000);
   }
@@ -262,10 +290,24 @@ export class TimerPage {
           const seconds = +this.copyWorkTime.sec - 1;
           this.copyWorkTime.sec =
             seconds < 10 ? '0' + seconds : seconds.toString();
+
+          if (
+            this.copyWorkTime.min === '00' &&
+            this.copyWorkTime.sec === '00'
+          ) {
+            this.playFinishAudio();
+          }
         } else {
           const min = +this.copyWorkTime.min - 1;
           this.copyWorkTime.min = min < 10 ? '0' + min : min.toString();
           this.copyWorkTime.sec = '59';
+
+          if (
+            this.copyWorkTime.min === '00' &&
+            this.copyWorkTime.sec === '00'
+          ) {
+            this.playFinishAudio();
+          }
         }
       }
     }, 1000);
@@ -284,10 +326,18 @@ export class TimerPage {
           const seconds = +this.copyRestTime.sec - 1;
           this.copyRestTime.sec =
             seconds < 10 ? '0' + seconds : seconds.toString();
+
+          if (+this.copyRestTime.min === 0 && +this.copyRestTime.sec <= 2) {
+            this.playBipAudio();
+          }
         } else {
           const min = +this.copyRestTime.min - 1;
           this.copyRestTime.min = min < 10 ? '0' + min : min.toString();
           this.copyRestTime.sec = '59';
+
+          if (+this.copyRestTime.min === 0 && +this.copyRestTime.sec <= 2) {
+            this.playBipAudio();
+          }
         }
       }
     }, 1000);
@@ -295,6 +345,7 @@ export class TimerPage {
 
   goBack() {
     this.stopInterval();
+    this.state = 'play';
     this.step = 0;
   }
 
@@ -345,19 +396,23 @@ export class TimerPage {
   }
 
   preloadAudio() {
-    console.log('preload');
-    NativeAudio.preload({
-      assetId: 'bip',
-      assetPath: '../../assets/sounds/bip.mp3',
-      audioChannelNum: 1,
-      isUrl: false,
-    });
+    this.nativeAudio
+      .preloadComplex('bip', 'assets/sounds/bip.mp3', 1, 1, 0)
+      .then(() => 'preload');
+
+    this.nativeAudio
+      .preloadComplex('finish', 'assets/sounds/finish.mp3', 1, 1, 0)
+      .then(() => 'preload');
   }
 
-  playAudio() {
-    NativeAudio.play({
-      assetId: 'bip',
-      time: 1.0,
-    });
+  playBipAudio() {
+    this.nativeAudio.play('bip');
+  }
+
+  playFinishAudio() {
+    this.nativeAudio
+      .setVolumeForComplexAsset('finish', this.volume / 100)
+      .then();
+    this.nativeAudio.play('finish');
   }
 }

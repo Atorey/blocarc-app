@@ -1,3 +1,74 @@
-img {
-    width: 0.5rem;
+.cabecera {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 12rem;
+}
+
+ion-card {
+  padding: 0.4rem 1rem;
+  margin: 0;
+  ion-label {
+    font-size: 0.7rem;
   }
+  ion-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 70%;
+    font-size: 1.8rem;
+  }
+
+  &.big-card {
+    height: 9rem;
+  }
+
+  &.small-card {
+    height: 10rem;
+  }
+
+  .content-center {
+    height: 85%;
+    display: grid;
+    place-content: center;
+  }
+
+  div {
+    & > ion-icon {
+      font-size: 6rem;
+    }
+
+    ion-label {
+      padding: 0.2rem 0;
+      display: flex;
+      align-items: center;
+      font-size: 0.6rem;
+      color: var(--ion-color-dark);
+      font-family: PoppinsRegular !important;
+
+      ion-icon {
+        margin-right: 0.5rem;
+        font-size: 1.2rem;
+      }
+
+      span {
+        font-size: 1rem;
+      }
+    }
+  }
+
+  ion-thumbnail {
+    height: 6rem;
+    width: 4.5rem;
+  }
+
+  .vertical-align {
+    height: 85%;
+    display: flex;
+    align-items: center;
+  }
+}
+
+circle-progress {
+  height: 80%;
+}
