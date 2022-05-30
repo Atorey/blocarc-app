@@ -6,12 +6,8 @@ import { GoalsPage } from './goals.page';
 const routes: Routes = [
   {
     path: '',
-    component: GoalsPage
+    component: GoalsPage,
   },
-  {
-    path: 'create',
-    loadChildren: () => import('./create-goal/create-goal.module').then( m => m.CreateGoalPageModule)
-  }
 ];
 
 @NgModule({

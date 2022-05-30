@@ -230,7 +230,7 @@ export class BoulderInfoPage implements OnInit {
               await this.toast.create({
                 duration: 3000,
                 position: 'bottom',
-                message: '¡Pared guardada!',
+                message: '¡Pared completada!',
                 color: 'success',
               })
             ).present();

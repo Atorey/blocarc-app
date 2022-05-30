@@ -44,7 +44,15 @@
     </ion-button>
   </div>
 
-  <canvas id="weekGoalChart"></canvas>
+  <div [hidden]="screen !== 'total'">
+    <canvas id="weekGoalChart"></canvas>
+  </div>
+
+  <div [hidden]="screen !== 'grades'">
+    <canvas id="gradesGoalChart"></canvas>
+  </div>
+
+
 
   <!-- LOAD -->
   <div *ngIf="loaded">
@@ -59,20 +67,20 @@
       </ion-button>
     </div>
 
-    <!-- <ion-card class="card-goal">
+    <ion-card class="card-goal" *ngIf="totalBouldersAchieved >= userGoal.goal.boulders && screen === 'total'">
       <div>
         <ion-card-header>
           <ion-icon name="golf" size="large"></ion-icon>
           <ion-card-title>¡Has alcanzado tu objetivo!</ion-card-title>
         </ion-card-header>
         <ion-card-content>
-          Has conseguido completar 10 bloques esta semana
+          Has conseguido completar {{userGoal.goal.boulders}} bloques esta semana
         </ion-card-content>
       </div>
       <div>
-        <div class="circle">10</div>
+        <div class="circle">{{userGoal.goal.boulders}}</div>
       </div>
-    </ion-card> -->
+    </ion-card>
 
     <hr>
 
@@ -193,10 +201,12 @@
   <!-- NOT LOAD -->
   <div *ngIf="!loaded">
     <div class="segment">
-      <ion-button mode="ios" size="small" color="medium">
+      <ion-button mode="ios" size="small" color="medium" [fill]="screen === 'grades' ? 'outline' : 'solid'"
+        color="medium">
         <ion-label>Total</ion-label>
       </ion-button>
-      <ion-button mode="ios" size="small" fill="outline" color="medium">
+      <ion-button mode="ios" size="small" [fill]="screen === 'total' ? 'outline' : 'solid'" color="medium"
+        color="medium">
         <ion-label>Grados</ion-label>
       </ion-button>
     </div>

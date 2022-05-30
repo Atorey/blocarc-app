@@ -9,7 +9,7 @@ import {
 } from '@ionic/angular';
 import { Boulder } from 'src/app/boulders/interfaces/boulder';
 import { BouldersService } from 'src/app/boulders/services/boulders.service';
-import { User } from '../interfaces/user';
+import { Goal, User } from '../interfaces/user';
 import { UsersService } from '../services/users.service';
 import { Chart, registerables } from 'node_modules/chart.js';
 import { AuthService } from 'angularx-social-login';
@@ -34,6 +34,8 @@ export class UserProfilePage {
   totalBouldersCreated: number;
   totalBouldersCompleted: number;
   bouldersSavedEmpty = true;
+  loadedBoulderCreated = false;
+  goal: Goal;
 
   user: User;
 
@@ -86,6 +88,18 @@ export class UserProfilePage {
     { label: '9a - 9b+', color: '9a', val: '9', boulders: [] },
   ];
 
+  userGoal: Goal = {
+    goal: {
+      boulders: 0,
+      grades: [
+        {
+          grade: '',
+          boulders: 0,
+        },
+      ],
+    },
+  };
+
   numbers = Array(3)
     .fill(0)
     .map((x, i) => i);
@@ -114,6 +128,7 @@ export class UserProfilePage {
         if (this.user.me) {
           this.getSavedBoulders();
           this.getLikedBoulders();
+          this.getGoal();
         }
       },
       error: () => {
@@ -126,9 +141,15 @@ export class UserProfilePage {
     this.bouldersService
       // eslint-disable-next-line @typescript-eslint/dot-notation
       .getBouldersByCreator(this.user['_id'])
-      .subscribe((boulders) => {
-        this.bouldersCreated = boulders;
-        this.totalBouldersCreated = this.bouldersCreated.length;
+      .subscribe({
+        next: (boulders) => {
+          this.bouldersCreated = boulders;
+          this.totalBouldersCreated = this.bouldersCreated.length;
+          this.loadedBoulderCreated = true;
+        },
+        error: () => {
+          this.loadedBoulderCreated = true;
+        },
       });
   }
 
@@ -263,9 +284,14 @@ export class UserProfilePage {
     this.nav.navigateRoot(['/welcome']);
   }
 
+  getGoal() {
+    this.usersService.getGoal().subscribe((goal) => (this.goal = goal));
+  }
+
   async openGoalModal() {
     const modal = await this.modalCtrl.create({
       component: ModalGoalComponent,
+      componentProps: { goal: this.goal, grades: Object.keys(this.grades) },
     });
     await modal.present();
     const result = await modal.onDidDismiss();

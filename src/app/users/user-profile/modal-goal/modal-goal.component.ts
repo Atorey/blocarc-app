@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ModalController, ToastController } from '@ionic/angular';
 import { BouldersService } from 'src/app/boulders/services/boulders.service';
 import { Goal } from '../../interfaces/user';
@@ -10,6 +10,8 @@ import { UsersService } from '../../services/users.service';
   styleUrls: ['./modal-goal.component.scss'],
 })
 export class ModalGoalComponent {
+  @Input() goal;
+  @Input() grades;
   userGoal: Goal = {
     goal: {
       boulders: 0,
@@ -21,7 +23,6 @@ export class ModalGoalComponent {
       ],
     },
   };
-  grades = [];
   addCard = 0;
 
   constructor(
@@ -33,7 +34,7 @@ export class ModalGoalComponent {
 
   ionViewWillEnter() {
     this.getGoal();
-    this.getGrades();
+    /* this.getGrades(); */
   }
 
   close() {
@@ -47,40 +48,22 @@ export class ModalGoalComponent {
   }
 
   getGoal() {
-    this.usersService.getGoal().subscribe({
-      next: (goal) => {
-        console.log(goal);
-        if (Object.keys(goal).length === 0 ? true : false) {
-          this.userGoal = {
-            goal: {
+    if (Object.keys(this.goal).length === 0 ? true : false) {
+      this.userGoal = {
+        goal: {
+          boulders: 0,
+          grades: [
+            {
+              grade: '',
               boulders: 0,
-              grades: [
-                {
-                  grade: '',
-                  boulders: 0,
-                },
-              ],
             },
-          };
-        } else {
-          this.userGoal = goal;
-          this.addCard = this.userGoal.goal.grades.length - 1;
-        }
-      },
-      error: () => {
-        this.userGoal = {
-          goal: {
-            boulders: 0,
-            grades: [
-              {
-                grade: '',
-                boulders: 0,
-              },
-            ],
-          },
-        };
-      },
-    });
+          ],
+        },
+      };
+    } else {
+      this.userGoal = this.goal;
+      this.addCard = this.userGoal.goal.grades.length - 1;
+    }
   }
 
   addGrade() {

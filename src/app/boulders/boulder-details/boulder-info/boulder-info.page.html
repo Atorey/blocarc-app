@@ -116,7 +116,15 @@
     <canvas id="triesChart"></canvas>
   </div>
 
-  <div *ngIf="isActive('comments') && achievements">
+  <div *ngIf="isActive('comments') && !achievements.comments" class="not-loaded">
+    <div>
+      <ion-icon name="chatbox"></ion-icon>
+      <h3>Este bloque no tiene comentarios</h3>
+      <p>Todos los comentarios se mostrarán aquí</p>
+    </div>
+  </div>
+
+  <div *ngIf="isActive('comments') && achievements.comments">
     <ion-list>
       <div *ngFor="let achievement of achievements">
         <ion-item *ngIf="achievement.comment">

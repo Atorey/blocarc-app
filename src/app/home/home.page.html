@@ -48,14 +48,17 @@
         <ion-card class="small-card" [routerLink]="['/timer']" [routerDirection]="'fordward'">
           <ion-label>Temporizador</ion-label>
           <div class="content-center">
-            <ion-icon color="dark" name="timer"></ion-icon>
+            <ion-icon color="medium" name="timer"></ion-icon>
           </div>
         </ion-card>
       </ion-col>
       <ion-col size="6">
         <ion-card class="small-card" [routerLink]="['/pull-ups']" [routerDirection]="'fordward'">
           <ion-label>Dominadas</ion-label>
-          <div>
+          <div *ngIf="true" class="content-center">
+            <ion-icon color="medium" src="../../assets/icon/pullups.svg"></ion-icon>
+          </div>
+          <div *ngIf="false">
             <div>
 
               <ion-label>

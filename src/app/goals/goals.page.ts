@@ -15,8 +15,9 @@ export class GoalsPage {
   week: string;
   updateWeek = 0;
   isThisWeek = true;
-  goal: Goal;
-  chartData = [0, 0, 0, 0, 0, 0, 0];
+  userGoal: Goal;
+  chartTotalData = [0, 0, 0, 0, 0, 0, 0];
+  chartGradesData = [];
   daysWeek: string[];
   achievements: Achievement[];
   loaded = false;
@@ -26,6 +27,7 @@ export class GoalsPage {
   uniqueDays: string[];
   uniqueGrades: string[];
   screen = 'total';
+  gradesLabel: string[];
 
   constructor(
     private usersService: UsersService,
@@ -54,10 +56,16 @@ export class GoalsPage {
     const firstday = new Date(dateToShow.setDate(first));
     const lastday = new Date(dateToShow.setDate(last));
 
+    console.log(lastday);
+
     this.dateFirst = firstday.toISOString().substring(0, 10).replace(/-/g, '/');
     this.dateLast = lastday.toISOString().substring(0, 10).replace(/-/g, '/');
 
+    console.log(this.dateLast);
+
     this.getAchievements();
+
+    console.log(this.achievements);
 
     const fMonth = firstday.toLocaleString('default', { month: 'long' });
     const lMonth = lastday.toLocaleString('default', { month: 'long' });
@@ -94,7 +102,7 @@ export class GoalsPage {
   getGoal() {
     this.usersService.getGoal().subscribe({
       next: (goal) => {
-        this.goal = goal;
+        this.userGoal = goal;
       },
       error: (error) => {
         this.router.navigate(['/home']);
@@ -102,7 +110,7 @@ export class GoalsPage {
     });
   }
 
-  createChart() {
+  createTotalChart() {
     const chartExist = Chart.getChart('weekGoalChart');
     if (chartExist !== undefined) {
       chartExist.destroy();
@@ -114,8 +122,54 @@ export class GoalsPage {
         labels: ['lun.', 'mar.', 'mié.', 'jue.', 'vie.', 'sáb.', 'dom.'],
         datasets: [
           {
-            data: this.chartData,
+            data: this.chartTotalData,
             backgroundColor: '#f5dc09',
+            barThickness: 12,
+            borderRadius: { topRight: 2, topLeft: 2 },
+          },
+        ],
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              precision: 0,
+            },
+          },
+        },
+        plugins: {
+          legend: {
+            display: false,
+          },
+        },
+      },
+    });
+  }
+
+  createGradesChart() {
+    const cssvar = (color) =>
+      getComputedStyle(document.documentElement).getPropertyValue(color);
+
+    const chartExist = Chart.getChart('gradesGoalChart');
+    if (chartExist !== undefined) {
+      chartExist.destroy();
+    }
+
+    const gradesGoalChart = new Chart('gradesGoalChart', {
+      type: 'bar',
+      data: {
+        labels: this.gradesLabel,
+        datasets: [
+          {
+            data: this.chartGradesData,
+            backgroundColor: this.userGoal.goal.grades.map((grade) => {
+              grade.grade = grade.grade.includes('+')
+                ? grade.grade.replace('+', 'm')
+                : grade.grade;
+
+              return cssvar(`--ion-color-${grade.grade}`);
+            }),
             barThickness: 12,
             borderRadius: { topRight: 2, topLeft: 2 },
           },
@@ -143,14 +197,16 @@ export class GoalsPage {
     this.loaded = false;
     this.updateWeek = this.updateWeek + 7;
     this.getWeekToShow();
-    this.chartData = [0, 0, 0, 0, 0, 0, 0];
+    this.chartTotalData = [0, 0, 0, 0, 0, 0, 0];
+    this.chartGradesData = [];
   }
 
   nextWeek() {
     this.loaded = false;
     this.updateWeek = this.updateWeek - 7;
     this.getWeekToShow();
-    this.chartData = [0, 0, 0, 0, 0, 0, 0];
+    this.chartTotalData = [0, 0, 0, 0, 0, 0, 0];
+    this.chartGradesData = [];
   }
 
   getAchievements() {
@@ -165,8 +221,10 @@ export class GoalsPage {
             this.loaded = true;
             this.getDaysOfWeek();
             this.getGrades();
-            this.fillChart();
-            this.createChart();
+            this.fillTotalChart();
+            this.fillGradesChart();
+            this.createTotalChart();
+            this.createGradesChart();
           },
           error: () => {
             this.achievements = undefined;
@@ -181,6 +239,8 @@ export class GoalsPage {
     this.uniqueDays = [
       ...new Set(this.achievements.map((achievement) => achievement.date)),
     ];
+
+    console.log(this.uniqueDays);
   }
 
   getGrades() {
@@ -189,36 +249,47 @@ export class GoalsPage {
         this.achievements.map((achievement) => achievement.boulder.grade)
       ),
     ];
+
+    this.gradesLabel = this.userGoal.goal.grades.map((grade) => grade.grade);
   }
 
-  fillChart() {
+  fillTotalChart() {
     this.achievements.forEach((achievement) => {
       const date = new Date(achievement.date).toLocaleString('default', {
         weekday: 'long',
       });
       switch (date) {
         case 'lunes':
-          this.chartData[0]++;
+          this.chartTotalData[0]++;
           break;
         case 'martes':
-          this.chartData[1]++;
+          this.chartTotalData[1]++;
           break;
         case 'miércoles':
-          this.chartData[2]++;
+          this.chartTotalData[2]++;
           break;
         case 'jueves':
-          this.chartData[3]++;
+          this.chartTotalData[3]++;
           break;
         case 'viernes':
-          this.chartData[4]++;
+          this.chartTotalData[4]++;
           break;
         case 'sábado':
-          this.chartData[5]++;
+          this.chartTotalData[5]++;
           break;
         case 'domingo':
-          this.chartData[6]++;
+          this.chartTotalData[6]++;
           break;
       }
+    });
+  }
+
+  fillGradesChart() {
+    this.gradesLabel.forEach((gradeLabel) => {
+      const count = this.achievements.filter(
+        (achievement) => achievement.boulder.grade === gradeLabel
+      ).length;
+      this.chartGradesData.push(count);
     });
   }
 

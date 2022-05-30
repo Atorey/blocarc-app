@@ -98,3 +98,25 @@ ion-button ion-icon {
 .tries p {
   padding: 1rem 0.5rem;
 }
+
+.not-loaded {
+  height: 100%;
+  padding: 3rem;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  border: none;
+
+  ion-icon {
+    font-size: 3rem;
+  }
+
+  h3 {
+    font-size: 1.1rem;
+  }
+
+  p {
+    color: var(--ion-color-medium);
+    font-size: 0.8rem;
+  }
+}

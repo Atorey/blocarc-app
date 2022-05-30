@@ -61,7 +61,29 @@
   </ion-segment>
 
   <!-- Bloques creados -->
-  <div *ngIf="isActive('created') && !bouldersCreated" class="not-loaded">
+
+  <div *ngIf="isActive('created') && !loadedBoulderCreated" class="completed-list">
+    <ion-list>
+      <ion-item *ngFor="let number of numbers">
+        <ion-thumbnail slot="start">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-thumbnail>
+        <ion-label>
+          <h2>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </h2>
+          <p>
+            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+          </p>
+          <p>
+            <ion-skeleton-text animated style="width: 45%"></ion-skeleton-text>
+          </p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <div *ngIf="isActive('created') && loadedBoulderCreated && !bouldersCreated" class="not-loaded">
     <div>
       <ion-icon src="../../assets/icon/hold.svg"></ion-icon>
       <h3>{{user.me ? 'No has creado ningún bloque' : 'No ha creado ningún bloque'}}</h3>
@@ -69,6 +91,7 @@
         aquí'}}</p>
     </div>
   </div>
+
 
   <div *ngIf="isActive('created') && bouldersCreated" class="completed-list">
     <ion-item *ngFor="let boulder of bouldersCreated" [routerDirection]="'forward'"
