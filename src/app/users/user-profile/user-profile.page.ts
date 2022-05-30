@@ -1,11 +1,21 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { IonSegment, IonTabs, NavController } from '@ionic/angular';
+import {
+  IonSegment,
+  IonTabs,
+  ModalController,
+  NavController,
+  ToastController,
+} from '@ionic/angular';
 import { Boulder } from 'src/app/boulders/interfaces/boulder';
 import { BouldersService } from 'src/app/boulders/services/boulders.service';
 import { User } from '../interfaces/user';
 import { UsersService } from '../services/users.service';
 import { Chart, registerables } from 'node_modules/chart.js';
+import { AuthService } from 'angularx-social-login';
+import { SelfAuthService } from 'src/app/auth/services/auth.service';
+import { ModalLoginComponent } from 'src/app/welcome/modal-login/modal-login.component';
+import { ModalGoalComponent } from './modal-goal/modal-goal.component';
 
 @Component({
   selector: 'app-user-profile',
@@ -83,7 +93,10 @@ export class UserProfilePage {
     private readonly usersService: UsersService,
     private readonly route: ActivatedRoute,
     private nav: NavController,
-    private bouldersService: BouldersService
+    private bouldersService: BouldersService,
+    private authService: SelfAuthService,
+    public modalCtrl: ModalController,
+    private toast: ToastController
   ) {
     Chart.register(...registerables);
   }
@@ -227,5 +240,18 @@ export class UserProfilePage {
       copyArray.push(+grade.val.slice(0, 1));
       this.gradesSelected = copyArray;
     }
+  }
+
+  async logout() {
+    await this.authService.logout();
+    this.nav.navigateRoot(['/welcome']);
+  }
+
+  async openGoalModal() {
+    const modal = await this.modalCtrl.create({
+      component: ModalGoalComponent,
+    });
+    await modal.present();
+    const result = await modal.onDidDismiss();
   }
 }

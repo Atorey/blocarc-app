@@ -1,13 +1,31 @@
 <ion-header>
   <ion-toolbar class="background-color">
     <ion-buttons slot="start">
-      <ion-button [routerLink]="['/']">
+      <ion-button *ngIf="step===1" (click)="goBack()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+      <ion-button *ngIf="step===0" [routerLink]="['/']" [routerDirection]="'back'">
         <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<ion-content scroll-y="false">
+
+<ion-content *ngIf="step === 0">
+  <div class="container">
+    <h1>Iniciar sesión</h1>
+    <ion-button expand="block" (click)="nextStep()">Continuar con correo</ion-button>
+    <p>O continuar con:</p>
+    <ion-button (click)="googleLogin()" size="" color="light" expand="block">
+      <ion-icon name="logo-google"></ion-icon> Continuar con Google
+    </ion-button>
+    <ion-button (click)="facebookLogin()" color="light" expand="block">
+      <ion-icon name="logo-facebook"></ion-icon>Continuar con Facebook
+    </ion-button>
+  </div>
+</ion-content>
+
+<ion-content scroll-y="false" *ngIf="step === 1">
   <div class="container">
     <h1>Iniciar sesión</h1>
     <form (ngSubmit)="login()" #loginForm="ngForm">
@@ -25,7 +43,8 @@
     </form>
   </div>
 </ion-content>
+
 <ion-footer>
   <span item-right>¿No tienes una cuenta? </span>
-  <span class="link" [routerLink]="['/auth/register']"> Regístrate</span>
+  <span class="link" [routerLink]="['/auth/register']" [routerDirection]="'root'"> Regístrate</span>
 </ion-footer>

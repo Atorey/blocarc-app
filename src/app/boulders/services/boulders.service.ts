@@ -29,7 +29,9 @@ export class BouldersService {
 
   getBoulders(): Observable<Boulder[]> {
     return this.http
-      .get<BouldersResponse>('https://blocarc-services-production.up.railway.app' + this.boulderURL)
+      .get<BouldersResponse>(
+        'https://blocarc-services-production.up.railway.app' + this.boulderURL
+      )
       .pipe(
         map((response) => response.boulders),
         catchError((response: HttpErrorResponse) =>
@@ -60,7 +62,7 @@ export class BouldersService {
   getBouldersAchieved(id: string): Observable<Boulder[]> {
     return this.http
       .get<BouldersResponse>(
-        `https://blocarc-services-production.up.railway.app${this.boulderURL}/achievements/?creator=${id}`
+        `https://blocarc-services-production.up.railway.app${this.boulderURL}/achieved/?user=${id}`
       )
       .pipe(
         map((response) => response.boulders),
@@ -107,7 +109,9 @@ export class BouldersService {
 
   getBoulder(id: number): Observable<Boulder> {
     return this.http
-      .get<BoulderResponse>(`https://blocarc-services-production.up.railway.app${this.boulderURL}/${id}`)
+      .get<BoulderResponse>(
+        `https://blocarc-services-production.up.railway.app${this.boulderURL}/${id}`
+      )
       .pipe(
         map((response) => response.boulder),
         catchError((response: HttpErrorResponse) =>
@@ -121,7 +125,9 @@ export class BouldersService {
 
   getWalls(): Observable<Wall[]> {
     return this.http
-      .get<WallsResponse>('https://blocarc-services-production.up.railway.app' + this.wallURL)
+      .get<WallsResponse>(
+        'https://blocarc-services-production.up.railway.app' + this.wallURL
+      )
       .pipe(
         map((response) => response.walls),
         catchError((response: HttpErrorResponse) =>
@@ -135,20 +141,25 @@ export class BouldersService {
 
   saveWall(wall: Wall): Observable<Wall> {
     return this.http
-      .post<WallResponse>('https://blocarc-services-production.up.railway.app' + this.wallURL, wall)
+      .post<WallResponse>(
+        'https://blocarc-services-production.up.railway.app' + this.wallURL,
+        wall
+      )
       .pipe(map((response) => response.wall));
   }
 
   getCoords(image: WallImage): Observable<string> {
     return this.http
-      .post<Coords>('http://localhost:8090/test', image)
+      .post<Coords>('https://blocarc-ml-production.up.railway.app/test', image)
       .pipe(map((response) => response.output));
   }
 
   getGrades(): Observable<[]> {
     return this.http
       .get<GradesResponse>(
-        'https://blocarc-services-production.up.railway.app' + this.boulderURL + '/grades'
+        'https://blocarc-services-production.up.railway.app' +
+          this.boulderURL +
+          '/grades'
       )
       .pipe(
         map((response) => response.grades),
@@ -163,7 +174,10 @@ export class BouldersService {
 
   saveBoulder(boulder: Boulder): Observable<Boulder> {
     return this.http
-      .post<BoulderResponse>('https://blocarc-services-production.up.railway.app' + this.boulderURL, boulder)
+      .post<BoulderResponse>(
+        'https://blocarc-services-production.up.railway.app' + this.boulderURL,
+        boulder
+      )
       .pipe(map((response) => response.boulder));
   }
 
@@ -255,7 +269,9 @@ export class BouldersService {
 
   deleteBoulder(id: string): Observable<void> {
     return this.http
-      .delete<void>(`https://blocarc-services-production.up.railway.app${this.boulderURL}/${id}`)
+      .delete<void>(
+        `https://blocarc-services-production.up.railway.app${this.boulderURL}/${id}`
+      )
       .pipe(
         catchError((response: HttpErrorResponse) =>
           throwError(

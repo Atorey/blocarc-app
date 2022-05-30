@@ -158,3 +158,9 @@ ion-segment-button {
     height: 1.4rem;
   }
 }
+
+ion-popover {
+  ion-item {
+    --background: var(--ion-item-color);
+  }
+}

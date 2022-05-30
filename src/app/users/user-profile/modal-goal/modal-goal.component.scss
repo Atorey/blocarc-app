@@ -1,0 +1,90 @@
+ion-footer {
+  padding: 1rem;
+}
+
+.boulder-goal {
+  padding: 1rem !important;
+
+  .title {
+    display: flex;
+    align-items: center;
+
+    ion-icon {
+      margin-right: 0.5rem;
+    }
+  }
+
+  h3 {
+    color: var(--ion-color-medium);
+    font-size: 0.8rem;
+    span {
+      font-size: 2rem;
+    }
+  }
+
+  ion-range {
+    padding-bottom: 0;
+  }
+
+  .level {
+    display: flex;
+    justify-content: space-around;
+
+    p {
+      font-size: 0.6rem;
+      margin-top: 0;
+      color: var(--ion-color-medium);
+    }
+  }
+}
+
+hr {
+  background-color: var(--ion-color-light);
+  margin: 0;
+}
+
+.grade-goal {
+  padding: 1rem !important;
+
+  .title {
+    display: flex;
+    align-items: center;
+
+    ion-icon {
+      margin-right: 0.5rem;
+    }
+  }
+
+  /*  h3 {
+    color: var(--ion-color-medium);
+    font-size: 0.8rem;
+    span {
+      font-size: 2rem;
+    }
+  } */
+
+  .select-grade {
+    margin-top: 1rem;
+  }
+
+  ion-card-content {
+    display: grid;
+    grid-template-columns: 25% 30% 45%;
+    align-items: center;
+    column-gap: 0.5rem;
+  }
+
+  h3 {
+    text-align: center;
+  }
+
+  ion-select {
+    border-radius: 0.4rem;
+    background-color: var(--ion-background-color);
+  }
+
+  .add-btn {
+    display: grid;
+    place-content: center;
+  }
+}

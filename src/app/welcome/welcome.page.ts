@@ -16,19 +16,19 @@ export class WelcomePage implements OnInit {
 
   ngOnInit() {}
 
-  async openLoginModal() {
+  /* async openLoginModal() {
     const modal = await this.modalCtrl.create({
       component: ModalLoginComponent,
     });
     await modal.present();
     const result = await modal.onDidDismiss();
-  }
+  } */
 
-  async openRegisterModal() {
+  /* async openRegisterModal() {
     const modal = await this.modalCtrl.create({
       component: ModalRegisterComponent,
     });
     await modal.present();
     const result = await modal.onDidDismiss();
-  }
+  } */
 }

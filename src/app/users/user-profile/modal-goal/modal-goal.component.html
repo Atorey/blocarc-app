@@ -1,0 +1,114 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>Objetivos</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="boulder-goal">
+    <ion-label class="title" color="medium" text-center>
+      <ion-icon src="../../assets/icon/hold.svg" color="primary"></ion-icon>
+      BLOQUES
+    </ion-label>
+    <h3 color="medium"> <span>{{goal}} </span> {{goal === 1 ? 'bloque' : 'bloques'}}</h3>
+    <ion-range min="0" max="100" color="primary"></ion-range>
+    <div class="level">
+      <p>Suave</p>
+      <p>Intermedio</p>
+      <p>Intenso</p>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="grade-goal">
+    <ion-label class="title" color="medium" text-center>
+      <ion-icon name="stats-chart" color="primary"></ion-icon>
+      GRADOS
+    </ion-label>
+    <ion-card class="select-grade">
+      <ion-card-content>
+        <ion-select [(ngModel)]="goalGrades[0].grade">
+          <ion-select-option *ngFor="let grade of grades" value="{{grade}}">{{grade}}</ion-select-option>
+        </ion-select>
+        <h3 color="medium"> <span>{{goalGrades[0].boulders}} </span> {{goalGrades[0].boulders === 1 ? 'bloque' :
+          'bloques'}}</h3>
+        <ion-range min="0" max="100" color="4m" [value]="goalGrades[0].boulders" (ionChange)="changeLevel($event, 0)">
+        </ion-range>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card *ngIf="addCard >= 1" class="select-grade">
+      <ion-card-content>
+        <ion-select name="grade" [(ngModel)]="goalGrades[1]">
+          <ion-select-option *ngFor="let grade of grades" value="{{grade}}">{{grade}}</ion-select-option>
+        </ion-select>
+        <h3 color="medium"> <span>{{goal}} </span> {{goal === 1 ? 'bloque' : 'bloques'}}</h3>
+        <ion-range min="0" max="100" color="4m"></ion-range>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card *ngIf="addCard >= 2" class="select-grade">
+      <ion-card-content>
+        <ion-select name="grade" [(ngModel)]="goalGrades[2]">
+          <ion-select-option *ngFor="let grade of grades" value="{{grade}}">{{grade}}</ion-select-option>
+        </ion-select>
+        <h3 color="medium"> <span>{{goal}} </span> {{goal === 1 ? 'bloque' : 'bloques'}}</h3>
+        <ion-range min="0" max="100" color="4m"></ion-range>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card *ngIf="addCard >= 3" class="select-grade">
+      <ion-card-content>
+        <ion-select name="grade" [(ngModel)]="goalGrades[3]">
+          <ion-select-option *ngFor="let grade of grades" value="{{grade}}">{{grade}}</ion-select-option>
+        </ion-select>
+        <h3 color="medium"> <span>{{goal}} </span> {{goal === 1 ? 'bloque' : 'bloques'}}</h3>
+        <ion-range min="0" max="100" color="4m"></ion-range>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card *ngIf="addCard >= 4" class="select-grade">
+      <ion-card-content>
+        <ion-select name="grade" [(ngModel)]="goalGrades[4]">
+          <ion-select-option *ngFor="let grade of grades" value="{{grade}}">{{grade}}</ion-select-option>
+        </ion-select>
+        <h3 color="medium"> <span>{{goal}} </span> {{goal === 1 ? 'bloque' : 'bloques'}}</h3>
+        <ion-range min="0" max="100" color="4m"></ion-range>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card *ngIf="addCard >= 5" class="select-grade">
+      <ion-card-content>
+        <ion-select name="grade" [(ngModel)]="goalGrades[5]">
+          <ion-select-option *ngFor="let grade of grades" value="{{grade}}">{{grade}}</ion-select-option>
+        </ion-select>
+        <h3 color="medium"> <span>{{goal}} </span> {{goal === 1 ? 'bloque' : 'bloques'}}</h3>
+        <ion-range min="0" max="100" color="4m"></ion-range>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card *ngIf="addCard === 6" class="select-grade">
+      <ion-card-content>
+        <ion-select name="grade" [(ngModel)]="goalGrades[6]">
+          <ion-select-option *ngFor="let grade of grades" value="{{grade}}">{{grade}}</ion-select-option>
+        </ion-select>
+        <h3 color="medium"> <span>{{goal}} </span> {{goal === 1 ? 'bloque' : 'bloques'}}</h3>
+        <ion-range min="0" max="100" color="4m"></ion-range>
+      </ion-card-content>
+    </ion-card>
+
+    <div *ngIf="addCard < 6" class="add-btn">
+      <ion-button fill="clear" size="large" (click)="addGrade()">
+        <ion-icon name="add" size="large"></ion-icon>
+      </ion-button>
+    </div>
+  </div>
+</ion-content>
+<ion-footer>
+  <ion-button expand="block">Guardar</ion-button>
+</ion-footer>

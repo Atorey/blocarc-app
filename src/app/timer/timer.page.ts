@@ -235,7 +235,6 @@ export class TimerPage {
 
   startPreparationTime() {
     this.preparationInterval = setInterval(() => {
-      console.log(this.copyPreparationTime.sec);
       if (
         this.copyPreparationTime.min === '00' &&
         this.copyPreparationTime.sec === '00'

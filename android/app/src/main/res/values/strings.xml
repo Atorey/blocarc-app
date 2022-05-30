@@ -4,4 +4,8 @@
     <string name="title_activity_main">Bloc Arc App</string>
     <string name="package_name">com.blocarc.app</string>
     <string name="custom_url_scheme">com.blocarc.app</string>
+
+    <string name="facebook_app_id">253205076919658</string>
+    <string name="facebook_client_token">1aef69c096363923ae10633d00c7ce57</string>
+
 </resources>

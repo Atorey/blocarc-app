@@ -14,6 +14,7 @@
 
 </ion-content>
 <ion-footer>
-  <ion-button expand="block" (click)="openRegisterModal()">Registrarse</ion-button>
-  <ion-button fill="clear" expand="block" (click)="openLoginModal()">Iniciar sesión</ion-button>
+  <ion-button expand="block" [routerLink]="['/auth/register']" [routerDirection]="'forward'">Registrarse</ion-button>
+  <ion-button fill="clear" expand="block" [routerLink]="['/auth/login']" [routerDirection]="'forward'">Iniciar sesión
+  </ion-button>
 </ion-footer>

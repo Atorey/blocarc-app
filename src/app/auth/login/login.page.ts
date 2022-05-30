@@ -1,8 +1,10 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, NavController } from '@ionic/angular';
+import { GoogleLoginProvider } from 'angularx-social-login';
 import { UserLogin } from 'src/app/users/interfaces/user';
-import { AuthService } from '../services/auth.service';
+import { SelfAuthService } from '../services/auth.service';
+import { AuthService } from 'angularx-social-login';
 
 @Component({
   selector: 'app-login',
@@ -10,24 +12,30 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+  step = 0;
   userLogin: UserLogin = {
     email: '',
     password: '',
   };
 
   constructor(
-    private authService: AuthService,
-    private router: Router,
+    private authService: SelfAuthService,
     private alertCtrl: AlertController,
-    private nav: NavController,
-    private ngZone: NgZone
+    private nav: NavController
   ) {}
 
   ngOnInit() {}
 
   login(): void {
     this.authService.login(this.userLogin).subscribe(
-      () => this.nav.navigateRoot(['/home']),
+      () => {
+        this.step = 0;
+        this.nav.navigateRoot(['/home']);
+        this.userLogin = {
+          email: '',
+          password: '',
+        };
+      },
       async (error) => {
         (
           await this.alertCtrl.create({
@@ -42,5 +50,17 @@ export class LoginPage implements OnInit {
 
   close() {
     this.nav.navigateRoot(['/welcome']);
+  }
+
+  nextStep() {
+    this.step++;
+  }
+
+  goBack() {
+    this.step--;
+    this.userLogin = {
+      email: '',
+      password: '',
+    };
   }
 }

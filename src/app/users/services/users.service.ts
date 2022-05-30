@@ -2,7 +2,18 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { GoalResponse, PullUp, Timer, User, UserResponse } from '../interfaces/user';
+import {
+  Achievement,
+  AchievementResponse,
+  AchievementsResponse,
+} from 'src/app/boulders/interfaces/boulder';
+import {
+  GoalResponse,
+  PullUp,
+  Timer,
+  User,
+  UserResponse,
+} from '../interfaces/user';
 
 @Injectable({
   providedIn: 'root',
@@ -84,5 +95,24 @@ export class UsersService {
         `https://blocarc-services-production.up.railway.app${this.userURL}/goal`
       )
       .pipe(map((response) => response.goal));
+  }
+
+  getAchievementsBetweenDates(
+    dateFirst: string,
+    dateLast: string
+  ): Observable<Achievement[]> {
+    return this.http
+      .get<AchievementsResponse>(
+        `https://blocarc-services-production.up.railway.app${this.userURL}/achievements/?dateFirst=${dateFirst}&dateLast=${dateLast}`
+      )
+      .pipe(
+        map((response) => response.achievements),
+        catchError((response: HttpErrorResponse) =>
+          throwError(
+            () =>
+              `Error getting boulders. Status: ${response.status}. Message: ${response.message}`
+          )
+        )
+      );
   }
 }

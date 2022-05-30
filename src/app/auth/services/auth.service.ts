@@ -9,7 +9,7 @@ import { User, UserLogin } from 'src/app/users/interfaces/user';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService {
+export class SelfAuthService {
   authURL = '/auth';
   logged = false;
   loginChange$ = new ReplaySubject<boolean>(1);
@@ -19,7 +19,8 @@ export class AuthService {
   login(userLogin: UserLogin): Observable<void> {
     return this.http
       .post<TokenResponse>(
-        'https://blocarc-services-production.up.railway.app' + `${this.authURL}/login`,
+        'https://blocarc-services-production.up.railway.app' +
+          `${this.authURL}/login`,
         userLogin
       )
       .pipe(
@@ -29,7 +30,8 @@ export class AuthService {
             this.logged = true;
             this.loginChange$.next(true);
           } catch (e) {
-            throw new Error('Can\'t save authentication token in storage!');
+            // eslint-disable-next-line @typescript-eslint/quotes
+            throw new Error("Can't save authentication token in storage!");
           }
         })
       );
@@ -84,7 +86,10 @@ export class AuthService {
           throw new Error();
         }
         return this.http
-          .get('https://blocarc-services-production.up.railway.app' + `${this.authURL}/validate`)
+          .get(
+            'https://blocarc-services-production.up.railway.app' +
+              `${this.authURL}/validate`
+          )
           .pipe(
             map(() => {
               this.logged = true;
@@ -100,7 +105,29 @@ export class AuthService {
 
   register(user: User): Observable<void> {
     return this.http
-      .post('https://blocarc-services-production.up.railway.app' + `${this.authURL}/register`, user)
-      .pipe(map(() => null));
+      .post(
+        'https://blocarc-services-production.up.railway.app' +
+          `${this.authURL}/register`,
+        user
+      )
+      .pipe(
+        map(() => null),
+        catchError((response: HttpErrorResponse) =>
+          throwError(
+            () =>
+              `Error register. Status: ${response.status}. Message: ${response.message}`
+          )
+        )
+      );
+  }
+
+  /* postSocialLogin(socialData: any) {
+    return this.http.post('postSocialLogin', socialData);
+  } */
+
+  async logout(): Promise<void> {
+    await Storage.remove({ key: 'token' });
+    this.logged = false;
+    this.loginChange$.next(false);
   }
 }

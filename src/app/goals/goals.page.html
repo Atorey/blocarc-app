@@ -4,24 +4,13 @@
       <ion-back-button defaultHref="home"></ion-back-button>
     </ion-buttons>
     <ion-title>Mi actividad</ion-title>
-    <ion-buttons slot="end">
-      <ion-button id="trigger-button">
-        <ion-icon name="ellipsis-vertical" color="medium"></ion-icon>
-      </ion-button>
-      <ion-popover trigger="trigger-button">
-        <ng-template>
-          <ion-list>
-            <ion-item button>Establecer objetivo</ion-item>
-          </ion-list>
-        </ng-template>
-      </ion-popover>
-    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 
 <ion-content>
-  <div class="week-container">
+  <!-- LOAD -->
+  <div class="week-container" *ngIf="loaded">
     <ion-button fill="clear" (click)="previousWeek()">
       <ion-icon color="medium" name="chevron-back"></ion-icon>
     </ion-button>
@@ -31,8 +20,24 @@
       </p>
       <ion-label color="medium" text-center>
         <ion-icon src="../../assets/icon/hold.svg" color="primary"></ion-icon>
-        10 bloques
+        {{totalBouldersAchieved}} {{totalBouldersAchieved === 1 ? 'bloque' : 'bloques'}}
       </ion-label>
+    </div>
+    <ion-button fill="clear" [disabled]="isThisWeek" (click)="nextWeek()">
+      <ion-icon color="medium" name="chevron-forward"></ion-icon>
+    </ion-button>
+  </div>
+
+  <!-- NOT LOAD -->
+  <div class="week-container" *ngIf="!loaded">
+    <ion-button fill="clear" (click)="previousWeek()">
+      <ion-icon color="medium" name="chevron-back"></ion-icon>
+    </ion-button>
+    <div>
+      <p>
+        <ion-skeleton-text style="width: 7.5rem; height: 1rem;"></ion-skeleton-text>
+      </p>
+      <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
     </div>
     <ion-button fill="clear" [disabled]="isThisWeek" (click)="nextWeek()">
       <ion-icon color="medium" name="chevron-forward"></ion-icon>
@@ -41,210 +46,228 @@
 
   <canvas id="weekGoalChart"></canvas>
 
-  <div class="segment">
-    <ion-button mode="ios" size="small" color="medium">
-      <ion-label>Total</ion-label>
-    </ion-button>
-    <ion-button mode="ios" size="small" fill="outline" color="medium">
-      <ion-label>Grados</ion-label>
-    </ion-button>
+  <!-- LOAD -->
+  <div *ngIf="loaded">
+    <div class="segment">
+      <ion-button mode="ios" size="small" [fill]="screen === 'grades' ? 'outline' : 'solid'" color="medium"
+        (click)="toggleScreen('total')">
+        <ion-label>Total</ion-label>
+      </ion-button>
+      <ion-button mode="ios" size="small" [fill]="screen === 'total' ? 'outline' : 'solid'" color="medium"
+        (click)="toggleScreen('grades')">
+        <ion-label>Grados</ion-label>
+      </ion-button>
+    </div>
+
+    <!-- <ion-card class="card-goal">
+      <div>
+        <ion-card-header>
+          <ion-icon name="golf" size="large"></ion-icon>
+          <ion-card-title>¡Has alcanzado tu objetivo!</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          Has conseguido completar 10 bloques esta semana
+        </ion-card-content>
+      </div>
+      <div>
+        <div class="circle">10</div>
+      </div>
+    </ion-card> -->
+
+    <hr>
+
+    <!-- ACHIEVEMENTS -->
+
+    <!-- total -->
+    <ion-list class="list-boulders" *ngIf="achievements.length !== 0 && screen === 'total'">
+      <div *ngFor="let day of uniqueDays">
+        <ion-label color="medium">
+          {{day | dateFilter }}
+        </ion-label>
+        <ion-list class="list-boulders">
+          <div *ngFor="let achievement of achievements | achievementsFilter: day : 'day'">
+            <ion-item [routerLink]="['/boulders/', achievement.boulder._id]" [routerDirection]="'forward'">
+              <ion-avatar slot="start">
+                <ion-badge
+                  color="{{achievement.boulder.grade.includes('+')?achievement.boulder.grade.replace('+', 'm'):achievement.boulder.grade}}">
+                  {{achievement.boulder.grade}}</ion-badge>
+              </ion-avatar>
+              <ion-label>
+                <h2>{{achievement.boulder.name}}</h2>
+                <p>{{achievement.boulder.reps}} {{achievement.boulder.reps === 1 ? 'repetición' : 'repeticiones'}}</p>
+              </ion-label>
+            </ion-item>
+          </div>
+        </ion-list>
+      </div>
+    </ion-list>
+
+    <!-- grades -->
+    <ion-accordion-group class="list-boulders" *ngIf="achievements.length !== 0 && screen === 'grades'">
+      <div *ngFor="let grade of uniqueGrades">
+        <ion-accordion [value]="grade">
+          <ion-item slot="header">
+            <ion-badge color="{{grade.includes('+')?grade.replace('+', 'm'):grade}}">
+              {{grade}}</ion-badge>
+          </ion-item>
+          <ion-list slot="content">
+            <ion-item *ngFor="let achievement of achievements | achievementsFilter: grade"
+              [routerLink]="['/boulders/', achievement.boulder._id]" [routerDirection]="'forward'">
+              <ion-label>
+                <h2>{{achievement.boulder.name}}</h2>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-accordion>
+      </div>
+    </ion-accordion-group>
+
+    <!-- NOT ACHIEVEMENTS -->
+    <ion-list class="list-boulders" *ngIf="achievements.length === 0">
+      <div>
+        <ion-label color="medium">
+          <ion-skeleton-text style="width: 35%"></ion-skeleton-text>
+        </ion-label>
+
+        <ion-list>
+          <ion-item>
+            <ion-thumbnail slot="start">
+              <ion-skeleton-text></ion-skeleton-text>
+            </ion-thumbnail>
+            <ion-label>
+              <h3>
+                <ion-skeleton-text style="width: 40%"></ion-skeleton-text>
+              </h3>
+              <h2>
+                <ion-skeleton-text style="width: 80%"></ion-skeleton-text>
+              </h2>
+              <p>
+                <ion-skeleton-text style="width: 50%"></ion-skeleton-text>
+              </p>
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-thumbnail slot="start">
+              <ion-skeleton-text></ion-skeleton-text>
+            </ion-thumbnail>
+            <ion-label>
+              <h3>
+                <ion-skeleton-text style="width: 40%"></ion-skeleton-text>
+              </h3>
+              <h2>
+                <ion-skeleton-text style="width: 80%"></ion-skeleton-text>
+              </h2>
+              <p>
+                <ion-skeleton-text style="width: 50%"></ion-skeleton-text>
+              </p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </div>
+      <div>
+        <ion-label color="medium">
+          <ion-skeleton-text style="width: 35%"></ion-skeleton-text>
+        </ion-label>
+
+        <ion-list>
+          <ion-item>
+            <ion-thumbnail slot="start">
+              <ion-skeleton-text></ion-skeleton-text>
+            </ion-thumbnail>
+            <ion-label>
+              <h3>
+                <ion-skeleton-text style="width: 40%"></ion-skeleton-text>
+              </h3>
+              <h2>
+                <ion-skeleton-text style="width: 80%"></ion-skeleton-text>
+              </h2>
+              <p>
+                <ion-skeleton-text style="width: 50%"></ion-skeleton-text>
+              </p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </div>
+    </ion-list>
   </div>
-
-  <ion-card class="card-goal">
-    <div>
-      <ion-card-header>
-        <ion-icon name="golf" size="large"></ion-icon>
-        <ion-card-title>¡Has alcanzado tu objetivo!</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        Has conseguido completar 10 bloques esta semana
-      </ion-card-content>
+  <!-- NOT LOAD -->
+  <div *ngIf="!loaded">
+    <div class="segment">
+      <ion-button mode="ios" size="small" color="medium">
+        <ion-label>Total</ion-label>
+      </ion-button>
+      <ion-button mode="ios" size="small" fill="outline" color="medium">
+        <ion-label>Grados</ion-label>
+      </ion-button>
     </div>
-    <div>
-      <div class="circle">10</div>
-    </div>
-  </ion-card>
 
-  <hr>
+    <hr>
 
-  <ion-list class="list-boulders" *ngIf="loaded">
-    <div>
-      <ion-label color="medium">
-        <ion-skeleton-text style="width: 35%"></ion-skeleton-text>
-      </ion-label>
+    <ion-list class="list-boulders">
+      <div>
+        <ion-label color="medium">
+          <ion-skeleton-text style="width: 35%"></ion-skeleton-text>
+        </ion-label>
 
-      <ion-list>
-        <ion-item>
-          <ion-thumbnail slot="start">
-            <ion-skeleton-text></ion-skeleton-text>
-          </ion-thumbnail>
-          <ion-label>
-            <h2>
-              <ion-skeleton-text style="width: 80%"></ion-skeleton-text>
-            </h2>
-          </ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-thumbnail slot="start">
-            <ion-skeleton-text></ion-skeleton-text>
-          </ion-thumbnail>
-          <ion-label>
-            <h2>
-              <ion-skeleton-text style="width: 80%"></ion-skeleton-text>
-            </h2>
-          </ion-label>
-        </ion-item>
-      </ion-list>
-    </div>
-    <div>
-      <ion-label color="medium">
-        <ion-skeleton-text style="width: 35%"></ion-skeleton-text>
-      </ion-label>
+        <ion-list>
+          <ion-item>
+            <ion-thumbnail slot="start">
+              <ion-skeleton-text></ion-skeleton-text>
+            </ion-thumbnail>
+            <ion-label>
+              <h3>
+                <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+              </h3>
+              <h2>
+                <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+              </h2>
+              <p>
+                <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+              </p>
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-thumbnail slot="start">
+              <ion-skeleton-text></ion-skeleton-text>
+            </ion-thumbnail>
+            <ion-label>
+              <h3>
+                <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+              </h3>
+              <h2>
+                <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+              </h2>
+              <p>
+                <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+              </p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </div>
+      <div>
+        <ion-label color="medium">
+          <ion-skeleton-text animated style="width: 35%"></ion-skeleton-text>
+        </ion-label>
 
-      <ion-list>
-        <ion-item>
-          <ion-thumbnail slot="start">
-            <ion-skeleton-text></ion-skeleton-text>
-          </ion-thumbnail>
-          <ion-label>
-            <h2>
-              <ion-skeleton-text style="width: 80%"></ion-skeleton-text>
-            </h2>
-          </ion-label>
-        </ion-item>
-      </ion-list>
-    </div>
-    <div>
-      <ion-label color="medium">
-        <ion-skeleton-text animated style="width: 35%"></ion-skeleton-text>
-      </ion-label>
-
-      <ion-list>
-        <ion-item>
-          <ion-thumbnail slot="start">
-            <ion-skeleton-text animated></ion-skeleton-text>
-          </ion-thumbnail>
-          <ion-label>
-            <h2>
-              <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
-            </h2>
-          </ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-thumbnail slot="start">
-            <ion-skeleton-text animated></ion-skeleton-text>
-          </ion-thumbnail>
-          <ion-label>
-            <h2>
-              <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
-            </h2>
-          </ion-label>
-        </ion-item>
-      </ion-list>
-    </div>
-  </ion-list>
-</ion-content>
-
-<!-- CARGANDO DATOS: ESQUELETO -->
-<ion-content *ngIf="!loaded">
-  <div class="week-container">
-    <ion-icon color="medium" name="chevron-back"></ion-icon>
-    <div>
-      <p>
-        <ion-skeleton-text style="width: 7.5rem;"></ion-skeleton-text>
-      </p>
-      <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
-    </div>
-    <ion-icon color="medium" name="chevron-forward"></ion-icon>
+        <ion-list>
+          <ion-item>
+            <ion-thumbnail slot="start">
+              <ion-skeleton-text></ion-skeleton-text>
+            </ion-thumbnail>
+            <ion-label>
+              <h3>
+                <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+              </h3>
+              <h2>
+                <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+              </h2>
+              <p>
+                <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+              </p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </div>
+    </ion-list>
   </div>
-
-  <canvas id="weekGoalChart"></canvas>
-
-  <div class="segment">
-    <ion-button mode="ios" size="small" color="medium">
-      <ion-label>Total</ion-label>
-    </ion-button>
-    <ion-button mode="ios" size="small" fill="outline" color="medium">
-      <ion-label>Grados</ion-label>
-    </ion-button>
-  </div>
-
-  <hr>
-
-  <ion-list class="list-boulders">
-    <div>
-      <ion-label color="medium">
-        <ion-skeleton-text animated style="width: 35%"></ion-skeleton-text>
-      </ion-label>
-
-      <ion-list>
-        <ion-item>
-          <ion-thumbnail slot="start">
-            <ion-skeleton-text animated></ion-skeleton-text>
-          </ion-thumbnail>
-          <ion-label>
-            <h2>
-              <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
-            </h2>
-          </ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-thumbnail slot="start">
-            <ion-skeleton-text animated></ion-skeleton-text>
-          </ion-thumbnail>
-          <ion-label>
-            <h2>
-              <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
-            </h2>
-          </ion-label>
-        </ion-item>
-      </ion-list>
-    </div>
-    <div>
-      <ion-label color="medium">
-        <ion-skeleton-text animated style="width: 35%"></ion-skeleton-text>
-      </ion-label>
-
-      <ion-list>
-        <ion-item>
-          <ion-thumbnail slot="start">
-            <ion-skeleton-text animated></ion-skeleton-text>
-          </ion-thumbnail>
-          <ion-label>
-            <h2>
-              <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
-            </h2>
-          </ion-label>
-        </ion-item>
-      </ion-list>
-    </div>
-    <div>
-      <ion-label color="medium">
-        <ion-skeleton-text animated style="width: 35%"></ion-skeleton-text>
-      </ion-label>
-
-      <ion-list>
-        <ion-item>
-          <ion-thumbnail slot="start">
-            <ion-skeleton-text animated></ion-skeleton-text>
-          </ion-thumbnail>
-          <ion-label>
-            <h2>
-              <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
-            </h2>
-          </ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-thumbnail slot="start">
-            <ion-skeleton-text animated></ion-skeleton-text>
-          </ion-thumbnail>
-          <ion-label>
-            <h2>
-              <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
-            </h2>
-          </ion-label>
-        </ion-item>
-      </ion-list>
-    </div>
-  </ion-list>
 </ion-content>

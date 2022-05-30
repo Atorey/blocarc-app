@@ -13,6 +13,8 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { TabsComponent } from './components/tabs/tabs.component';
 import { BouldersFilterPipe } from './boulders/pipes/boulders-filter.pipe';
+import { AuthService, AuthServiceConfig } from 'angularx-social-login';
+import { provideConfig } from './interceptors/social-login-config';
 
 @NgModule({
   declarations: [AppComponent, TabsComponent],
@@ -25,6 +27,12 @@ import { BouldersFilterPipe } from './boulders/pipes/boulders-filter.pipe';
     RouterModule,
   ],
   providers: [
+    AuthService,
+    /* HttpConfigInterceptorProvider, */
+    {
+      provide: AuthServiceConfig,
+      useFactory: provideConfig,
+    },
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {
       provide: HTTP_INTERCEPTORS,
