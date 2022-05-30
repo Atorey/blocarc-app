@@ -17,7 +17,11 @@
 
 <ion-content color="ion-color-medium" scrollY=false>
   <!-- BOULDER TAB -->
-  <div class="container">
+  <div *ngIf="!boulder" class="container">
+    <ion-spinner name="circles"></ion-spinner>
+  </div>
+
+  <div *ngIf="boulder" class="container">
     <img [src]="boulderImage">
 
     <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 494 660" #svg>

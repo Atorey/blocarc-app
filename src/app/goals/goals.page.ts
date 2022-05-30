@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Chart, registerables } from 'chart.js';
 import { Achievement, Boulder } from '../boulders/interfaces/boulder';
 import { BouldersService } from '../boulders/services/boulders.service';
-import { User } from '../users/interfaces/user';
+import { Goal, User } from '../users/interfaces/user';
 import { UsersService } from '../users/services/users.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class GoalsPage {
   week: string;
   updateWeek = 0;
   isThisWeek = true;
-  goal: number;
+  goal: Goal;
   chartData = [0, 0, 0, 0, 0, 0, 0];
   daysWeek: string[];
   achievements: Achievement[];

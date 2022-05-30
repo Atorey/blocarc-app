@@ -55,7 +55,8 @@ export class BoulderInfoPage implements OnInit {
   ngOnInit() {
     this.parentComponent.boulder$.subscribe((boulder) => {
       this.boulder = boulder;
-      this.boulderImage = 'https://blocarc-services-production.up.railway.app/' + boulder.image;
+      this.boulderImage =
+        'https://blocarc-services-production.up.railway.app/' + boulder.image;
       this.formatDate = new Intl.DateTimeFormat('es-ES').format(
         new Date(this.boulder.creationDate)
       );
@@ -203,6 +204,7 @@ export class BoulderInfoPage implements OnInit {
       this.openCompleteBoulderModal();
     }
   }
+
   async openCompleteBoulderModal() {
     const modal = await this.modalCtrl.create({
       component: ModalCompleteBoulderComponent,

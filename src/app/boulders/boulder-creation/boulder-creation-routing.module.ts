@@ -10,17 +10,17 @@ const routes: Routes = [
     pathMatch: 'full',
     children: [
       {
-        path: 'image', 
+        path: 'image',
       },
       {
-        path: 'create', 
-      }
-    ]
-  }
+        path: 'create',
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class BoulderCreationPageRoutingModule { }
+export class BoulderCreationPageRoutingModule {}

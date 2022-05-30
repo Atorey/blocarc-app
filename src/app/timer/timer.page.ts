@@ -6,6 +6,7 @@ import { Timer } from '../users/interfaces/user';
 import { UsersService } from '../users/services/users.service';
 import { NativeAudio } from '@awesome-cordova-plugins/native-audio/ngx';
 import { Chart, registerables } from 'chart.js';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-timer',
@@ -55,26 +56,26 @@ export class TimerPage {
   constructor(
     private pickerController: PickerController,
     private usersService: UsersService,
-    private nativeAudio: NativeAudio
+    private nativeAudio: NativeAudio,
+    private route: ActivatedRoute
   ) {}
 
   ionViewWillEnter() {
     this.preloadAudio();
-    this.usersService.getTimer().subscribe((timer) => {
-      this.preparationTime = {
-        min: timer.timer.preparationTime.split(':')[0],
-        sec: timer.timer.preparationTime.split(':')[1],
-      };
-      this.workTime = {
-        min: timer.timer.workTime.split(':')[0],
-        sec: timer.timer.workTime.split(':')[1],
-      };
-      this.restTime = {
-        min: timer.timer.restTime.split(':')[0],
-        sec: timer.timer.restTime.split(':')[1],
-      };
-      this.rounds = timer.timer.rounds;
-    });
+    const timer = this.route.snapshot.data.timer;
+    this.preparationTime = {
+      min: timer.timer.preparationTime.split(':')[0],
+      sec: timer.timer.preparationTime.split(':')[1],
+    };
+    this.workTime = {
+      min: timer.timer.workTime.split(':')[0],
+      sec: timer.timer.workTime.split(':')[1],
+    };
+    this.restTime = {
+      min: timer.timer.restTime.split(':')[0],
+      sec: timer.timer.restTime.split(':')[1],
+    };
+    this.rounds = timer.timer.rounds;
 
     for (let i = 0; i <= 60; i++) {
       this.numberTime.push(i < 10 ? '0' + i.toString() : i.toString());

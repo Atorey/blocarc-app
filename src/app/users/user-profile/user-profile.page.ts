@@ -33,6 +33,7 @@ export class UserProfilePage {
   bouldersLike: Boulder[];
   totalBouldersCreated: number;
   totalBouldersCompleted: number;
+  bouldersSavedEmpty = true;
 
   user: User;
 
@@ -108,7 +109,12 @@ export class UserProfilePage {
         this.userAvatar =
           'https://blocarc-services-production.up.railway.app/' +
           this.user.avatar;
-        this.getBoulders();
+        this.getCreatedBoulders();
+        this.getCompletedBoulders();
+        if (this.user.me) {
+          this.getSavedBoulders();
+          this.getLikedBoulders();
+        }
       },
       error: () => {
         this.nav.navigateRoot(['/']);
@@ -116,7 +122,7 @@ export class UserProfilePage {
     });
   }
 
-  getBoulders() {
+  getCreatedBoulders() {
     this.bouldersService
       // eslint-disable-next-line @typescript-eslint/dot-notation
       .getBouldersByCreator(this.user['_id'])
@@ -124,31 +130,41 @@ export class UserProfilePage {
         this.bouldersCreated = boulders;
         this.totalBouldersCreated = this.bouldersCreated.length;
       });
+  }
 
+  getCompletedBoulders() {
     this.bouldersService
       // eslint-disable-next-line @typescript-eslint/dot-notation
       .getBouldersAchieved(this.user['_id'])
       .subscribe((boulders) => {
         this.bouldersCompleted = boulders;
         this.totalBouldersCompleted = this.bouldersCompleted.length;
-        this.fillGrades();
-        this.createChart();
-      });
 
+        if (boulders.length > 0) {
+          this.fillGrades();
+          this.createChart();
+        }
+      });
+  }
+
+  getSavedBoulders() {
     this.bouldersService
       // eslint-disable-next-line @typescript-eslint/dot-notation
-      .getBouldersSaved(this.user['_id'])
+      .getBouldersSaved()
       .subscribe((boulders) => {
+        this.bouldersSavedEmpty = boulders.length > 0 ? false : true;
         this.bouldersSaved.forEach((grade) => {
           grade.boulders = boulders.filter((boulder) =>
             boulder.grade.includes(grade.val)
           );
         });
       });
+  }
 
+  getLikedBoulders() {
     this.bouldersService
       // eslint-disable-next-line @typescript-eslint/dot-notation
-      .getBouldersLike(this.user['_id'])
+      .getBouldersLike()
       .subscribe((boulders) => {
         this.bouldersLike = boulders;
       });

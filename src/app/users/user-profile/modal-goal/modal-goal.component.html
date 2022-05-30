@@ -14,8 +14,10 @@
       <ion-icon src="../../assets/icon/hold.svg" color="primary"></ion-icon>
       BLOQUES
     </ion-label>
-    <h3 color="medium"> <span>{{goal}} </span> {{goal === 1 ? 'bloque' : 'bloques'}}</h3>
-    <ion-range min="0" max="100" color="primary"></ion-range>
+    <h3 color="medium"> <span>{{userGoal.goal.boulders}} </span> {{userGoal.goal.boulders === 1 ? 'bloque' : 'bloques'}}
+    </h3>
+    <ion-range min="0" max="100" color="primary" [value]="userGoal.goal.boulders"
+      (ionChange)="changeGoalBoulderLevel($event)"></ion-range>
     <div class="level">
       <p>Suave</p>
       <p>Intermedio</p>
@@ -32,73 +34,87 @@
     </ion-label>
     <ion-card class="select-grade">
       <ion-card-content>
-        <ion-select [(ngModel)]="goalGrades[0].grade">
+        <ion-select [(ngModel)]="userGoal.goal.grades[0].grade">
           <ion-select-option *ngFor="let grade of grades" value="{{grade}}">{{grade}}</ion-select-option>
         </ion-select>
-        <h3 color="medium"> <span>{{goalGrades[0].boulders}} </span> {{goalGrades[0].boulders === 1 ? 'bloque' :
+        <h3 color="medium"> <span>{{userGoal.goal.grades[0].boulders}} </span>
+          {{userGoal.goal.grades[0].boulders === 1 ? 'bloque' :
           'bloques'}}</h3>
-        <ion-range min="0" max="100" color="4m" [value]="goalGrades[0].boulders" (ionChange)="changeLevel($event, 0)">
+        <ion-range min="0" max="100" color="{{userGoal.goal.grades[0].grade.includes('+')?userGoal.goal.grades[0].grade.replace('+', 'm'):userGoal.goal.grades[0].grade}}" [value]="userGoal.goal.grades[0].boulders"
+          (ionChange)="changeLevel($event, 0)">
         </ion-range>
       </ion-card-content>
     </ion-card>
 
     <ion-card *ngIf="addCard >= 1" class="select-grade">
       <ion-card-content>
-        <ion-select name="grade" [(ngModel)]="goalGrades[1]">
+        <ion-select name="grade" [(ngModel)]="userGoal.goal.grades[1].grade">
           <ion-select-option *ngFor="let grade of grades" value="{{grade}}">{{grade}}</ion-select-option>
         </ion-select>
-        <h3 color="medium"> <span>{{goal}} </span> {{goal === 1 ? 'bloque' : 'bloques'}}</h3>
-        <ion-range min="0" max="100" color="4m"></ion-range>
+        <h3 color="medium"> <span>{{userGoal.goal.grades[1].boulders}} </span> {{userGoal.goal.grades[1].boulders === 1
+          ? 'bloque' : 'bloques'}}</h3>
+        <ion-range min="0" max="100" color="{{userGoal.goal.grades[1].grade.includes('+')?userGoal.goal.grades[1].grade.replace('+', 'm'):userGoal.goal.grades[1].grade}}" [value]="userGoal.goal.grades[1].boulders"
+          (ionChange)="changeLevel($event, 1)"></ion-range>
       </ion-card-content>
     </ion-card>
 
     <ion-card *ngIf="addCard >= 2" class="select-grade">
       <ion-card-content>
-        <ion-select name="grade" [(ngModel)]="goalGrades[2]">
+        <ion-select name="grade" [(ngModel)]="userGoal.goal.grades[2].grade">
           <ion-select-option *ngFor="let grade of grades" value="{{grade}}">{{grade}}</ion-select-option>
         </ion-select>
-        <h3 color="medium"> <span>{{goal}} </span> {{goal === 1 ? 'bloque' : 'bloques'}}</h3>
-        <ion-range min="0" max="100" color="4m"></ion-range>
+        <h3 color="medium"> <span>{{userGoal.goal.grades[2].boulders}} </span> {{userGoal.goal.grades[2].boulders === 1
+          ? 'bloque' : 'bloques'}}</h3>
+        <ion-range min="0" max="100" color="{{userGoal.goal.grades[2].grade.includes('+')?userGoal.goal.grades[2].grade.replace('+', 'm'):userGoal.goal.grades[2].grade}}" [value]="userGoal.goal.grades[2].boulders"
+          (ionChange)="changeLevel($event, 2)"></ion-range>
       </ion-card-content>
     </ion-card>
 
     <ion-card *ngIf="addCard >= 3" class="select-grade">
       <ion-card-content>
-        <ion-select name="grade" [(ngModel)]="goalGrades[3]">
+        <ion-select name="grade" [(ngModel)]="userGoal.goal.grades[3].grade">
           <ion-select-option *ngFor="let grade of grades" value="{{grade}}">{{grade}}</ion-select-option>
         </ion-select>
-        <h3 color="medium"> <span>{{goal}} </span> {{goal === 1 ? 'bloque' : 'bloques'}}</h3>
-        <ion-range min="0" max="100" color="4m"></ion-range>
+        <h3 color="medium"> <span>{{userGoal.goal.grades[3].boulders}} </span> {{userGoal.goal.grades[3].boulders === 1
+          ? 'bloque' : 'bloques'}}</h3>
+        <ion-range min="0" max="100" color="{{userGoal.goal.grades[3].grade.includes('+')?userGoal.goal.grades[3].grade.replace('+', 'm'):userGoal.goal.grades[3].grade}}" [value]="userGoal.goal.grades[3].boulders"
+          (ionChange)="changeLevel($event, 3)"></ion-range>
       </ion-card-content>
     </ion-card>
 
     <ion-card *ngIf="addCard >= 4" class="select-grade">
       <ion-card-content>
-        <ion-select name="grade" [(ngModel)]="goalGrades[4]">
+        <ion-select name="grade" [(ngModel)]="userGoal.goal.grades[4].grade">
           <ion-select-option *ngFor="let grade of grades" value="{{grade}}">{{grade}}</ion-select-option>
         </ion-select>
-        <h3 color="medium"> <span>{{goal}} </span> {{goal === 1 ? 'bloque' : 'bloques'}}</h3>
-        <ion-range min="0" max="100" color="4m"></ion-range>
+        <h3 color="medium"> <span>{{userGoal.goal.grades[4].boulders}} </span> {{userGoal.goal.grades[4].boulders === 1
+          ? 'bloque' : 'bloques'}}</h3>
+        <ion-range min="0" max="100" color="{{userGoal.goal.grades[4].grade.includes('+')?userGoal.goal.grades[4].grade.replace('+', 'm'):userGoal.goal.grades[4].grade}}" [value]="userGoal.goal.grades[4].boulders"
+          (ionChange)="changeLevel($event, 4)"></ion-range>
       </ion-card-content>
     </ion-card>
 
     <ion-card *ngIf="addCard >= 5" class="select-grade">
       <ion-card-content>
-        <ion-select name="grade" [(ngModel)]="goalGrades[5]">
+        <ion-select name="grade" [(ngModel)]="userGoal.goal.grades[5].grade">
           <ion-select-option *ngFor="let grade of grades" value="{{grade}}">{{grade}}</ion-select-option>
         </ion-select>
-        <h3 color="medium"> <span>{{goal}} </span> {{goal === 1 ? 'bloque' : 'bloques'}}</h3>
-        <ion-range min="0" max="100" color="4m"></ion-range>
+        <h3 color="medium"> <span>{{userGoal.goal.grades[5].boulders}} </span> {{userGoal.goal.grades[5].boulders === 1
+          ? 'bloque' : 'bloques'}}</h3>
+        <ion-range min="0" max="100" color="{{userGoal.goal.grades[5].grade.includes('+')?userGoal.goal.grades[5].grade.replace('+', 'm'):userGoal.goal.grades[5].grade}}" [value]="userGoal.goal.grades[5].boulders"
+          (ionChange)="changeLevel($event, 5)"></ion-range>
       </ion-card-content>
     </ion-card>
 
     <ion-card *ngIf="addCard === 6" class="select-grade">
       <ion-card-content>
-        <ion-select name="grade" [(ngModel)]="goalGrades[6]">
+        <ion-select name="grade" [(ngModel)]="userGoal.goal.grades[6].grade">
           <ion-select-option *ngFor="let grade of grades" value="{{grade}}">{{grade}}</ion-select-option>
         </ion-select>
-        <h3 color="medium"> <span>{{goal}} </span> {{goal === 1 ? 'bloque' : 'bloques'}}</h3>
-        <ion-range min="0" max="100" color="4m"></ion-range>
+        <h3 color="medium"> <span>{{userGoal.goal.grades[6].boulders}} </span> {{userGoal.goal.grades[6].boulders === 1
+          ? 'bloque' : 'bloques'}}</h3>
+        <ion-range min="0" max="100" color="{{userGoal.goal.grades[6].grade.includes('+')?userGoal.goal.grades[6].grade.replace('+', 'm'):userGoal.goal.grades[6].grade}}" [value]="userGoal.goal.grades[6].boulders"
+          (ionChange)="changeLevel($event, 6)"></ion-range>
       </ion-card-content>
     </ion-card>
 
@@ -110,5 +126,5 @@
   </div>
 </ion-content>
 <ion-footer>
-  <ion-button expand="block">Guardar</ion-button>
+  <ion-button expand="block" (click)="saveGoal()">Guardar</ion-button>
 </ion-footer>

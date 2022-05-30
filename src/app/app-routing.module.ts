@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { LoginActivateGuard } from './guards/login-activate.guard';
 import { LogoutActivateGuard } from './guards/logout-activate.guard';
+import { TimerResolver } from './timer/resolvers/timer.resolver';
 
 const routes: Routes = [
   {
@@ -42,17 +43,21 @@ const routes: Routes = [
     loadChildren: () =>
       import('./timer/timer.module').then((m) => m.TimerModule),
     canActivate: [LoginActivateGuard],
+    resolve: {
+      timer: TimerResolver,
+    },
   },
   {
     path: 'pull-ups',
     loadChildren: () =>
       import('./pull-ups/pull-ups.module').then((m) => m.PullUpsPageModule),
     canActivate: [LoginActivateGuard],
-  },  {
-    path: 'goals',
-    loadChildren: () => import('./goals/goals.module').then( m => m.GoalsPageModule)
   },
-
+  {
+    path: 'goals',
+    loadChildren: () =>
+      import('./goals/goals.module').then((m) => m.GoalsPageModule),
+  },
 ];
 @NgModule({
   imports: [

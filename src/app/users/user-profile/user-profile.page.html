@@ -61,6 +61,15 @@
   </ion-segment>
 
   <!-- Bloques creados -->
+  <div *ngIf="isActive('created') && !bouldersCreated" class="not-loaded">
+    <div>
+      <ion-icon src="../../assets/icon/hold.svg"></ion-icon>
+      <h3>{{user.me ? 'No has creado ningún bloque' : 'No ha creado ningún bloque'}}</h3>
+      <p>{{user.me ? 'Todos los bloques que crees se mostrarán aquí' : 'Todos los bloques que cree se mostrarán
+        aquí'}}</p>
+    </div>
+  </div>
+
   <div *ngIf="isActive('created') && bouldersCreated" class="completed-list">
     <ion-item *ngFor="let boulder of bouldersCreated" [routerDirection]="'forward'"
       [routerLink]="['/boulders/', boulder._id]">
@@ -79,14 +88,24 @@
   </div>
 
   <!-- Bloques completados -->
-  <div class="canvas-container" [hidden]="!isActive('completed')">
+  <div *ngIf="isActive('completed') && !bouldersCompleted" class="not-loaded">
+    <div>
+      <ion-icon name="checkbox"></ion-icon>
+      <h3>{{user.me ? 'No has completado ningún bloque' : 'No ha completado ningún bloque'}}</h3>
+      <p>{{user.me ? 'Todos los bloques que completes se mostrarán aquí' : 'Todos los bloques que complete se
+        mostrarán aquí'}}</p>
+    </div>
+  </div>
+
+  <div class="canvas-container" [hidden]="!isActive('completed') || !bouldersCompleted">
     <p>Total: {{totalBouldersCompleted || '0'}}</p>
     <canvas #canvas id="completedChart"></canvas>
   </div>
 
-  <hr>
 
-  <div *ngIf="isActive('completed')">
+  <div *ngIf="isActive('completed') && bouldersCompleted">
+    <hr>
+
     <div class="checkbox-grades">
       <h4>Lista de bloques completados</h4>
       <div>
@@ -120,7 +139,15 @@
   </div>
 
   <!-- Bloques guardados -->
-  <div *ngIf="isActive('saved')">
+  <div *ngIf="isActive('saved') && bouldersSavedEmpty" class="not-loaded">
+    <div>
+      <ion-icon name="bookmark"></ion-icon>
+      <h3>No has guardado ningún bloque</h3>
+      <p>Todos los bloques que has guardado se mostrarán aquí</p>
+    </div>
+  </div>
+
+  <div *ngIf="isActive('saved') && !bouldersSavedEmpty">
     <ion-accordion-group>
       <div *ngFor="let grade of bouldersSaved">
         <ion-accordion *ngIf="grade.boulders.length > 0" [value]="grade.val">
@@ -150,7 +177,15 @@
   </div>
 
   <!-- Bloques creados -->
-  <div *ngIf="isActive('fav')">
+  <div *ngIf="isActive('fav') && !bouldersLike" class="not-loaded">
+    <div>
+      <ion-icon name="heart"></ion-icon>
+      <h3>No tienes bloques favoritos</h3>
+      <p>Todos los bloques que marques como favoritos se mostrarán aquí</p>
+    </div>
+  </div>
+
+  <div *ngIf="isActive('fav') && bouldersLike">
     <ion-item *ngFor="let boulder of bouldersLike" [routerLink]="['/boulders/', boulder._id]"
       [routerDirection]="'forward'">
       <ion-avatar slot="start">

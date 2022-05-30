@@ -29,6 +29,18 @@ export interface PullUp {
   };
 }
 
+export interface Goal {
+  goal: {
+    boulders: number;
+    grades: [
+      {
+        grade: string;
+        boulders: number;
+      }
+    ];
+  };
+}
+
 // RESPONSES
 export interface UsersResponse {
   users: User[];
@@ -36,8 +48,4 @@ export interface UsersResponse {
 
 export interface UserResponse {
   user: User;
-}
-
-export interface GoalResponse {
-  goal: number;
 }

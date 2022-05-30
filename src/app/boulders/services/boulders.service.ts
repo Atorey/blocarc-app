@@ -75,10 +75,10 @@ export class BouldersService {
       );
   }
 
-  getBouldersSaved(id: string): Observable<Boulder[]> {
+  getBouldersSaved(): Observable<Boulder[]> {
     return this.http
       .get<BouldersResponse>(
-        `https://blocarc-services-production.up.railway.app${this.boulderURL}/saved/?creator=${id}`
+        `https://blocarc-services-production.up.railway.app${this.boulderURL}/saved`
       )
       .pipe(
         map((response) => response.boulders),
@@ -91,10 +91,10 @@ export class BouldersService {
       );
   }
 
-  getBouldersLike(id: string): Observable<Boulder[]> {
+  getBouldersLike(): Observable<Boulder[]> {
     return this.http
       .get<BouldersResponse>(
-        `https://blocarc-services-production.up.railway.app${this.boulderURL}/like/?creator=${id}`
+        `https://blocarc-services-production.up.railway.app${this.boulderURL}/like`
       )
       .pipe(
         map((response) => response.boulders),

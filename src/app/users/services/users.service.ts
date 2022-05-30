@@ -4,16 +4,9 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import {
   Achievement,
-  AchievementResponse,
   AchievementsResponse,
 } from 'src/app/boulders/interfaces/boulder';
-import {
-  GoalResponse,
-  PullUp,
-  Timer,
-  User,
-  UserResponse,
-} from '../interfaces/user';
+import { Goal, PullUp, Timer, User, UserResponse } from '../interfaces/user';
 
 @Injectable({
   providedIn: 'root',
@@ -89,12 +82,29 @@ export class UsersService {
       );
   }
 
-  getGoal(): Observable<number> {
+  getGoal(): Observable<Goal> {
     return this.http
-      .get<GoalResponse>(
+      .get<Goal>(
         `https://blocarc-services-production.up.railway.app${this.userURL}/goal`
       )
-      .pipe(map((response) => response.goal));
+      .pipe(map((response) => response));
+  }
+
+  postGoal(goal: Goal): Observable<void> {
+    return this.http
+      .put<void>(
+        // eslint-disable-next-line @typescript-eslint/dot-notation
+        `https://blocarc-services-production.up.railway.app${this.userURL}/goal`,
+        goal
+      )
+      .pipe(
+        catchError((response: HttpErrorResponse) =>
+          throwError(
+            () =>
+              `Error posting goal. Status: ${response.status}. Message: ${response.message}`
+          )
+        )
+      );
   }
 
   getAchievementsBetweenDates(
