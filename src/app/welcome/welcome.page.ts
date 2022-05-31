@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController, ToastController } from '@ionic/angular';
+import { PullUp } from '../users/interfaces/user';
+import { UsersService } from '../users/services/users.service';
 import { ModalLoginComponent } from './modal-login/modal-login.component';
 import { ModalRegisterComponent } from './modal-register/modal-register.component';
 
@@ -15,7 +17,6 @@ export class WelcomePage implements OnInit {
   ) {}
 
   ngOnInit() {}
-
   /* async openLoginModal() {
     const modal = await this.modalCtrl.create({
       component: ModalLoginComponent,

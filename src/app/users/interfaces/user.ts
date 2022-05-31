@@ -21,7 +21,7 @@ export interface Timer {
   };
 }
 export interface PullUp {
-  pullUp: {
+  pullUps: {
     reps: number;
     weight: number;
     ballast: number;

@@ -17,7 +17,7 @@ export class PullUpsPage implements OnInit {
   };
 
   goal: PullUp = {
-    pullUp: {
+    pullUps: {
       reps: 0,
       intensity: 0,
       weight: 0,
@@ -40,12 +40,12 @@ export class PullUpsPage implements OnInit {
 
     const rm = Math.round(totalWeight / (1.0278 - 0.0278 * +this.pullUps.reps));
 
-    this.goal.pullUp.weight = Math.round((+this.pullUps.intensity * rm) / 100);
-    this.goal.pullUp.reps = Math.trunc(
-      36.9712 - (35.9712 * this.goal.pullUp.weight) / rm
+    this.goal.pullUps.weight = Math.round((+this.pullUps.intensity * rm) / 100);
+    this.goal.pullUps.reps = Math.trunc(
+      36.9712 - (35.9712 * this.goal.pullUps.weight) / rm
     );
-    this.goal.pullUp.intensity = +this.pullUps.intensity;
-    this.goal.pullUp.ballast = this.goal.pullUp.weight - +this.pullUps.weight;
+    this.goal.pullUps.intensity = +this.pullUps.intensity;
+    this.goal.pullUps.ballast = this.goal.pullUps.weight - +this.pullUps.weight;
   }
 
   nextStep() {

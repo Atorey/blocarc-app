@@ -48,42 +48,42 @@
         <ion-card class="small-card" [routerLink]="['/timer']" [routerDirection]="'fordward'">
           <ion-label>Temporizador</ion-label>
           <div class="content-center">
-            <ion-icon color="medium" name="timer"></ion-icon>
+            <ion-icon color="dark" name="timer"></ion-icon>
           </div>
         </ion-card>
       </ion-col>
       <ion-col size="6">
         <ion-card class="small-card" [routerLink]="['/pull-ups']" [routerDirection]="'fordward'">
           <ion-label>Dominadas</ion-label>
-          <div *ngIf="true" class="content-center">
+          <div *ngIf="!pullUps" class="content-center">
             <ion-icon color="medium" src="../../assets/icon/pullups.svg"></ion-icon>
           </div>
-          <div *ngIf="false">
+          <div *ngIf="pullUps">
             <div>
 
               <ion-label>
                 <ion-icon name="repeat" color="primary"></ion-icon>
-                <span>10 </span>% repeticiones
+                <span>{{pullUps.pullUps.reps}} </span> repeticiones
               </ion-label>
             </div>
             <div>
 
               <ion-label>
                 <ion-icon name="trending-up" color="primary"></ion-icon>
-                <span>93 </span>% intensidad
+                <span>{{pullUps.pullUps.intensity}} </span>% intensidad
               </ion-label>
             </div>
             <div>
               <ion-label>
                 <ion-icon name="scale" color="primary"></ion-icon>
-                <span>45 </span>kg peso total
+                <span>{{pullUps.pullUps.weight}} </span>kg peso total
               </ion-label>
             </div>
             <div>
 
               <ion-label>
                 <ion-icon name="server" color="primary"></ion-icon>
-                <span>-10 </span>kg lastre
+                <span>{{pullUps.pullUps.ballast}} </span>kg lastre
               </ion-label>
             </div>
           </div>
@@ -94,11 +94,54 @@
       <ion-col>
         <ion-card class="big-card">
           <ion-label>Último bloque completado</ion-label>
-          <div class="vertical-align ">
-            <ion-thumbnail>
-              <ion-skeleton-text animated></ion-skeleton-text>
-            </ion-thumbnail>
+          <div class="last-boulder" *ngIf="load && lastBoulderAchieved">
+            <div class="vertical-align ">
+
+              <div class="image-last-achieved">
+                <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 494 660" #svg>
+                  <polygon *ngFor="let hold of holds" attr.points={{hold.coords}} class="{{hold.color}}"></polygon>
+                </svg>
+                <img [src]="lastBoulderImage">
+              </div>
+
+            </div>
+
+            <div class="data-last-achieved">
+              <h3>{{lastBoulderAchieved.name}}</h3>
+              <ion-badge
+                color="{{lastBoulderAchieved.grade.includes('+')?lastBoulderAchieved.grade.replace('+', 'm'):lastBoulderAchieved.grade}}">
+                {{lastBoulderAchieved.grade}}</ion-badge>
+              <p><span>Pared:</span> {{lastBoulderAchieved.wall}}</p>
+              <p><span>Completado el:</span> {{dateLastAchieved}}</p>
+            </div>
           </div>
+
+          <div class="not-boulder" *ngIf="load && !lastBoulderAchieved">
+            <ion-icon name="checkbox"></ion-icon>
+            <h3>No has completado ningún bloque</h3>
+          </div>
+
+          <div *ngIf="!load" class="last-boulder">
+            <div class="vertical-align ">
+              <div class="image-last-achieved">
+                <ion-skeleton-text animated class="image-skeleton"></ion-skeleton-text>
+              </div>
+            </div>
+
+            <div class="data-last-achieved">
+              <h3>
+                <ion-skeleton-text animated style="width: 5rem"></ion-skeleton-text>
+              </h3>
+              <ion-skeleton-text animated style="width: 2rem"></ion-skeleton-text>
+              <p>
+                <ion-skeleton-text animated style="width: 6rem"></ion-skeleton-text>
+              </p>
+              <p>
+                <ion-skeleton-text animated style="width: 6rem"></ion-skeleton-text>
+              </p>
+            </div>
+          </div>
+
         </ion-card>
       </ion-col>
     </ion-row>

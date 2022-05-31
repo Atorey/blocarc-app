@@ -57,9 +57,12 @@ ion-card {
     }
   }
 
-  ion-thumbnail {
+  .image-last-achieved,
+  svg,
+  image-skeleton {
     height: 6rem;
     width: 4.5rem;
+    position: relative;
   }
 
   .vertical-align {
@@ -71,4 +74,91 @@ ion-card {
 
 circle-progress {
   height: 80%;
+}
+
+.last-boulder {
+  display: flex;
+  justify-content: start;
+  margin-top: 0.5rem;
+}
+
+.data-last-achieved {
+  padding-left: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  h3,
+  p {
+    margin: 0;
+    color: var(--ion-color-dark);
+  }
+
+  h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.2rem;
+  }
+
+  p {
+    font-size: 0.8rem;
+  }
+
+  ion-badge {
+    width: 20%;
+    margin-bottom: 0.2rem;
+  }
+
+  span {
+    color: var(--ion-color-medium);
+    font-size: 0.7rem;
+  }
+}
+
+svg {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 80%;
+  height: 80%;
+}
+
+polygon {
+  cursor: pointer;
+  fill: transparent;
+  stroke-width: 15;
+  fill-rule: evenodd;
+}
+
+.green {
+  stroke: var(--ion-color-primary);
+}
+
+.red {
+  stroke: var(--ion-color-primary);
+}
+
+.blue {
+  stroke: var(--ion-color-primary);
+}
+
+img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  filter: grayscale(80%);
+  -webkit-filter: grayscale(80%);
+}
+
+.not-boulder {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 2.2rem;
+
+  h3 {
+    padding-left: 1rem;
+    font-size: 1rem;
+    margin: 0;
+  }
 }
