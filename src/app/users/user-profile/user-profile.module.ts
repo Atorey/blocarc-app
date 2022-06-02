@@ -20,6 +20,6 @@ import { ModalGoalComponent } from './modal-goal/modal-goal.component';
     StaticRatingModule,
   ],
   declarations: [UserProfilePage, GradesFilterPipe, ModalGoalComponent],
-  exports: [GradesFilterPipe],
+  exports: [GradesFilterPipe, ModalGoalComponent],
 })
 export class UserProfilePageModule {}

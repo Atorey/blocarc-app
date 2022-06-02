@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar *ngIf="user && !user.me">
     <ion-buttons slot="start">
       <ion-back-button defaultHref="home"></ion-back-button>
     </ion-buttons>
@@ -20,8 +20,35 @@
       </ion-popover>
     </ion-buttons>
   </ion-toolbar>
-</ion-header>
 
+  <ion-toolbar *ngIf="user && user.me">
+    <ion-buttons slot="start">
+      <ion-button class="logo">
+        <ion-icon src="../../assets/logo/logo.svg" size="large"></ion-icon>
+        <h1>BLOC ARC</h1>
+        <!-- <ion-img src="../../assets/logo/logo.png"></ion-img> -->
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon name="add" color="medium"></ion-icon>
+      </ion-button>
+      <ion-button id="trigger-button">
+        <ion-icon name="settings-sharp" color="medium"></ion-icon>
+      </ion-button>
+      <ion-popover trigger="trigger-button" [dismissOnSelect]="true">
+        <ng-template>
+          <ion-list>
+            <ion-item button>Editar perfil</ion-item>
+            <ion-item button (click)="openGoalModal()">Establecer objetivo</ion-item>
+            <ion-item></ion-item>
+            <ion-item button (click)="logout()">Cerrar sesión</ion-item>
+          </ion-list>
+        </ng-template>
+      </ion-popover>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
 <ion-content *ngIf="user">
   <div class="cabecera">

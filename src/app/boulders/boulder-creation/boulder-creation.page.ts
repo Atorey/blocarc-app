@@ -7,6 +7,7 @@ import { BouldersService } from '../services/boulders.service';
 import { ModalCreateBoulderComponent } from './modal-create-boulder/modal-create-boulder.component';
 import { ModalCreateWallComponent } from './modal-create-wall/modal-create-wall.component';
 import { ModalSelectWallComponent } from './modal-select-wall/modal-select-wall.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-boulder-creation',
@@ -143,7 +144,7 @@ export class BoulderCreationPage implements OnInit {
       this.boulder.holds = [];
       this.selectedWall = result.data.wall;
       this.toDataURL(
-        'https://blocarc-services-production.up.railway.app/' + this.selectedWall.image,
+        `${environment.baseUrl_api}/${this.selectedWall.image}`,
         (dataURL) => {
           this.boulder.image = dataURL;
         }

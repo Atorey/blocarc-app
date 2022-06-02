@@ -1,8 +1,44 @@
+.logo {
+  display: flex;
+  align-items: center;
+
+  ion-icon {
+    width: 2rem;
+    margin-right: 0.5rem;
+  }
+
+  h1 {
+    font-family: RalewayBold !important;
+    margin: 0;
+  }
+}
+
 .cabecera {
   display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  height: 12rem;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1rem 2rem;
+
+  circle-progress {
+    height: 10rem;
+  }
+
+  .grades {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    gap: 0.5rem;
+
+    p {
+      margin: 0;
+    }
+
+    ion-badge {
+      font-family: PoppinsRegular !important;
+      width: 2rem;
+    }
+  }
 }
 
 ion-card {
@@ -70,10 +106,6 @@ ion-card {
     display: flex;
     align-items: center;
   }
-}
-
-circle-progress {
-  height: 80%;
 }
 
 .last-boulder {
@@ -161,4 +193,64 @@ img {
     font-size: 1rem;
     margin: 0;
   }
+}
+
+.week-goal {
+  .text-completed {
+    margin-top: 0.8rem;
+    display: flex;
+    justify-content: space-between;
+
+    ion-progress-bar {
+      border-radius: 0.5rem;
+      height: 0.5rem;
+      width: 70%;
+      margin-top: 0.3rem;
+    }
+
+    h3 {
+      font-size: 1rem;
+      margin: 0 0 0 0.1rem;
+      color: var(--ion-color-primary);
+    }
+  }
+
+  .desplace-end {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    div {
+      width: 100%;
+    }
+
+    .first {
+      width: 40%;
+    }
+  }
+
+  .circles-container {
+    height: 1.9rem;
+    margin-top: 0.6rem;
+
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .text-grades {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+
+    p {
+      margin: 0;
+      font-size: 0.6rem;
+      width: 100%;
+    }
+  }
+}
+
+.week-date {
+  font-size: 0.6rem;
+  margin: 0;
 }

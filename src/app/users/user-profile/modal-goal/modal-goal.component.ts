@@ -34,17 +34,10 @@ export class ModalGoalComponent {
 
   ionViewWillEnter() {
     this.getGoal();
-    /* this.getGrades(); */
   }
 
   close() {
-    this.modalCtrl.dismiss();
-  }
-
-  getGrades() {
-    this.bouldersService.getGrades().subscribe((grades) => {
-      this.grades = grades;
-    });
+    this.modalCtrl.dismiss({ goal: this.userGoal });
   }
 
   getGoal() {

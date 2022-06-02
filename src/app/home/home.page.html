@@ -2,19 +2,15 @@
 
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button>
-        <ion-img src="../../assets/logo/logo.png"></ion-img>
+      <ion-button class="logo">
+        <ion-icon src="../../assets/logo/logo.svg" size="large"></ion-icon>
+        <h1>BLOC ARC</h1>
+        <!-- <ion-img src="../../assets/logo/logo.png"></ion-img> -->
       </ion-button>
     </ion-buttons>
     <ion-buttons slot="end">
       <ion-button>
         <ion-icon name="add" color="medium"></ion-icon>
-      </ion-button>
-      <ion-button>
-        <ion-icon name="flash" color="medium"></ion-icon>
-      </ion-button>
-      <ion-button>
-        <ion-icon name="paper-plane" color="medium"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -23,27 +19,143 @@
 
 
 <ion-content>
-  <div class="cabecera">
-    <circle-progress [percent]="85" [radius]="70" [outerStrokeWidth]="16" [innerStrokeWidth]="16" [space]="-16"
+  <div class="cabecera" *ngIf="userGoal && achievements">
+    <circle-progress
+      [percent]="totalTodayBoulders && userGoal.goal ? totalTodayBoulders * 100 / (userGoal.goal.boulders / 7) : 0"
+      [radius]="80" [outerStrokeWidth]="16" [innerStrokeWidth]="16" [space]="-16" [outerStrokeColor]="'#f5dc09'"
+      [innerStrokeColor]="'#1e1e1e'" [animation]="true" [animationDuration]="300" [responsive]="true"
+      [titleFontSize]="40" [subtitleFontSize]="15" [title]="totalTodayBoulders" [subtitle]="['hoy']" [showUnits]="false"
+      [titleColor]="'#f5dc09'">
+    </circle-progress>
+    <div class="grades">
+      <div *ngFor="let goal of todayProgressGoal">
+        <p>{{goal.total}}</p>
+        <ion-badge [color]="goal.grade.includes('+') ? goal.grade.replace('+', 'm') : goal.grade">{{goal.grade}}
+        </ion-badge>
+      </div>
+    </div>
+  </div>
+
+  <div class="cabecera" *ngIf="!userGoal || !achievements">
+    <circle-progress [percent]="0" [radius]="80" [outerStrokeWidth]="16" [innerStrokeWidth]="16" [space]="-16"
       [outerStrokeColor]="'#f5dc09'" [innerStrokeColor]="'#1e1e1e'" [animation]="true" [animationDuration]="300"
-      [responsive]="true" [titleFontSize]="40" [subtitleFontSize]="15" [title]="['10']" [subtitle]="['hoy']"
+      [responsive]="true" [titleFontSize]="40" [subtitleFontSize]="15" [title]="0" [subtitle]="['hoy']"
       [showUnits]="false" [titleColor]="'#f5dc09'">
     </circle-progress>
-    <circle-progress [percent]="25" [radius]="70" [outerStrokeWidth]="16" [innerStrokeWidth]="16" [space]="-16"
-      [outerStrokeColor]="'#f4f5f8'" [innerStrokeColor]="'#1e1e1e'" [animation]="true" [animationDuration]="300"
-      [responsive]="true" [titleFontSize]="40" [subtitleFontSize]="15" [title]="['10']" [subtitle]="['7-13mar']"
-      [showUnits]="false" [titleColor]="'#f4f5f8'">
-    </circle-progress>
+    <div class="grades">
+      <div>
+        <p>
+          <ion-skeleton-text animated style="width: 2rem; height: 1rem;"></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text animated style="width: 2rem; height: 1.4rem;"></ion-skeleton-text>
+        </p>
+      </div>
+    </div>
   </div>
   <ion-grid>
+
     <ion-row>
-      <ion-col>
-        <ion-card class="big-card" [routerLink]="['/goals']" [routerDirection]="'fordward'">
-          <ion-label>Tu objetivo semanal</ion-label>
+      <ion-col *ngIf="userGoal && achievements">
+
+        <ion-card *ngIf="userGoal.goal" class="big-card" [routerLink]="['/goals']" [routerDirection]="'fordward'">
+          <ion-label>Tu objetivo semanal
+            <p class="week-date">{{week}}
+            </p>
+          </ion-label>
+          <div class="week-goal">
+            <div class="text-completed" *ngIf="userGoal && achievements">
+              <h3>{{totalBouldersAchieved + ' de ' + userGoal.goal.boulders}}</h3>
+              <ion-progress-bar color="primary" [value]="calculatePercentage()"></ion-progress-bar>
+            </div>
+            <div class="desplace-end">
+              <div class="first">
+              </div>
+              <div *ngIf="userGoal && achievements">
+                <div class="circles-container">
+                  <circle-progress *ngFor="let goal of progressGoal" [percent]="goal.percent" [radius]="50"
+                    [outerStrokeWidth]="16" [innerStrokeWidth]="16" [space]="-16" [outerStrokeColor]="'#f5dc09'"
+                    [innerStrokeColor]="'#000'" [animation]="true" [animationDuration]="300" [responsive]="true"
+                    [titleFontSize]="40" [subtitleFontSize]="15" [showUnits]="false" [titleColor]="'#f5dc09'"
+                    [showTitle]="goal.percent === 100 ? true : false" [showSubtitle]="false" [title]="'✔'">
+                  </circle-progress>
+                </div>
+                <div class="text-grades">
+                  <p *ngFor="let goal of progressGoal">{{goal.grade}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ion-card>
+
+        <ion-card *ngIf="!userGoal.goal" class="big-card" (click)="openGoalModal()">
+          <ion-label>Tu objetivo semanal
+          </ion-label>
+          <div class="week-goal">
+            <div class="not-boulder">
+              <ion-icon name="golf" size="medium"></ion-icon>
+              <h3>Todavía no tienes objetivos</h3>
+            </div>
+          </div>
+        </ion-card>
+      </ion-col>
+
+      <ion-col *ngIf="!userGoal || !achievements">
+        <ion-card class="big-card">
+          <ion-label>Tu objetivo semanal
+            <p class="week-date">
+              <ion-skeleton-text animated style="width: 30%;"></ion-skeleton-text>
+            </p>
+          </ion-label>
+          <div class="week-goal">
+            <div class="text-completed">
+              <h3>
+                <ion-skeleton-text animated style="width: 5rem;"></ion-skeleton-text>
+              </h3>
+              <ion-progress-bar color="medium" [value]="0"></ion-progress-bar>
+            </div>
+            <div class="desplace-end">
+              <div class="first">
+              </div>
+              <div>
+                <div class="circles-container">
+                  <circle-progress [percent]="0" [radius]="50" [outerStrokeWidth]="16" [innerStrokeWidth]="16"
+                    [space]="-16" [outerStrokeColor]="'#1e1e1e'" [innerStrokeColor]="'#000'" [animation]="true"
+                    [animationDuration]="300" [responsive]="true" [titleFontSize]="40" [subtitleFontSize]="15"
+                    [showUnits]="false" [titleColor]="'#f5dc09'" [showTitle]="false" [showSubtitle]="false"
+                    [title]="'✔'">
+                  </circle-progress>
+                  <circle-progress [percent]="0" [radius]="50" [outerStrokeWidth]="16" [innerStrokeWidth]="16"
+                    [space]="-16" [outerStrokeColor]="'#1e1e1e'" [innerStrokeColor]="'#000'" [animation]="true"
+                    [animationDuration]="300" [responsive]="true" [titleFontSize]="40" [subtitleFontSize]="15"
+                    [showUnits]="false" [titleColor]="'#f5dc09'" [showTitle]="false" [showSubtitle]="false"
+                    [title]="'✔'">
+                  </circle-progress>
+                  <circle-progress [percent]="0" [radius]="50" [outerStrokeWidth]="16" [innerStrokeWidth]="16"
+                    [space]="-16" [outerStrokeColor]="'#1e1e1e'" [innerStrokeColor]="'#000'" [animation]="true"
+                    [animationDuration]="300" [responsive]="true" [titleFontSize]="40" [subtitleFontSize]="15"
+                    [showUnits]="false" [titleColor]="'#f5dc09'" [showTitle]="false" [showSubtitle]="false"
+                    [title]="'✔'">
+                  </circle-progress>
+                </div>
+                <div class="text-grades">
+
+                  <ion-skeleton-text animated style="width: 2rem;"></ion-skeleton-text>
+
+                  <ion-skeleton-text animated style="width: 2rem;"></ion-skeleton-text>
+
+                  <ion-skeleton-text animated style="width: 2rem;"></ion-skeleton-text>
+
+                </div>
+              </div>
+            </div>
+          </div>
         </ion-card>
       </ion-col>
     </ion-row>
+
     <ion-row>
+
       <ion-col size="6">
         <ion-card class="small-card" [routerLink]="['/timer']" [routerDirection]="'fordward'">
           <ion-label>Temporizador</ion-label>
@@ -52,35 +164,37 @@
           </div>
         </ion-card>
       </ion-col>
+
       <ion-col size="6">
         <ion-card class="small-card" [routerLink]="['/pull-ups']" [routerDirection]="'fordward'">
           <ion-label>Dominadas</ion-label>
           <div *ngIf="!pullUps" class="content-center">
             <ion-icon color="medium" src="../../assets/icon/pullups.svg"></ion-icon>
           </div>
+
           <div *ngIf="pullUps">
             <div>
-
               <ion-label>
                 <ion-icon name="repeat" color="primary"></ion-icon>
                 <span>{{pullUps.pullUps.reps}} </span> repeticiones
               </ion-label>
             </div>
-            <div>
 
+            <div>
               <ion-label>
                 <ion-icon name="trending-up" color="primary"></ion-icon>
                 <span>{{pullUps.pullUps.intensity}} </span>% intensidad
               </ion-label>
             </div>
+
             <div>
               <ion-label>
                 <ion-icon name="scale" color="primary"></ion-icon>
                 <span>{{pullUps.pullUps.weight}} </span>kg peso total
               </ion-label>
             </div>
-            <div>
 
+            <div>
               <ion-label>
                 <ion-icon name="server" color="primary"></ion-icon>
                 <span>{{pullUps.pullUps.ballast}} </span>kg lastre
@@ -89,7 +203,9 @@
           </div>
         </ion-card>
       </ion-col>
+
     </ion-row>
+
     <ion-row>
       <ion-col>
         <ion-card class="big-card">

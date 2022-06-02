@@ -10,6 +10,7 @@ import { Achievement, Boulder } from '../../interfaces/boulder';
 import { BouldersService } from '../../services/boulders.service';
 import { BoulderDetailsPage } from '../boulder-details.page';
 import { ModalCompleteBoulderComponent } from '../modal-complete-boulder/modal-complete-boulder.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-boulder-info',
@@ -55,8 +56,7 @@ export class BoulderInfoPage implements OnInit {
   ngOnInit() {
     this.parentComponent.boulder$.subscribe((boulder) => {
       this.boulder = boulder;
-      this.boulderImage =
-        'https://blocarc-services-production.up.railway.app/' + boulder.image;
+      this.boulderImage = `${environment.baseUrl_api}/${boulder.image}`;
       this.formatDate = new Intl.DateTimeFormat('es-ES').format(
         new Date(this.boulder.creationDate)
       );

@@ -11,6 +11,7 @@ import { BouldersService } from '../../services/boulders.service';
 import { BoulderDetailsPage } from '../boulder-details.page';
 import { ModalCompleteBoulderComponent } from '../modal-complete-boulder/modal-complete-boulder.component';
 import { ModalUpdateBoulderComponent } from '../modal-update-boulder/modal-update-boulder.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-boulder-view',
@@ -43,7 +44,7 @@ export class BoulderViewPage implements OnInit {
   ngOnInit() {
     this.parentComponent.boulder$.subscribe((boulder) => {
       this.boulder = boulder;
-      this.boulderImage = 'https://blocarc-services-production.up.railway.app/' + boulder.image;
+      this.boulderImage = `${environment.baseUrl_api}/${boulder.image}`;
       this.holds = this.boulder.holds;
     });
   }

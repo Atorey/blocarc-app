@@ -1,32 +1,48 @@
-ion-item-divider {
-  padding: 0;
-  margin: 0;
+.logo {
+  display: flex;
+  align-items: center;
+
+  ion-icon {
+    width: 2rem;
+    margin-right: 0.5rem;
+  }
+
+  h1 {
+    font-family: RalewayBold !important;
+    margin: 0;
+  }
 }
 
-h3,
-ion-icon {
-  font-size: 0.8rem;
-}
+.container {
+  ion-item-divider {
+    padding: 0;
+    margin: 0;
+  }
 
-p,
-h3,
-ion-badge {
-  font-family: PoppinsRegular !important;
-}
+  h3,
+  ion-icon {
+    font-size: 0.8rem;
+  }
 
-ion-badge {
-  width: 100%;
-}
+  p,
+  h3,
+  ion-badge {
+    font-family: PoppinsRegular !important;
+  }
 
-ion-item {
-  --background: var(--ion-background-color);
-}
+  ion-badge {
+    width: 100%;
+  }
 
-ion-list {
-  padding: 0;
-}
+  ion-item {
+    --background: var(--ion-background-color);
+  }
 
+  ion-list {
+    padding: 0;
+  }
 
-ion-thumbnail {
-  height: 1.5rem;
+  ion-thumbnail {
+    height: 1.5rem;
+  }
 }

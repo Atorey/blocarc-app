@@ -56,16 +56,8 @@ export class GoalsPage {
     const firstday = new Date(dateToShow.setDate(first));
     const lastday = new Date(dateToShow.setDate(last));
 
-    console.log(lastday);
-
     this.dateFirst = firstday.toISOString().substring(0, 10).replace(/-/g, '/');
     this.dateLast = lastday.toISOString().substring(0, 10).replace(/-/g, '/');
-
-    console.log(this.dateLast);
-
-    this.getAchievements();
-
-    console.log(this.achievements);
 
     const fMonth = firstday.toLocaleString('default', { month: 'long' });
     const lMonth = lastday.toLocaleString('default', { month: 'long' });
@@ -97,6 +89,8 @@ export class GoalsPage {
     ) {
       this.week = `${firstday.getDate()} de ${fMonth}-${lastday.getDate()} de ${lMonth} de ${lastday.getFullYear()}`;
     }
+
+    this.getAchievements();
   }
 
   getGoal() {

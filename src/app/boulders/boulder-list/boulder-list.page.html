@@ -1,14 +1,22 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="home"></ion-back-button>
+      <ion-button class="logo">
+        <ion-icon src="../../assets/logo/logo.svg" size="large"></ion-icon>
+        <h1>BLOC ARC</h1>
+        <!-- <ion-img src="../../assets/logo/logo.png"></ion-img> -->
+      </ion-button>
     </ion-buttons>
-    <ion-title>Explorar</ion-title>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon name="add" color="medium"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 
-<ion-content>
+<ion-content class="container">
   <ion-list>
     <ion-item-divider sticky>
       <ion-searchbar animated name="search" [(ngModel)]="search"></ion-searchbar>

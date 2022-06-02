@@ -8,36 +8,31 @@ import {
   AchievementsResponse,
 } from 'src/app/boulders/interfaces/boulder';
 import { Goal, PullUp, Timer, User, UserResponse } from '../interfaces/user';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsersService {
-  private readonly userURL = '/users';
+  private readonly userURL = `${environment.baseUrl_api}/users`;
 
   constructor(private http: HttpClient) {}
 
   getUserMe(): Observable<User> {
     return this.http
-      .get<UserResponse>(
-        `https://blocarc-services-production.up.railway.app${this.userURL}/me`
-      )
+      .get<UserResponse>(`${this.userURL}/me`)
       .pipe(map((response) => response.user));
   }
 
   getUser(id: string): Observable<User> {
     return this.http
-      .get<UserResponse>(
-        `https://blocarc-services-production.up.railway.app${this.userURL}/${id}`
-      )
+      .get<UserResponse>(`${this.userURL}/${id}`)
       .pipe(map((response) => response.user));
   }
 
   getTimer(): Observable<Timer> {
     return this.http
-      .get<Timer>(
-        `https://blocarc-services-production.up.railway.app${this.userURL}/timer`
-      )
+      .get<Timer>(`${this.userURL}/timer`)
       .pipe(map((response) => response));
   }
 
@@ -45,7 +40,7 @@ export class UsersService {
     return this.http
       .put<void>(
         // eslint-disable-next-line @typescript-eslint/dot-notation
-        `https://blocarc-services-production.up.railway.app${this.userURL}/timer`,
+        `${this.userURL}/timer`,
         timer
       )
       .pipe(
@@ -60,9 +55,7 @@ export class UsersService {
 
   getPullUps(): Observable<PullUp> {
     return this.http
-      .get<PullUp>(
-        `https://blocarc-services-production.up.railway.app${this.userURL}/pull-ups`
-      )
+      .get<PullUp>(`${this.userURL}/pull-ups`)
       .pipe(map((response) => response));
   }
 
@@ -70,7 +63,7 @@ export class UsersService {
     return this.http
       .put<void>(
         // eslint-disable-next-line @typescript-eslint/dot-notation
-        `https://blocarc-services-production.up.railway.app${this.userURL}/pull-ups`,
+        `${this.userURL}/pull-ups`,
         pullUps
       )
       .pipe(
@@ -85,9 +78,7 @@ export class UsersService {
 
   getGoal(): Observable<Goal> {
     return this.http
-      .get<Goal>(
-        `https://blocarc-services-production.up.railway.app${this.userURL}/goal`
-      )
+      .get<Goal>(`${this.userURL}/goal`)
       .pipe(map((response) => response));
   }
 
@@ -95,7 +86,7 @@ export class UsersService {
     return this.http
       .put<void>(
         // eslint-disable-next-line @typescript-eslint/dot-notation
-        `https://blocarc-services-production.up.railway.app${this.userURL}/goal`,
+        `${this.userURL}/goal`,
         goal
       )
       .pipe(
@@ -114,7 +105,7 @@ export class UsersService {
   ): Observable<Achievement[]> {
     return this.http
       .get<AchievementsResponse>(
-        `https://blocarc-services-production.up.railway.app${this.userURL}/achievements/?dateFirst=${dateFirst}&dateLast=${dateLast}`
+        `${this.userURL}/achievements/?dateFirst=${dateFirst}&dateLast=${dateLast}`
       )
       .pipe(
         map((response) => response.achievements),
@@ -129,9 +120,7 @@ export class UsersService {
 
   getLastAchieved(): Observable<Achievement> {
     return this.http
-      .get<AchievementResponse>(
-        `https://blocarc-services-production.up.railway.app${this.userURL}/last-achieved`
-      )
+      .get<AchievementResponse>(`${this.userURL}/last-achieved`)
       .pipe(
         map((response) => response.achievement),
         catchError((response: HttpErrorResponse) =>

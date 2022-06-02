@@ -4,6 +4,24 @@ ion-content {
   --background-size: cover;
 }
 
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem auto 0 auto;
+
+  ion-icon {
+    width: 3rem;
+    margin-right: 0.5rem;
+  }
+
+  h1 {
+    font-family: RalewayBold !important;
+    font-size: 2.2rem;
+    margin: 0;
+  }
+}
+
 .container {
   margin: 0 2rem;
   height: 100%;
@@ -12,14 +30,14 @@ ion-content {
   align-items: center;
 }
 
-ion-img{
-    margin: 2rem auto 0 auto;
-    width: 65%;
+ion-img {
+  margin: 2rem auto 0 auto;
+  width: 65%;
 }
 
-h1{
-    font-family: PoppinsBold;
-    display: inline-block;
+h2 {
+  font-family: PoppinsBold;
+  display: inline-block;
 }
 
 ion-footer {

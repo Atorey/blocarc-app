@@ -5,12 +5,13 @@ import { catchError, map, switchMap } from 'rxjs/operators';
 import { TokenResponse } from '../interfaces/auth';
 import { Storage } from '@capacitor/storage';
 import { User, UserLogin } from 'src/app/users/interfaces/user';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SelfAuthService {
-  authURL = '/auth';
+  authURL = `${environment.baseUrl_api}/auth`;
   logged = false;
   loginChange$ = new ReplaySubject<boolean>(1);
 
@@ -18,11 +19,7 @@ export class SelfAuthService {
 
   login(userLogin: UserLogin): Observable<void> {
     return this.http
-      .post<TokenResponse>(
-        'https://blocarc-services-production.up.railway.app' +
-          `${this.authURL}/login`,
-        userLogin
-      )
+      .post<TokenResponse>(`${this.authURL}/login`, userLogin)
       .pipe(
         switchMap(async (response) => {
           try {
@@ -85,40 +82,29 @@ export class SelfAuthService {
         if (!token.value) {
           throw new Error();
         }
-        return this.http
-          .get(
-            'https://blocarc-services-production.up.railway.app' +
-              `${this.authURL}/validate`
-          )
-          .pipe(
-            map(() => {
-              this.logged = true;
-              this.loginChange$.next(true);
-              return true;
-            }),
-            catchError((error) => of(false))
-          );
+        return this.http.get(`${this.authURL}/validate`).pipe(
+          map(() => {
+            this.logged = true;
+            this.loginChange$.next(true);
+            return true;
+          }),
+          catchError((error) => of(false))
+        );
       }),
       catchError((e) => of(false))
     );
   }
 
   register(user: User): Observable<void> {
-    return this.http
-      .post(
-        'https://blocarc-services-production.up.railway.app' +
-          `${this.authURL}/register`,
-        user
-      )
-      .pipe(
-        map(() => null),
-        catchError((response: HttpErrorResponse) =>
-          throwError(
-            () =>
-              `Error register. Status: ${response.status}. Message: ${response.message}`
-          )
+    return this.http.post(`${this.authURL}/register`, user).pipe(
+      map(() => null),
+      catchError((response: HttpErrorResponse) =>
+        throwError(
+          () =>
+            `Error register. Status: ${response.status}. Message: ${response.message}`
         )
-      );
+      )
+    );
   }
 
   /* postSocialLogin(socialData: any) {

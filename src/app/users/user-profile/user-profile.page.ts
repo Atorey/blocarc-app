@@ -12,10 +12,9 @@ import { BouldersService } from 'src/app/boulders/services/boulders.service';
 import { Goal, User } from '../interfaces/user';
 import { UsersService } from '../services/users.service';
 import { Chart, registerables } from 'node_modules/chart.js';
-import { AuthService } from 'angularx-social-login';
 import { SelfAuthService } from 'src/app/auth/services/auth.service';
-import { ModalLoginComponent } from 'src/app/welcome/modal-login/modal-login.component';
 import { ModalGoalComponent } from './modal-goal/modal-goal.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-user-profile',
@@ -120,9 +119,7 @@ export class UserProfilePage {
     this.route.data.subscribe({
       next: (data) => {
         this.user = data.user;
-        this.userAvatar =
-          'https://blocarc-services-production.up.railway.app/' +
-          this.user.avatar;
+        this.userAvatar = `${environment.baseUrl_api}/${this.user.avatar}`;
         this.getCreatedBoulders();
         this.getCompletedBoulders();
         if (this.user.me) {

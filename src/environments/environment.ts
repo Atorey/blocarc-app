@@ -1,10 +1,12 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
   production: false,
-  baseUrl: 'https://blocarc-services-production.up.railway.app'
+  baseUrl_api: 'https://blocarc-services-production.up.railway.app',
+  baseUrl_pyml: 'https://blocarc-ml-production.up.railway.app',
 };
 
 /*
