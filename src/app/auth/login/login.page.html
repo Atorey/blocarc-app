@@ -11,8 +11,9 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="step === 0">
-  <div class="container">
+<ion-content scroll-y="false">
+  <!-- STEP 1 -->
+  <div *ngIf="step === 0" class="container">
     <h1>Iniciar sesión</h1>
     <ion-button expand="block" (click)="nextStep()">Continuar con correo</ion-button>
     <p>O continuar con:</p>
@@ -23,10 +24,9 @@
       <ion-icon name="logo-facebook"></ion-icon>Continuar con Facebook
     </ion-button>
   </div>
-</ion-content>
 
-<ion-content scroll-y="false" *ngIf="step === 1">
-  <div class="container">
+  <!-- STEP 2 -->
+  <div *ngIf="step === 1" class="container">
     <h1>Iniciar sesión</h1>
     <form (ngSubmit)="login()" #loginForm="ngForm">
       <ion-list>

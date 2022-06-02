@@ -1,5 +1,4 @@
 import { TestBed } from '@angular/core/testing';
-
 import { SelfAuthService } from './auth.service';
 
 describe('SelfAuthService', () => {

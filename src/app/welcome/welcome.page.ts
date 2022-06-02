@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController, ToastController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-welcome',
@@ -7,10 +7,7 @@ import { ModalController, ToastController } from '@ionic/angular';
   styleUrls: ['./welcome.page.scss'],
 })
 export class WelcomePage implements OnInit {
-  constructor(
-    public modalCtrl: ModalController,
-    private toast: ToastController
-  ) {}
+  constructor(public modalCtrl: ModalController) {}
 
   ngOnInit() {}
 }

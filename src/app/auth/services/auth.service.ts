@@ -1,9 +1,9 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Storage } from '@capacitor/storage';
 import { from, Observable, of, ReplaySubject, throwError } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { TokenResponse } from '../interfaces/auth';
-import { Storage } from '@capacitor/storage';
 import { User, UserLogin } from 'src/app/users/interfaces/user';
 import { environment } from 'src/environments/environment';
 

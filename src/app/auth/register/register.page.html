@@ -11,8 +11,9 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content scroll-y="false" *ngIf="step===0">
-  <div class="container">
+<ion-content scroll-y="false">
+  <!-- STEP 0 -->
+  <div *ngIf="step===0" class="container">
     <h1>Crea tu cuenta</h1>
     <ion-button expand="block" (click)="nextStep()">Registrarse con correo</ion-button>
     <p>O continuar con:</p>
@@ -23,11 +24,11 @@
       <ion-icon name="logo-facebook"></ion-icon>Registrarse con Facebook
     </ion-button>
   </div>
-</ion-content>
 
-<ion-content *ngIf="step===1">
-  <div class="container">
+  <!-- SETP 1 -->
+  <div *ngIf="step===1" class="container">
     <h1>Crea tu cuenta</h1>
+
     <form #registerForm="ngForm" (ngSubmit)="register()">
       <ion-list>
         <ion-item>
@@ -88,7 +89,6 @@
             *ngIf="passModel.errors?.['minlength'] && passModel.touched">
             La contraseña debe tener al menos 8 caracteres
           </ion-label>
-
           <ion-label class="ion-padding error-message" color="danger"
             *ngIf="passModel.errors?.['pattern'] && passModel.touched">
             La contraseña debe contener mayúsculas, minúsculas, números y caracteres especiales
@@ -112,6 +112,7 @@
     </form>
   </div>
 </ion-content>
+
 <ion-footer>
   <span item-right>¿Ya tienes una cuenta? </span>
   <span class="link" [routerLink]="['/auth/login']" [routerDirection]="'root'"> Iniciar sesión</span>

@@ -1,17 +1,14 @@
-import { Component, NgZone, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component } from '@angular/core';
 import { AlertController, NavController } from '@ionic/angular';
-import { GoogleLoginProvider } from 'angularx-social-login';
 import { UserLogin } from 'src/app/users/interfaces/user';
 import { SelfAuthService } from '../services/auth.service';
-import { AuthService } from 'angularx-social-login';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-export class LoginPage implements OnInit {
+export class LoginPage {
   step = 0;
   userLogin: UserLogin = {
     email: '',
@@ -23,8 +20,6 @@ export class LoginPage implements OnInit {
     private alertCtrl: AlertController,
     private nav: NavController
   ) {}
-
-  ngOnInit() {}
 
   login(): void {
     this.authService.login(this.userLogin).subscribe(
