@@ -18,7 +18,6 @@
     <ion-segment [value]="selectedSegment" (ionChange)="segmentChanged($event)">
       <ion-segment-button value="info">Información</ion-segment-button>
       <ion-segment-button value="comments">Comentarios</ion-segment-button>
-      <ion-segment-button value="videos">Vídeos</ion-segment-button>
     </ion-segment>
   </ion-toolbar>
 </ion-header>
@@ -28,7 +27,8 @@
     <ion-item class="info">
       <ion-label>
         <div>
-          <h4 [routerDirection]="'forward'" [routerLink]="['/users/', boulder.creator._id]">
+          <h4 [routerDirection]="'forward'"
+            [routerLink]="boulder.mine ? ['/users/me'] : ['/users/', boulder.creator._id]">
             {{boulder.creator.username}}</h4>
           <p>{{formatDate}}</p>
         </div>
@@ -38,7 +38,7 @@
             <app-static-star-rating [valoration]="boulder.valoration"></app-static-star-rating>
           </span>
           <p>{{totalValorations}} {{totalValorations === 1 ? 'valoración' : 'valoraciones'}}</p>
-
+          <p>Pared: {{boulder.wall}}</p>
         </div>
         <div class="buttons-bar">
           <ion-badge color="{{boulder.grade.includes('+')?boulder.grade.replace('+', 'm'):boulder.grade}}">
@@ -60,10 +60,7 @@
           </div>
         </div>
 
-
-
       </ion-label>
-
 
     </ion-item>
 
@@ -72,33 +69,33 @@
         <p>Valoración de los usuarios</p>
         <div>
           <p>5 estrellas</p>
-          <ion-progress-bar value="{{percent5 / 100}}"></ion-progress-bar>
-          <p>{{percent5}}%</p>
+          <ion-progress-bar value="{{percent5 ? percent5 / 100 : 0}}"></ion-progress-bar>
+          <p>{{percent5 || '0'}}%</p>
         </div>
         <div>
           <p>4 estrellas</p>
-          <ion-progress-bar value="{{percent4 / 100}}"></ion-progress-bar>
-          <p>{{percent4}}%</p>
+          <ion-progress-bar value="{{percent4 ? percent4 / 100 : 0}}"></ion-progress-bar>
+          <p>{{percent4 ||'0'}}%</p>
         </div>
         <div>
           <p>3 estrellas</p>
-          <ion-progress-bar value="{{percent3 / 100}}"></ion-progress-bar>
-          <p>{{percent3}}%</p>
+          <ion-progress-bar value="{{percent3 ? percent3 / 100 : 0}}"></ion-progress-bar>
+          <p>{{percent3 || '0'}}%</p>
         </div>
         <div>
           <p>2 estrellas</p>
-          <ion-progress-bar value="{{percent2 / 100}}"></ion-progress-bar>
-          <p>{{percent2}}%</p>
+          <ion-progress-bar value="{{percent2 ? percent2 / 100 : 0}}"></ion-progress-bar>
+          <p>{{percent2 ||'0'}}%</p>
         </div>
         <div>
           <p>1 estrella</p>
-          <ion-progress-bar value="{{percent1 / 100}}"></ion-progress-bar>
-          <p>{{percent1}}%</p>
+          <ion-progress-bar value="{{percent1 ?percent1/ 100: 0}}"></ion-progress-bar>
+          <p>{{percent1 ||'0'}}%</p>
         </div>
       </ion-label>
     </ion-item>
 
-    <ion-item class="calification">
+    <ion-item *ngIf="grades.length > 0" class="calification">
       <ion-label>
         <p>Calificación de los usuarios</p>
         <div *ngFor="let grade of grades">
@@ -110,13 +107,13 @@
       </ion-label>
     </ion-item>
 
-    <ion-label class="tries">
+    <ion-label *ngIf="grades.length > 0" class="tries">
       <p>Número de intentos</p>
     </ion-label>
-    <canvas id="triesChart"></canvas>
+    <canvas [hidden]="grades.length === 0" id="triesChart"></canvas>
   </div>
 
-  <div *ngIf="isActive('comments') && !achievements.comments" class="not-loaded">
+  <div *ngIf="isActive('comments') && comments.length === 0" class="not-loaded">
     <div>
       <ion-icon name="chatbox"></ion-icon>
       <h3>Este bloque no tiene comentarios</h3>
@@ -124,10 +121,10 @@
     </div>
   </div>
 
-  <div *ngIf="isActive('comments') && achievements.comments">
-    <ion-list>
-      <div *ngFor="let achievement of achievements">
-        <ion-item *ngIf="achievement.comment">
+  <div *ngIf="isActive('comments')">
+    <ion-list *ngFor="let achievement of achievements">
+      <div *ngIf="achievement.comment">
+        <ion-item>
           <ion-avatar slot="start">
             <img [src]="'https://blocarc-services-production.up.railway.app/' + achievement.user.avatar" />
           </ion-avatar>

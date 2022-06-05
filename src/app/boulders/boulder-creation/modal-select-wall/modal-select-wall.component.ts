@@ -9,7 +9,10 @@ import { BouldersService } from '../../services/boulders.service';
   styleUrls: ['./modal-select-wall.component.scss'],
 })
 export class ModalSelectWallComponent implements OnInit {
-  walls: Wall[] = [];
+  walls: Wall[];
+  numbers = Array(9)
+    .fill(0)
+    .map((x, i) => i);
 
   constructor(
     public modalCtrl: ModalController,

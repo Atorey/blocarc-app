@@ -41,6 +41,7 @@ export class BoulderInfoPage implements OnInit {
     video: '',
     valoration: 0,
   };
+  comments;
 
   constructor(
     @Inject(BoulderDetailsPage) private parentComponent: BoulderDetailsPage,
@@ -99,8 +100,10 @@ export class BoulderInfoPage implements OnInit {
         this.calculatePercents();
         this.calculateGrades();
         this.calculateAttemps();
-
         this.createChart();
+        this.comments = this.achievements.map(
+          (achievement) => achievement.comment
+        );
       });
   }
 

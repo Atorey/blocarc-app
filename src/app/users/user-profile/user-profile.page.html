@@ -8,7 +8,7 @@
 
   <ion-toolbar *ngIf="user && user.me">
     <ion-buttons slot="start">
-      <ion-button class="logo">
+      <ion-button [routerLink]="['/']" class="logo">
         <ion-icon src="../../assets/logo/logo.svg" size="large"></ion-icon>
         <h1>BLOC ARC</h1>
         <!-- <ion-img src="../../assets/logo/logo.png"></ion-img> -->

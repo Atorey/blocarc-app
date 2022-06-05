@@ -7,7 +7,7 @@
   justify-content: center;
 }
 
-.container div{
+.container div {
   width: 75%;
   text-align: center;
 }
@@ -23,7 +23,8 @@
   color: white;
 }
 
-.container ion-icon{
+.container ion-icon {
+  position: relative;
   color: var(--ion-color-primary);
   font-size: 4rem;
 }
@@ -42,15 +43,15 @@ image-cropper {
   height: 100%;
 }
 
-ion-button{
+ion-button {
   --background: none;
 }
 
-.btn-non-image{
+.btn-non-image {
   --color: var(--ion-color-dark);
 }
 
-.btn-active-image{
+.btn-active-image {
   --color: var(--ion-color-medium-shade);
 }
 
@@ -83,14 +84,19 @@ polygon {
   fill-rule: evenodd;
 }
 
-.green{
+.green {
   stroke: green;
 }
 
-.red{
+.red {
   stroke: red;
 }
 
 .blue {
   stroke: blue;
+}
+
+.spinner {
+  position: absolute;
+  z-index: 1;
 }

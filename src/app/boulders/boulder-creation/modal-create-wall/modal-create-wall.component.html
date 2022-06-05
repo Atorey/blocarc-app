@@ -13,7 +13,7 @@
     <ion-list>
 
       <ion-item>
-        <ion-label position="floating">
+        <ion-label color="medium" position="floating">
           Nombre
         </ion-label>
         <ion-input name="name" required [(ngModel)]="wall.name" #nameModel="ngModel">
@@ -21,17 +21,19 @@
         <ion-icon name="checkmark-circle" slot="end" color="success" *ngIf="nameModel.dirty && nameModel.valid">
         </ion-icon>
       </ion-item>
-      <ion-label class="ion-padding error-message" color="danger" *ngIf="nameModel.errors?.['required'] && nameModel.touched">
+      <ion-label class="ion-padding error-message" color="danger"
+        *ngIf="nameModel.errors?.['required'] && nameModel.touched">
         El nombre no se puede quedar vacío
       </ion-label>
 
       <ion-item>
-        <ion-label position="floating">Sección</ion-label>
+        <ion-label color="medium" position="floating">Sección</ion-label>
         <ion-input name="section" type="number" required [(ngModel)]="wall.section" #sectionModel="ngModel"></ion-input>
         <ion-icon name="checkmark-circle" slot="end" color="success" *ngIf="sectionModel.dirty && sectionModel.valid">
         </ion-icon>
       </ion-item>
-      <ion-label class="ion-padding error-message" color="danger" *ngIf="sectionModel.errors?.['required'] && sectionModel.touched">
+      <ion-label class="ion-padding error-message" color="danger"
+        *ngIf="sectionModel.errors?.['required'] && sectionModel.touched">
         La sección no se puede quedar vacía
       </ion-label>
 

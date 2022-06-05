@@ -9,7 +9,32 @@
     </ion-toolbar>
 </ion-header>
 <ion-content>
-    <ion-list>
+    <div *ngIf="walls && walls.length === 0" class="not-walls">
+        <div>
+            <ion-icon name="image"></ion-icon>
+            <h3>No se ha creado ninguna pared</h3>
+            <p>Todos las paredes se mostrarán aquí</p>
+        </div>
+    </div>
+    <ion-list *ngIf="!walls">
+        <ion-item *ngFor="let n of numbers">
+            <ion-thumbnail slot="start">
+                <ion-skeleton-text animated style="height: 4rem;"></ion-skeleton-text>
+            </ion-thumbnail>
+            <ion-label>
+                <h2>
+                    <ion-skeleton-text animated style="width: 50%;"></ion-skeleton-text>
+                </h2>
+                <p>
+                    <ion-skeleton-text animated style="width: 25%;"></ion-skeleton-text>
+                </p>
+            </ion-label>
+            <ion-button fill="clear" slot="end" size="large">
+                <ion-icon color="light" name="ellipse"></ion-icon>
+            </ion-button>
+        </ion-item>
+    </ion-list>
+    <ion-list *ngIf="walls && walls.length > 0">
         <ion-item *ngFor="let wall of walls">
             <ion-thumbnail slot="start">
                 <img [src]="'https://blocarc-services-production.up.railway.app/' + wall.image" />
@@ -18,7 +43,7 @@
                 <h2>{{wall.name}}</h2>
                 <p>Section {{wall.section}}</p>
             </ion-label>
-            <ion-button fill="clear" slot="end"  size="large" (click)="selectWall(wall)">
+            <ion-button fill="clear" slot="end" size="large" (click)="selectWall(wall)">
                 <ion-icon name="arrow-forward-circle"></ion-icon>
             </ion-button>
         </ion-item>

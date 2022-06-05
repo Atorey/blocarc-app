@@ -1,6 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
-import { ModalController, ToastController } from '@ionic/angular';
+import {
+  ModalController,
+  NavController,
+  ToastController,
+} from '@ionic/angular';
 import { ImageCroppedEvent, LoadedImage } from 'ngx-image-cropper';
 import { Boulder, Hold, Wall } from '../interfaces/boulder';
 import { BouldersService } from '../services/boulders.service';
@@ -40,7 +44,8 @@ export class BoulderCreationPage implements OnInit {
   constructor(
     private bouldersService: BouldersService,
     public modalCtrl: ModalController,
-    private toast: ToastController
+    private toast: ToastController,
+    private nav: NavController
   ) {}
 
   ngOnInit() {}
@@ -213,8 +218,9 @@ export class BoulderCreationPage implements OnInit {
     await modal.present();
     const result = await modal.onDidDismiss();
     if (result.data && result.data.boulder) {
+      this.boulder.wall = this.selectWall.name;
       this.bouldersService.saveBoulder(this.boulder).subscribe({
-        next: async (boulder) => {
+        next: async () => {
           this.boulder = {
             name: '',
             grade: '',
@@ -224,6 +230,7 @@ export class BoulderCreationPage implements OnInit {
             holds: [],
             valoration: 0,
           };
+          this.selectedWall = undefined;
           (
             await this.toast.create({
               duration: 3000,
@@ -266,5 +273,26 @@ export class BoulderCreationPage implements OnInit {
     xhr.open('GET', url);
     xhr.responseType = 'blob';
     xhr.send();
+  }
+
+  goBack() {
+    this.wall = {
+      name: '',
+      section: 0,
+      image: '',
+      coordHolds: '',
+    };
+    this.boulder = {
+      name: '',
+      grade: '',
+      wall: '',
+      share: false,
+      image: '',
+      holds: [],
+      valoration: 0,
+    };
+    this.selectedWall = undefined;
+
+    this.nav.navigateRoot(['/home']);
   }
 }

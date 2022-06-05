@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { BouldersService } from '../../services/boulders.service';
 
 @Component({
@@ -14,12 +14,12 @@ export class ModalCreateBoulderComponent implements OnInit {
   walls = [];
   constructor(
     public modalCtrl: ModalController,
-    private bouldersService: BouldersService
+    private bouldersService: BouldersService,
+    private alertCrl: AlertController
   ) {}
 
   ngOnInit() {
     this.getGrades();
-    this.getWalls();
   }
 
   createBoulder() {
@@ -36,9 +36,26 @@ export class ModalCreateBoulderComponent implements OnInit {
     });
   }
 
-  getWalls() {
-    this.bouldersService.getWalls().subscribe((walls) => {
-      this.walls = walls;
+  async alert() {
+    const alert = await this.alertCrl.create({
+      header: 'Compartir bloque',
+      message: 'Si dicides compartir este bloque no podrás eliminarlo. La acción de compartir es irrevocable.',
+      buttons: [
+        {
+          text: 'Ok',
+          handler: () => {
+            this.boulder.share = true;
+          },
+        },
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            this.boulder.share = false;
+          },
+        },
+      ],
     });
+    alert.present();
   }
 }
