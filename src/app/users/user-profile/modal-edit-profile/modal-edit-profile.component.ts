@@ -1,6 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
-import { ModalController, ToastController } from '@ionic/angular';
+import {
+  ModalController,
+  NavController,
+  ToastController,
+} from '@ionic/angular';
+import { AuthService } from 'angularx-social-login';
+import { SelfAuthService } from 'src/app/auth/services/auth.service';
 import { BouldersService } from 'src/app/boulders/services/boulders.service';
 import { environment } from 'src/environments/environment';
 import { User } from '../../interfaces/user';
@@ -17,16 +23,20 @@ export class ModalEditProfileComponent implements OnInit {
   password2 = '';
   email2 = '';
   newAvatar = false;
+  originalEmail: string;
 
   constructor(
     public modalCtrl: ModalController,
     private usersService: UsersService,
-    private toast: ToastController
+    private toast: ToastController,
+    private authService: SelfAuthService,
+    private nav: NavController
   ) {}
 
   ngOnInit() {
     this.user.password = '';
     this.avatar = `${environment.baseUrl_api}/${this.user.avatar}`;
+    this.originalEmail = this.user.email;
   }
 
   close() {
@@ -38,14 +48,20 @@ export class ModalEditProfileComponent implements OnInit {
       .editInfoProfile(this.user.username, this.user.email)
       .subscribe(
         async () => {
-          (
-            await this.toast.create({
-              duration: 3000,
-              position: 'bottom',
-              message: 'Información guardada!',
-              color: 'success',
-            })
-          ).present();
+          if (this.originalEmail !== this.user.email) {
+            await this.authService.logout();
+            this.nav.navigateRoot(['/auth/login']);
+            this.modalCtrl.dismiss();
+          } else {
+            (
+              await this.toast.create({
+                duration: 3000,
+                position: 'bottom',
+                message: 'Información guardada!',
+                color: 'success',
+              })
+            ).present();
+          }
         },
         async (error) => {
           (
