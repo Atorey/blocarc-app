@@ -9,7 +9,7 @@
       </ion-button>
     </ion-buttons>
     <ion-buttons slot="end">
-      <ion-button>
+      <ion-button [routerLink]="['/boulders/add']" [routerDirection]="'fordward'">
         <ion-icon name="add" color="medium"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -19,15 +19,18 @@
 
 
 <ion-content>
-  <div class="cabecera" *ngIf="userGoal && achievements">
+
+  <!-- Load -->
+  <div class="cabecera">
     <circle-progress
       [percent]="totalTodayBoulders && userGoal.goal ? totalTodayBoulders * 100 / (userGoal.goal.boulders / 7) : 0"
       [radius]="80" [outerStrokeWidth]="16" [innerStrokeWidth]="16" [space]="-16" [outerStrokeColor]="'#f5dc09'"
       [innerStrokeColor]="'#1e1e1e'" [animation]="true" [animationDuration]="300" [responsive]="true"
       [titleFontSize]="40" [subtitleFontSize]="15" [title]="totalTodayBoulders" [subtitle]="['hoy']" [showUnits]="false"
-      [titleColor]="'#f5dc09'">
+      [titleColor]="'#f5dc09'" [showTitle]="!userGoal || !achievements ? false : true"
+      [showSubtitle]="!userGoal || !achievements ? false : true">
     </circle-progress>
-    <div class="grades">
+    <div class="grades" *ngIf="userGoal && achievements">
       <div *ngFor="let goal of todayProgressGoal">
         <p>{{goal.total}}</p>
         <ion-badge [color]="goal.grade.includes('+') ? goal.grade.replace('+', 'm') : goal.grade">{{goal.grade}}
@@ -36,28 +39,12 @@
     </div>
   </div>
 
-  <div class="cabecera" *ngIf="!userGoal || !achievements">
-    <circle-progress [percent]="0" [radius]="80" [outerStrokeWidth]="16" [innerStrokeWidth]="16" [space]="-16"
-      [outerStrokeColor]="'#f5dc09'" [innerStrokeColor]="'#1e1e1e'" [animation]="true" [animationDuration]="300"
-      [responsive]="true" [titleFontSize]="40" [subtitleFontSize]="15" [title]="0" [subtitle]="['hoy']"
-      [showUnits]="false" [titleColor]="'#f5dc09'">
-    </circle-progress>
-    <div class="grades">
-      <div>
-        <p>
-          <ion-skeleton-text animated style="width: 2rem; height: 1rem;"></ion-skeleton-text>
-        </p>
-        <p>
-          <ion-skeleton-text animated style="width: 2rem; height: 1.4rem;"></ion-skeleton-text>
-        </p>
-      </div>
-    </div>
-  </div>
   <ion-grid>
-
+    <!-- OBJETIVO SEMANAL -->
     <ion-row>
+      <!-- Load -->
       <ion-col *ngIf="userGoal && achievements">
-
+        <!-- Hay objetivo -->
         <ion-card *ngIf="userGoal.goal" class="big-card" [routerLink]="['/goals']" [routerDirection]="'fordward'">
           <ion-label>Tu objetivo semanal
             <p class="week-date">{{week}}
@@ -88,6 +75,7 @@
           </div>
         </ion-card>
 
+        <!-- No hay objetivo -->
         <ion-card *ngIf="!userGoal.goal" class="big-card" (click)="openGoalModal()">
           <ion-label>Tu objetivo semanal
           </ion-label>
@@ -100,6 +88,7 @@
         </ion-card>
       </ion-col>
 
+      <!-- Not load -->
       <ion-col *ngIf="!userGoal || !achievements">
         <ion-card class="big-card">
           <ion-label>Tu objetivo semanal
@@ -155,7 +144,7 @@
     </ion-row>
 
     <ion-row>
-
+      <!-- TEMPORIZADOR -->
       <ion-col size="6">
         <ion-card class="small-card" [routerLink]="['/timer']" [routerDirection]="'fordward'">
           <ion-label>Temporizador</ion-label>
@@ -165,13 +154,17 @@
         </ion-card>
       </ion-col>
 
+      <!-- DOMINADAS -->
       <ion-col size="6">
         <ion-card class="small-card" [routerLink]="['/pull-ups']" [routerDirection]="'fordward'">
           <ion-label>Dominadas</ion-label>
+
+          <!-- Not load || No hay dominadas -->
           <div *ngIf="!pullUps" class="content-center">
             <ion-icon color="medium" src="../../assets/icon/pullups.svg"></ion-icon>
           </div>
 
+          <!-- Load && Hay dominadas -->
           <div *ngIf="pullUps">
             <div>
               <ion-label>
@@ -203,13 +196,14 @@
           </div>
         </ion-card>
       </ion-col>
-
     </ion-row>
 
+    <!-- ÚLTIMO BLOQUE -->
     <ion-row>
       <ion-col>
         <ion-card class="big-card">
           <ion-label>Último bloque completado</ion-label>
+          <!-- Load && Hay bloque -->
           <div class="last-boulder" *ngIf="load && lastBoulderAchieved">
             <div class="vertical-align ">
 
@@ -232,11 +226,13 @@
             </div>
           </div>
 
+          <!-- Load && No hay bloque -->
           <div class="not-boulder" *ngIf="load && !lastBoulderAchieved">
             <ion-icon name="checkbox"></ion-icon>
             <h3>No has completado ningún bloque</h3>
           </div>
 
+          <!-- Not Load -->
           <div *ngIf="!load" class="last-boulder">
             <div class="vertical-align ">
               <div class="image-last-achieved">
@@ -257,7 +253,6 @@
               </p>
             </div>
           </div>
-
         </ion-card>
       </ion-col>
     </ion-row>

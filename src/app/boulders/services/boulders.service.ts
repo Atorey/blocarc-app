@@ -125,7 +125,7 @@ export class BouldersService {
 
   getCoords(image: WallImage): Observable<string> {
     return this.http
-      .post<Coords>(`${environment.baseUrl_pyml}/test`, image)
+      .post<Coords>(`${environment.baseUrl_pyml}/holds`, image)
       .pipe(map((response) => response.output));
   }
 

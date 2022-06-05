@@ -17,25 +17,23 @@ import { environment } from 'src/environments/environment';
 })
 export class HomePage {
   boulders: Boulder[];
+  holds: Hold[];
+  achievements: Achievement[];
   pullUps: PullUp;
   lastBoulderAchieved: Boulder;
-  lastBoulderImage = '';
-  dateLastAchieved: string;
-  holds: Hold[];
-  load = false;
-  progressGoal;
-  todayProgressGoal;
-  week: string;
-  updateWeek = 0;
-  isThisWeek = true;
   userGoal: Goal;
-  achievements: Achievement[];
+  lastBoulderImage: string;
+  dateLastAchieved: string;
+  week: string;
   dateFirst: string;
   dateLast: string;
+  load = false;
   totalBouldersAchieved = 0;
-  currentDate = new Date();
   totalTodayBoulders = 0;
+  currentDate = new Date();
   grades = [];
+  progressGoal;
+  todayProgressGoal;
 
   constructor(
     private bouldersService: BouldersService,
@@ -86,16 +84,17 @@ export class HomePage {
   getWeekToShow() {
     const dateToShow = new Date();
 
-    dateToShow.setDate(dateToShow.getDate() - this.updateWeek);
-
-    this.isThisWeek =
-      dateToShow.toDateString() === this.currentDate.toDateString();
+    dateToShow.setDate(dateToShow.getDate());
 
     const first = dateToShow.getDate() - dateToShow.getDay() + 1;
     const last = first + 6;
 
     const firstday = new Date(dateToShow.setDate(first));
     const lastday = new Date(dateToShow.setDate(last));
+
+    if (lastday < firstday) {
+      lastday.setMonth(firstday.getMonth() + 1);
+    }
 
     this.dateFirst = firstday.toISOString().substring(0, 10).replace(/-/g, '/');
     this.dateLast = lastday.toISOString().substring(0, 10).replace(/-/g, '/');
@@ -187,8 +186,8 @@ export class HomePage {
 
         this.progressGoal.push({
           grade: nameGrade,
-          color: color,
-          percent: percent,
+          color,
+          percent,
           total: matches,
         });
       });
@@ -217,8 +216,8 @@ export class HomePage {
         if (matches > 0) {
           this.todayProgressGoal.push({
             grade: nameGrade,
-            color: color,
-            percent: percent,
+            color,
+            percent,
             total: matches,
           });
         }

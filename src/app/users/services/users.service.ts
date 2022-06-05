@@ -131,4 +131,58 @@ export class UsersService {
         )
       );
   }
+
+  editInfoProfile(username: string, email: string): Observable<User> {
+    return this.http
+      .put<UserResponse>(
+        // eslint-disable-next-line @typescript-eslint/dot-notation
+        `${this.userURL}/me`,
+        { username, email }
+      )
+      .pipe(
+        map((response) => response.user),
+        catchError((response: HttpErrorResponse) =>
+          throwError(
+            () =>
+              `Error updateing user. Status: ${response.status}. Message: ${response.message}`
+          )
+        )
+      );
+  }
+
+  editPassword(password: string): Observable<User> {
+    return this.http
+      .put<UserResponse>(
+        // eslint-disable-next-line @typescript-eslint/dot-notation
+        `${this.userURL}/me`,
+        { password }
+      )
+      .pipe(
+        map((response) => response.user),
+        catchError((response: HttpErrorResponse) =>
+          throwError(
+            () =>
+              `Error updateing user. Status: ${response.status}. Message: ${response.message}`
+          )
+        )
+      );
+  }
+
+  editAvatar(avatar: string): Observable<User> {
+    return this.http
+      .put<UserResponse>(
+        // eslint-disable-next-line @typescript-eslint/dot-notation
+        `${this.userURL}/me`,
+        { avatar }
+      )
+      .pipe(
+        map((response) => response.user),
+        catchError((response: HttpErrorResponse) =>
+          throwError(
+            () =>
+              `Error updateing user. Status: ${response.status}. Message: ${response.message}`
+          )
+        )
+      );
+  }
 }

@@ -4,21 +4,6 @@
       <ion-back-button defaultHref="home"></ion-back-button>
     </ion-buttons>
     <ion-title>Perfil</ion-title>
-    <ion-buttons *ngIf="user && user.me" slot="end">
-      <ion-button id="trigger-button">
-        <ion-icon name="settings-sharp" color="medium"></ion-icon>
-      </ion-button>
-      <ion-popover trigger="trigger-button" [dismissOnSelect]="true">
-        <ng-template>
-          <ion-list>
-            <ion-item button>Editar perfil</ion-item>
-            <ion-item button (click)="openGoalModal()">Establecer objetivo</ion-item>
-            <ion-item></ion-item>
-            <ion-item button (click)="logout()">Cerrar sesión</ion-item>
-          </ion-list>
-        </ng-template>
-      </ion-popover>
-    </ion-buttons>
   </ion-toolbar>
 
   <ion-toolbar *ngIf="user && user.me">
@@ -30,7 +15,7 @@
       </ion-button>
     </ion-buttons>
     <ion-buttons slot="end">
-      <ion-button>
+      <ion-button [routerLink]="['/boulders/add']" [routerDirection]="'fordward'">
         <ion-icon name="add" color="medium"></ion-icon>
       </ion-button>
       <ion-button id="trigger-button">
@@ -39,7 +24,7 @@
       <ion-popover trigger="trigger-button" [dismissOnSelect]="true">
         <ng-template>
           <ion-list>
-            <ion-item button>Editar perfil</ion-item>
+            <ion-item button (click)="openEditProfileModal()">Editar perfil</ion-item>
             <ion-item button (click)="openGoalModal()">Establecer objetivo</ion-item>
             <ion-item></ion-item>
             <ion-item button (click)="logout()">Cerrar sesión</ion-item>

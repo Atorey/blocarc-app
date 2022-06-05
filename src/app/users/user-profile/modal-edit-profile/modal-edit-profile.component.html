@@ -1,0 +1,134 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>Editar perfil</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container">
+    <ion-label class="title" color="medium" text-center>
+      INFORMACIÓN
+    </ion-label>
+    <form #editInfoForm="ngForm" (ngSubmit)="editInfo()">
+      <ion-list>
+        <ion-item>
+          <ion-label color="medium" position="floating">Nombre de usuario</ion-label>
+          <ion-input name="username" required [(ngModel)]="user.username" #usernameModel="ngModel"></ion-input>
+          <ion-icon name="checkmark-circle" slot="end" color="success"
+            *ngIf="usernameModel.dirty && usernameModel.valid">
+          </ion-icon>
+        </ion-item>
+        <ion-label class="ion-padding error-message" color="danger"
+          *ngIf="usernameModel.errors?.['required'] && usernameModel.touched">El nombre no puede quedar vacío
+        </ion-label>
+
+        <div ngModelGroup="emailGroup" #emailGroupModel="ngModelGroup" appMatch="email,email2">
+          <ion-item>
+            <ion-label color="medium" position="floating">Correo electrónico</ion-label>
+            <ion-input type="email" name="email" required [(ngModel)]="user.email" #emailModel="ngModel"
+              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"></ion-input>
+            <ion-icon name="checkmark-circle" slot="end" color="success"
+              *ngIf="emailModel.dirty && emailGroupModel.valid">
+            </ion-icon>
+          </ion-item>
+          <ion-label class="ion-padding error-message" color="danger"
+            *ngIf="emailModel.errors?.['required'] && emailModel.touched">El correo
+            no puede quedar vacío
+          </ion-label>
+          <ion-label class="ion-padding error-message" color="danger"
+            *ngIf="emailModel.errors?.['pattern'] && emailModel.touched">Debes introducir un
+            correo electrónico válido
+          </ion-label>
+
+          <ion-item>
+            <ion-label color="medium" position="floating">Repite el correo electrónico</ion-label>
+            <ion-input type="email" name="email2" required [(ngModel)]="email2" #emailModel2="ngModel"></ion-input>
+            <ion-icon name="checkmark-circle" slot="end" color="success"
+              *ngIf="emailModel2.dirty && emailGroupModel.valid">
+            </ion-icon>
+          </ion-item>
+        </div>
+        <ion-label class="ion-padding error-message" color="danger"
+          *ngIf="emailGroupModel.invalid && emailGroupModel.touched">Los correos deben coincidir
+        </ion-label>
+
+      </ion-list>
+      <ion-button type="submit" expand="block" [disabled]="usernameModel.errors?.['required'] || (!usernameModel.touched && !emailModel.touched)">Guardar
+        información</ion-button>
+    </form>
+  </div>
+
+  <div class="container">
+    <ion-label class="title" color="medium" text-center>
+      CONTRASEÑA
+    </ion-label>
+    <form #editPasswordForm="ngForm" (ngSubmit)="editPassword()">
+      <ion-list>
+        <div ngModelGroup="passGroup" #passGroupModel="ngModelGroup" appMatch="password,password2">
+          <ion-item>
+            <ion-label color="medium" position="floating">Contraseña</ion-label>
+            <ion-input type="password" name="password" minlength="8" required [(ngModel)]="user.password"
+              #passModel="ngModel" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$">
+            </ion-input>
+            <ion-icon name="checkmark-circle" slot="end" color="success" *ngIf="passModel.dirty && passModel.valid">
+            </ion-icon>
+          </ion-item>
+          <ion-label class="ion-padding error-message" color="danger"
+            *ngIf="passModel.errors?.['required'] && passModel.touched">La contraseña no puede
+            quedar vacía
+          </ion-label>
+          <ion-label class="ion-padding error-message" color="danger"
+            *ngIf="passModel.errors?.['minlength'] && passModel.touched">
+            La contraseña debe tener al menos 8 caracteres
+          </ion-label>
+          <ion-label class="ion-padding error-message" color="danger"
+            *ngIf="passModel.errors?.['pattern'] && passModel.touched">
+            La contraseña debe contener mayúsculas, minúsculas, números y caracteres especiales
+          </ion-label>
+
+          <ion-item>
+            <ion-label color="medium" position="floating">Repite la contraseña</ion-label>
+            <ion-input type="password" name="password2" required [(ngModel)]="password2" #passModel2="ngModel">
+            </ion-input>
+            <ion-icon name="checkmark-circle" slot="end" color="success"
+              *ngIf="passModel2.dirty && passGroupModel.valid">
+            </ion-icon>
+          </ion-item>
+        </div>
+        <ion-label class="ion-padding error-message" color="danger"
+          *ngIf="passGroupModel.invalid && passGroupModel.touched">Las contraseñas deben
+          coincidir
+        </ion-label>
+      </ion-list>
+      <ion-button type="submit" expand="block" [disabled]="editPasswordForm.invalid">Guardar contraseña</ion-button>
+    </form>
+  </div>
+
+  <div class="container">
+    <ion-label class="title" color="medium" text-center>
+      AVATAR
+    </ion-label>
+    <form #editAvatarForm="ngForm" (ngSubmit)="editAvatar()">
+      <ion-list>
+        <ion-item>
+          <ion-label color="medium" position="fixed">Cargar</ion-label>
+          <ion-button color="light" (click)="takePhoto()">
+            <ion-icon name="camera" slot="start"></ion-icon>
+            Camera
+          </ion-button>
+          <ion-button color="light" (click)="pickFromGallery()">
+            <ion-icon name="images" slot="start"></ion-icon>
+            Gallery
+          </ion-button>
+        </ion-item>
+      </ion-list>
+      <ion-img [src]="avatar" *ngIf="avatar"></ion-img>
+      <ion-button type="submit" expand="block" [disabled]="!newAvatar">Guardar avatar</ion-button>
+    </form>
+  </div>
+</ion-content>

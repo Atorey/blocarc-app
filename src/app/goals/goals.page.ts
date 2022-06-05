@@ -56,6 +56,10 @@ export class GoalsPage {
     const firstday = new Date(dateToShow.setDate(first));
     const lastday = new Date(dateToShow.setDate(last));
 
+    if (lastday < firstday) {
+      lastday.setMonth(firstday.getMonth() + 1);
+    }
+
     this.dateFirst = firstday.toISOString().substring(0, 10).replace(/-/g, '/');
     this.dateLast = lastday.toISOString().substring(0, 10).replace(/-/g, '/');
 

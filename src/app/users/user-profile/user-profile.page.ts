@@ -15,6 +15,7 @@ import { Chart, registerables } from 'node_modules/chart.js';
 import { SelfAuthService } from 'src/app/auth/services/auth.service';
 import { ModalGoalComponent } from './modal-goal/modal-goal.component';
 import { environment } from 'src/environments/environment';
+import { ModalEditProfileComponent } from './modal-edit-profile/modal-edit-profile.component';
 
 @Component({
   selector: 'app-user-profile',
@@ -291,6 +292,19 @@ export class UserProfilePage {
       componentProps: { goal: this.goal, grades: Object.keys(this.grades) },
     });
     await modal.present();
+    await modal.onDidDismiss();
+  }
+
+  async openEditProfileModal() {
+    const modal = await this.modalCtrl.create({
+      component: ModalEditProfileComponent,
+      componentProps: { user: this.user },
+    });
+    await modal.present();
     const result = await modal.onDidDismiss();
+    if (result.data && result.data.newAvatar) {
+      this.userAvatar = `${environment.baseUrl_api}/${this.user.avatar}`;
+      console.log(this.userAvatar);
+    }
   }
 }
