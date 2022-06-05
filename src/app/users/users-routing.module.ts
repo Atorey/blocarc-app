@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { TimerResolver } from './resolvers/timer.resolver';
 import { UserResolver } from './resolvers/user.resolver';
 
 const routes: Routes = [
@@ -13,6 +14,24 @@ const routes: Routes = [
     resolve: {
       user: UserResolver,
     },
+  },
+  {
+    path: 'timer',
+    loadChildren: () =>
+      import('./timer/timer.module').then((m) => m.TimerModule),
+    resolve: {
+      timer: TimerResolver,
+    },
+  },
+  {
+    path: 'pull-ups',
+    loadChildren: () =>
+      import('./pull-ups/pull-ups.module').then((m) => m.PullUpsPageModule),
+  },
+  {
+    path: 'goal',
+    loadChildren: () =>
+      import('./goal/goal.module').then((m) => m.GoalPageModule),
   },
   {
     path: ':id',

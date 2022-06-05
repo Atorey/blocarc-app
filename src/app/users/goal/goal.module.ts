@@ -4,14 +4,14 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { GoalsPageRoutingModule } from './goals-routing.module';
 
-import { GoalsPage } from './goals.page';
 import { AchievementsFilterPipe } from './pipes/achievement-filter/achievements-filter.pipe';
 import { DateFilterPipe } from './pipes/date-filter/date-filter.pipe';
+import { GoalPageRoutingModule } from './goal-routing.module';
+import { GoalPage } from './goal.page';
 
 @NgModule({
-  imports: [CommonModule, FormsModule, IonicModule, GoalsPageRoutingModule],
-  declarations: [GoalsPage, AchievementsFilterPipe, DateFilterPipe],
+  imports: [CommonModule, FormsModule, IonicModule, GoalPageRoutingModule],
+  declarations: [GoalPage, AchievementsFilterPipe, DateFilterPipe],
 })
-export class GoalsPageModule {}
+export class GoalPageModule {}

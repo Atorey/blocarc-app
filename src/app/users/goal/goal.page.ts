@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Chart, registerables } from 'chart.js';
-import { Achievement, Boulder } from '../boulders/interfaces/boulder';
-import { BouldersService } from '../boulders/services/boulders.service';
-import { Goal, User } from '../users/interfaces/user';
-import { UsersService } from '../users/services/users.service';
+import { Achievement } from 'src/app/boulders/interfaces/boulder';
+import { BouldersService } from 'src/app/boulders/services/boulders.service';
+import { Goal } from '../interfaces/user';
+import { UsersService } from '../services/users.service';
 
 @Component({
-  selector: 'app-goals',
-  templateUrl: './goals.page.html',
-  styleUrls: ['./goals.page.scss'],
+  selector: 'app-goal',
+  templateUrl: './goal.page.html',
+  styleUrls: ['./goal.page.scss'],
 })
-export class GoalsPage {
+export class GoalPage {
   week: string;
   updateWeek = 0;
   isThisWeek = true;

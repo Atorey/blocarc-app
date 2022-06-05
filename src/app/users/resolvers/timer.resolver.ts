@@ -21,7 +21,7 @@ export class TimerResolver implements Resolve<Timer> {
   ): Observable<Timer> {
     return this.usersService.getTimer().pipe(
       catchError((error) => {
-        this.router.navigate(['/products']);
+        this.router.navigate(['/']);
         return EMPTY;
       })
     );

@@ -45,7 +45,7 @@
       <!-- Load -->
       <ion-col *ngIf="userGoal && achievements">
         <!-- Hay objetivo -->
-        <ion-card *ngIf="userGoal.goal" class="big-card" [routerLink]="['/goals']" [routerDirection]="'fordward'">
+        <ion-card *ngIf="userGoal.goal" class="big-card" [routerLink]="['/users/goal']" [routerDirection]="'fordward'">
           <ion-label>Tu objetivo semanal
             <p class="week-date">{{week}}
             </p>
@@ -146,7 +146,7 @@
     <ion-row>
       <!-- TEMPORIZADOR -->
       <ion-col size="6">
-        <ion-card class="small-card" [routerLink]="['/timer']" [routerDirection]="'fordward'">
+        <ion-card class="small-card" [routerLink]="['/users/timer']" [routerDirection]="'fordward'">
           <ion-label>Temporizador</ion-label>
           <div class="content-center">
             <ion-icon color="dark" name="timer"></ion-icon>
@@ -156,7 +156,7 @@
 
       <!-- DOMINADAS -->
       <ion-col size="6">
-        <ion-card class="small-card" [routerLink]="['/pull-ups']" [routerDirection]="'fordward'">
+        <ion-card class="small-card" [routerLink]="['/users/pull-ups']" [routerDirection]="'fordward'">
           <ion-label>Dominadas</ion-label>
 
           <!-- Not load || No hay dominadas -->

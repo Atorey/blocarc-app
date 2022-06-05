@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, NavController } from '@ionic/angular';
-import { PullUp } from '../users/interfaces/user';
-import { UsersService } from '../users/services/users.service';
+import { PullUp } from '../interfaces/user';
+import { UsersService } from '../services/users.service';
 
 @Component({
   selector: 'app-pull-ups',

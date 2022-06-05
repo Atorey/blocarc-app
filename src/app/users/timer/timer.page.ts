@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { PickerController } from '@ionic/angular';
-import { setOptions, localeEs } from '@mobiscroll/angular';
-import { TimeInterval } from 'rxjs';
-import { Timer } from '../users/interfaces/user';
-import { UsersService } from '../users/services/users.service';
 import { NativeAudio } from '@awesome-cordova-plugins/native-audio/ngx';
-import { Chart, registerables } from 'chart.js';
 import { ActivatedRoute } from '@angular/router';
+import { Timer } from '../interfaces/user';
+import { UsersService } from '../services/users.service';
 
 @Component({
   selector: 'app-timer',
