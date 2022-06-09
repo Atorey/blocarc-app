@@ -13,7 +13,7 @@
 
 <ion-content scroll-y="false">
   <!-- STEP 1 -->
-  <div *ngIf="step === 0" class="container">
+  <!-- <div *ngIf="step === 0" class="container">
     <h1>Iniciar sesión</h1>
     <ion-button expand="block" (click)="nextStep()">Continuar con correo</ion-button>
     <p>O continuar con:</p>
@@ -23,10 +23,10 @@
     <ion-button (click)="facebookLogin()" color="light" expand="block">
       <ion-icon name="logo-facebook"></ion-icon>Continuar con Facebook
     </ion-button>
-  </div>
+  </div> -->
 
   <!-- STEP 2 -->
-  <div *ngIf="step === 1" class="container">
+  <div *ngIf="step === 0" class="container">
     <h1>Iniciar sesión</h1>
     <form (ngSubmit)="login()" #loginForm="ngForm">
       <ion-list>

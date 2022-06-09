@@ -13,7 +13,7 @@
 
 <ion-content scroll-y="false">
   <!-- STEP 0 -->
-  <div *ngIf="step===0" class="container">
+  <!-- <div *ngIf="step===0" class="container">
     <h1>Crea tu cuenta</h1>
     <ion-button expand="block" (click)="nextStep()">Registrarse con correo</ion-button>
     <p>O continuar con:</p>
@@ -23,10 +23,10 @@
     <ion-button (click)="facebookLogin()" color="light" expand="block">
       <ion-icon name="logo-facebook"></ion-icon>Registrarse con Facebook
     </ion-button>
-  </div>
+  </div> -->
 
   <!-- SETP 1 -->
-  <div *ngIf="step===1" class="container">
+  <div *ngIf="step===0" class="container">
     <h1>Crea tu cuenta</h1>
 
     <form #registerForm="ngForm" (ngSubmit)="register()">

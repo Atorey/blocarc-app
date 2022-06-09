@@ -218,7 +218,8 @@ export class BoulderCreationPage implements OnInit {
     await modal.present();
     const result = await modal.onDidDismiss();
     if (result.data && result.data.boulder) {
-      this.boulder.wall = this.selectWall.name;
+      this.boulder.wall = this.selectedWall.name;
+      this.boulder.image = this.selectedWall.image;
       this.bouldersService.saveBoulder(this.boulder).subscribe({
         next: async () => {
           this.boulder = {
