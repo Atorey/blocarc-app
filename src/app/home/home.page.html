@@ -205,7 +205,7 @@
           <ion-label>Último bloque completado</ion-label>
           <!-- Load && Hay bloque -->
           <div class="last-boulder" *ngIf="load && lastBoulderAchieved">
-            <div class="vertical-align ">
+            <div class="vertical-align " [routerLink]="['/boulders/', lastBoulderAchieved._id]" [routerDirection]="'forward'">
 
               <div class="image-last-achieved">
                 <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 494 660" #svg>
