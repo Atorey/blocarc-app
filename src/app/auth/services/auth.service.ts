@@ -34,45 +34,6 @@ export class SelfAuthService {
       );
   }
 
-  /*   googleLogin(userSocialLogin: UserSocialLogin): Observable<void> {
-    return this.http
-      .post<TokenResponse>(`${this.authURL}/google`, userSocialLogin)
-      .pipe(
-        switchMap(async (response) => {
-          try {
-            await Storage.set({ key: 'token', value: response.accessToken });
-            this.logged = true;
-            this.loginChange$.next(true);
-          } catch (e) {
-            throw new Error("Can't save authentication token in storage!");
-          }
-        })
-      );
-  }
-
-  facebookLogin(userSocialLogin: UserSocialLogin): Observable<void> {
-    return this.http
-      .post<TokenResponse>(`${this.authURL}/facebook`, userSocialLogin)
-      .pipe(
-        switchMap(async (response) => {
-          try {
-            await Storage.set({ key: 'token', value: response.accessToken });
-            this.logged = true;
-            this.loginChange$.next(true);
-          } catch (e) {
-            throw new Error("Can't save authentication token in storage!");
-          }
-        })
-      );
-  } */
-
-  /*   async logout(): Promise<void> {
-    await Storage.remove({ key: 'token' });
-    this.logged = false;
-    this.loginChange$.next(false);
-  }
- */
-
   isLogged(): Observable<boolean> {
     if (this.logged) {
       return of(true);
@@ -106,10 +67,6 @@ export class SelfAuthService {
       )
     );
   }
-
-  /* postSocialLogin(socialData: any) {
-    return this.http.post('postSocialLogin', socialData);
-  } */
 
   async logout(): Promise<void> {
     await Storage.remove({ key: 'token' });

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AlertController, NavController } from '@ionic/angular';
 import { PullUp } from '../interfaces/user';
 import { UsersService } from '../services/users.service';
@@ -8,7 +8,7 @@ import { UsersService } from '../services/users.service';
   templateUrl: './pull-ups.page.html',
   styleUrls: ['./pull-ups.page.scss'],
 })
-export class PullUpsPage implements OnInit {
+export class PullUpsPage {
   pullUps = {
     reps: '',
     weight: '',
@@ -32,8 +32,6 @@ export class PullUpsPage implements OnInit {
     private alertCtrl: AlertController,
     private nav: NavController
   ) {}
-
-  ngOnInit() {}
 
   calculateGoal() {
     const totalWeight = +this.pullUps.weight + +this.pullUps.ballast;

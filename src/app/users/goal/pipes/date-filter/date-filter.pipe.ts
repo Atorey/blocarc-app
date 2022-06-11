@@ -1,6 +1,4 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Achievement } from 'src/app/boulders/interfaces/boulder';
-
 @Pipe({
   name: 'dateFilter',
 })

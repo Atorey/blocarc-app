@@ -1,9 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { Component } from '@angular/core';
 import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
-import { IonTabs, Platform } from '@ionic/angular';
-import { Chart } from 'chart.js';
-import { filter } from 'rxjs/operators';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-root',
@@ -16,9 +13,6 @@ export class AppComponent {
   initializeApp() {
     if (this.platform.is('capacitor')) {
       this.platform.ready().then(() => {
-        /*  SplashScreen.hide();
-        StatusBar.setBackgroundColor({ color: '#3880ff' });
-        StatusBar.setStyle({ style: Style.Dark }); */
         GoogleAuth.initialize();
       });
     }

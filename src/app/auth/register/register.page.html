@@ -1,32 +1,15 @@
 <ion-header>
   <ion-toolbar class="background-color">
     <ion-buttons slot="start">
-      <ion-button *ngIf="step===1" (click)="goBack()">
-        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
-      </ion-button>
-      <ion-button *ngIf="step===0" [routerLink]="['/']" [routerDirection]="'back'">
+      <ion-button [routerLink]="['/']" [routerDirection]="'back'">
         <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content scroll-y="false">
-  <!-- STEP 0 -->
-  <div *ngIf="step===0" class="container">
-    <h1>Crea tu cuenta</h1>
-    <ion-button expand="block" (click)="nextStep()">Registrarse con correo</ion-button>
-    <p>O continuar con:</p>
-    <ion-button (click)="googleLogin()" size="" color="light" expand="block">
-      <ion-icon name="logo-google"></ion-icon> Registrarse con Google
-    </ion-button>
-    <ion-button (click)="facebookLogin()" color="light" expand="block">
-      <ion-icon name="logo-facebook"></ion-icon>Registrarse con Facebook
-    </ion-button>
-  </div>
-
-  <!-- SETP 1 -->
-  <div *ngIf="step===1" class="container">
+<ion-content>
+  <div class="container">
     <h1>Crea tu cuenta</h1>
 
     <form #registerForm="ngForm" (ngSubmit)="register()">

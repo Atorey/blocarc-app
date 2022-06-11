@@ -24,10 +24,10 @@ export class ModalGoalComponent {
     },
   };
   addCard = 0;
+  maxAvailable = [0, 0, 0, 0, 0];
 
   constructor(
     public modalCtrl: ModalController,
-    private bouldersService: BouldersService,
     private usersService: UsersService,
     private toast: ToastController
   ) {}
@@ -37,7 +37,7 @@ export class ModalGoalComponent {
   }
 
   close() {
-    this.modalCtrl.dismiss({ goal: this.userGoal });
+    this.modalCtrl.dismiss();
   }
 
   getGoal() {
@@ -54,8 +54,10 @@ export class ModalGoalComponent {
         },
       };
     } else {
-      this.userGoal = this.goal;
+      this.userGoal.goal = { ...this.goal.goal };
       this.addCard = this.userGoal.goal.grades.length - 1;
+      const total = this.userGoal.goal.boulders;
+      this.maxAvailable = [total, total, total, total, total, total];
     }
   }
 
@@ -69,6 +71,12 @@ export class ModalGoalComponent {
 
   changeLevel(range, index) {
     this.userGoal.goal.grades[index].boulders = range.detail.value;
+    /* this.userGoal.goal.grades
+      .filter((grade) => grade !== this.userGoal.goal.grades[index])
+      .forEach((grade) => {
+        this.maxAvailable[index] = this.userGoal.goal.boulders - grade.boulders;
+      });
+    console.log(this.maxAvailable[index]); */
   }
 
   changeGoalBoulderLevel(range, index) {

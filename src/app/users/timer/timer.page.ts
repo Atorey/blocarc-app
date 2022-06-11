@@ -225,8 +225,12 @@ export class TimerPage {
     ) {
       this.step++;
       this.startWorkTime();
+      this.copyWorkTime = { ...this.workTime };
+      this.copyRestTime = { ...this.restTime };
     } else {
       this.copyPreparationTime = { ...this.preparationTime };
+      this.copyWorkTime = { ...this.workTime };
+      this.copyRestTime = { ...this.restTime };
       this.startPreparationTime();
     }
   }
@@ -269,7 +273,6 @@ export class TimerPage {
   }
 
   startWorkTime() {
-    this.copyWorkTime = { ...this.workTime };
     this.workInterval = setInterval(() => {
       if (this.copyWorkTime.min === '00' && this.copyWorkTime.sec === '00') {
         clearInterval(this.workInterval);
@@ -311,7 +314,6 @@ export class TimerPage {
   }
 
   startRestTime() {
-    this.copyRestTime = { ...this.restTime };
     this.restInterval = setInterval(() => {
       if (this.copyRestTime.min === '00' && this.copyRestTime.sec === '00') {
         clearInterval(this.restInterval);

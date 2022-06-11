@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Boulder } from '../interfaces/boulder';
 import { BouldersService } from '../services/boulders.service';
 
@@ -7,7 +7,7 @@ import { BouldersService } from '../services/boulders.service';
   templateUrl: './boulder-list.page.html',
   styleUrls: ['./boulder-list.page.scss'],
 })
-export class BoulderListPage implements OnInit {
+export class BoulderListPage {
   boulders: Boulder[];
   numbers = Array(5)
     .fill(0)
@@ -19,7 +19,6 @@ export class BoulderListPage implements OnInit {
   ionViewWillEnter() {
     this.getBoulders();
   }
-  ngOnInit() {}
 
   getBoulders() {
     this.bouldersService.getBoulders().subscribe((boulders) => {

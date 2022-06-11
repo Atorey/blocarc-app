@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   ToastController,
   NavController,
@@ -11,8 +11,7 @@ import { SelfAuthService } from '../services/auth.service';
   templateUrl: './register.page.html',
   styleUrls: ['./register.page.scss'],
 })
-export class RegisterPage implements OnInit {
-  step = 0;
+export class RegisterPage {
   user = {
     username: '',
     password: '',
@@ -27,8 +26,6 @@ export class RegisterPage implements OnInit {
     private nav: NavController,
     private alertCtrl: AlertController
   ) {}
-
-  ngOnInit() {}
 
   register() {
     this.authService.register(this.user).subscribe(
@@ -59,20 +56,5 @@ export class RegisterPage implements OnInit {
         ).present();
       }
     );
-  }
-
-  nextStep() {
-    this.step++;
-  }
-
-  goBack() {
-    this.user = {
-      username: '',
-      password: '',
-      email: '',
-    };
-    this.password2 = '';
-    this.email2 = '';
-    this.step--;
   }
 }

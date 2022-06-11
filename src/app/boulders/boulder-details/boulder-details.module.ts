@@ -1,11 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { IonicModule } from '@ionic/angular';
-
 import { BoulderDetailsPageRoutingModule } from './boulder-details-routing.module';
-
 import { BoulderDetailsPage } from './boulder-details.page';
 import { ModalCompleteBoulderComponent } from './modal-complete-boulder/modal-complete-boulder.component';
 import { ValidatorsModule } from 'src/app/validators/validators.module';

@@ -1,5 +1,3 @@
-import { MbscModule } from '@mobiscroll/angular';
-import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy, RouterModule } from '@angular/router';
@@ -12,7 +10,6 @@ import { AppComponent } from './app.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { TabsComponent } from './components/tabs/tabs.component';
-import { BouldersFilterPipe } from './boulders/pipes/boulders-filter.pipe';
 import { AuthService, AuthServiceConfig } from 'angularx-social-login';
 import { provideConfig } from './interceptors/social-login-config';
 
@@ -28,7 +25,6 @@ import { provideConfig } from './interceptors/social-login-config';
   ],
   providers: [
     AuthService,
-    /* HttpConfigInterceptorProvider, */
     {
       provide: AuthServiceConfig,
       useFactory: provideConfig,
@@ -39,11 +35,6 @@ import { provideConfig } from './interceptors/social-login-config';
       useClass: AuthInterceptor,
       multi: true,
     },
-    /* {
-      provide: HTTP_INTERCEPTORS,
-      useClass: BaseUrlInterceptor,
-      multi: true,
-    } */
   ],
   bootstrap: [AppComponent],
 })

@@ -20,7 +20,6 @@ export class BoulderDetailsPage implements OnInit {
   constructor(
     private bouldersService: BouldersService,
     private route: ActivatedRoute,
-    private nav: NavController,
     public router: Router
   ) {
     this.boulder$ = this.bouldersService
@@ -33,7 +32,7 @@ export class BoulderDetailsPage implements OnInit {
       next: (boulder) => {
         this.boulder = boulder;
       },
-      error: (error) => {
+      error: () => {
         this.router.navigate(['/boulders']);
       },
     });

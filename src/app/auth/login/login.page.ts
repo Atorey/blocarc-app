@@ -9,7 +9,6 @@ import { SelfAuthService } from '../services/auth.service';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage {
-  step = 0;
   userLogin: UserLogin = {
     email: '',
     password: '',
@@ -24,14 +23,13 @@ export class LoginPage {
   login(): void {
     this.authService.login(this.userLogin).subscribe(
       () => {
-        this.step = 0;
         this.nav.navigateRoot(['/home']);
         this.userLogin = {
           email: '',
           password: '',
         };
       },
-      async (error) => {
+      async () => {
         (
           await this.alertCtrl.create({
             header: 'Error de inicio de sesión',
@@ -41,21 +39,5 @@ export class LoginPage {
         ).present();
       }
     );
-  }
-
-  close() {
-    this.nav.navigateRoot(['/welcome']);
-  }
-
-  nextStep() {
-    this.step++;
-  }
-
-  goBack() {
-    this.step--;
-    this.userLogin = {
-      email: '',
-      password: '',
-    };
   }
 }

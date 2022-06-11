@@ -2,7 +2,6 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
   IonSegment,
-  IonTabs,
   ModalController,
   NavController,
   ToastController,

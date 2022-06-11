@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 
 @Directive({
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: '[minMaxNumber]',
   providers: [
     {
