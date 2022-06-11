@@ -9,7 +9,25 @@
 </ion-header>
 
 <ion-content scroll-y="false">
+<<<<<<< HEAD
   <div class="container">
+=======
+  <!-- STEP 1 -->
+  <!-- <div *ngIf="step === 0" class="container">
+    <h1>Iniciar sesión</h1>
+    <ion-button expand="block" (click)="nextStep()">Continuar con correo</ion-button>
+    <p>O continuar con:</p>
+    <ion-button (click)="googleLogin()" size="" color="light" expand="block">
+      <ion-icon name="logo-google"></ion-icon> Continuar con Google
+    </ion-button>
+    <ion-button (click)="facebookLogin()" color="light" expand="block">
+      <ion-icon name="logo-facebook"></ion-icon>Continuar con Facebook
+    </ion-button>
+  </div> -->
+
+  <!-- STEP 2 -->
+  <div *ngIf="step === 0" class="container">
+>>>>>>> 0b68bdc5df865428000bc666c84efaca3d0aceac
     <h1>Iniciar sesión</h1>
     <form (ngSubmit)="login()" #loginForm="ngForm">
       <ion-list>
